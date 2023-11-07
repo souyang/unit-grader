@@ -1,7 +1,17 @@
-# Unit Conversion CLI
+# Unit Conversion Grader
 
-This is a command-line interface (CLI) program that allows you to convert between different units of measurement.
+Unit Conversion Grader a command-line interface (CLI) program that allows you to convert among units of measurement and grade the users response to determine the result.
 
-## Installation
+## Setup
 
-To install the program, simply clone this repository and run the following command:
+Choose either **stable** or **development**.
+
+For **stable** release:
+
+- `python -m pip install unit-grader`
+
+For **development**:
+- `git clone https://github.com/souyang/unit-grader.git`
+- `cd unit-grader`
+- `python -m pip install -e .`
+  - (or: `make install && source venv/bin/activate` for a venv)

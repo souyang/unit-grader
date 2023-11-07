@@ -1,0 +1,43 @@
+name: Pip install and pytest
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "**.py"
+      - "**.yaml"
+      - "**.yml"
+  push:
+    branches: [ main ]
+    paths:
+      - "**.py"
+      - "**.yaml"
+      - "**.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+            pip install -r requirements.txt
+            pip install black flake8 pytest-cov pytest-mock
+
+      - name: Lint with flake8
+        run: flake8 unit_conversion_grader && flakes8 tests
+
+      - name: Format code with black
+        run:  black unit_conversion_grader && black tests
+
+      - name: Run unit tests with pytest
+        run: pytest
+  
+      - name: Upload coverage report
+        if: success() && runner.os == 'Linux'
+        run: coverage report -m > coverage_report.txt

@@ -1,12 +1,14 @@
-from unit_conversion_grader.config.data import CONVERSION_DATA, UNITS
-from unit_conversion_grader.utils.common import convert_units, is_valid_numeric_string
+from unit_conversion_grader.config.data import CONVERSION_DATA
+from unit_conversion_grader.utils.common import (
+    convert_units,
+    is_valid_numeric_string,
+)
 from unit_conversion_grader.config.enums import (
     UnitCategory,
     TemperatureUnits,
     VolumeUnits,
 )
 import pytest
-import math
 
 # is_valid_numeric_string
 test_is_valid_numeric_string_valid = [
@@ -45,7 +47,14 @@ def test_is_valid_numeric_string_invalid(input_value, expected):
 
 # invalid category
 test_convert_units_invalid_category = [
-    (25.0, "celsius", "fahrenheit", "invalid_category", CONVERSION_DATA, None),
+    (
+        25.0,
+        "celsius",
+        "fahrenheit",
+        "invalid_category",
+        CONVERSION_DATA,
+        None,
+    ),
     (
         25.0,
         TemperatureUnits.CELSIUS.value,
@@ -80,7 +89,9 @@ test_convert_units_invalid_category = [
 def test_convert_units_invalid_category(
     input_value, from_unit, to_unit, category, conversion_data, expected
 ):
-    result = convert_units(input_value, from_unit, to_unit, category, conversion_data)
+    result = convert_units(
+        input_value, from_unit, to_unit, category, conversion_data
+    )
     assert result == expected
 
 
@@ -126,7 +137,14 @@ test_convert_units_invalid_from_unit_to_unit = [
         CONVERSION_DATA,
         None,
     ),
-    (25.0, "from_unit", "to_unit", UnitCategory.VOLUME.value, CONVERSION_DATA, None),
+    (
+        25.0,
+        "from_unit",
+        "to_unit",
+        UnitCategory.VOLUME.value,
+        CONVERSION_DATA,
+        None,
+    ),
 ]
 
 
@@ -137,7 +155,9 @@ test_convert_units_invalid_from_unit_to_unit = [
 def test_convert_units_invalid_from_unit_to_unit(
     input_value, from_unit, to_unit, category, conversion_data, expected
 ):
-    result = convert_units(input_value, from_unit, to_unit, category, conversion_data)
+    result = convert_units(
+        input_value, from_unit, to_unit, category, conversion_data
+    )
     assert result == expected
 
 
@@ -174,7 +194,9 @@ test_convert_units_invalid_conversion_factor = [
 def test_convert_units_invalid_conversion_factor(
     input_value, from_unit, to_unit, category, conversion_data, expected
 ):
-    result = convert_units(input_value, from_unit, to_unit, category, conversion_data)
+    result = convert_units(
+        input_value, from_unit, to_unit, category, conversion_data
+    )
     assert result == expected
 
 
@@ -206,14 +228,19 @@ test_convert_units_same_valid_from_unit_to_unit = [
 def test_convert_units_same_valid_from_unit_to_unit(
     input_value, from_unit, to_unit, category, conversion_data, expected
 ):
-    result = convert_units(input_value, from_unit, to_unit, category, conversion_data)
+    result = convert_units(
+        input_value, from_unit, to_unit, category, conversion_data
+    )
     assert result == expected
 
 
 # invalid conversion function
 mock_data_invalid_conversion_data = {
     UnitCategory.TEMPERATURE.value: {
-        (TemperatureUnits.CELSIUS.value, TemperatureUnits.FAHRENHEIT.value): 1
+        (
+            TemperatureUnits.CELSIUS.value,
+            TemperatureUnits.FAHRENHEIT.value,
+        ): 1
     },
     UnitCategory.VOLUME.value: {
         (VolumeUnits.LITERS.value, VolumeUnits.TABLESPOONS.value): 2
@@ -246,18 +273,27 @@ test_convert_units_invalid_conversion_data = [
 def test_convert_units_invalid_conversion_data(
     input_value, from_unit, to_unit, category, conversion_data, expected
 ):
-    result = convert_units(input_value, from_unit, to_unit, category, conversion_data)
+    result = convert_units(
+        input_value, from_unit, to_unit, category, conversion_data
+    )
     assert result == expected
 
 
 # conversion function leads to unexpected error
 mock_data_invalid_conversion_fuction = {
     UnitCategory.TEMPERATURE.value: {
-        (TemperatureUnits.CELSIUS.value, TemperatureUnits.KELVIN.value): lambda x: x
+        (
+            TemperatureUnits.CELSIUS.value,
+            TemperatureUnits.KELVIN.value,
+        ): lambda x: x
         / 0,
     },
     UnitCategory.VOLUME.value: {
-        (VolumeUnits.LITERS.value, VolumeUnits.CUBIC_INCHES.value): lambda x: x / 0,
+        (
+            VolumeUnits.LITERS.value,
+            VolumeUnits.CUBIC_INCHES.value,
+        ): lambda x: x
+        / 0,
     },
 }
 test_convert_units_invalid_conversion_function = [
@@ -287,13 +323,15 @@ test_convert_units_invalid_conversion_function = [
 def test_convert_units_invalid_conversion_function(
     input_value, from_unit, to_unit, category, conversion_data, expected
 ):
-    result = convert_units(input_value, from_unit, to_unit, category, conversion_data)
+    result = convert_units(
+        input_value, from_unit, to_unit, category, conversion_data
+    )
     assert result == expected
 
 
 # different valid from_unit to_unit
 test_convert_units_different_valid_from_unit_to_unit = [
-    # Test different number with or without decimal places from Fahrenheit to Celsius
+    # Test different number with or without decimal places
     (
         50,
         TemperatureUnits.FAHRENHEIT.value,
@@ -441,7 +479,7 @@ test_convert_units_different_valid_from_unit_to_unit = [
         CONVERSION_DATA,
         27.8,
     ),
-    # Test different number with or without decimal places from Liters to Tablespoons
+    # Test different number from Liters to Tablespoons
     (
         50,
         VolumeUnits.LITERS.value,
@@ -761,5 +799,7 @@ test_convert_units_different_valid_from_unit_to_unit = [
 def test_convert_units_different_valid_from_unit_to_unit(
     input_value, from_unit, to_unit, category, conversion_data, expected
 ):
-    result = convert_units(input_value, from_unit, to_unit, category, conversion_data)
+    result = convert_units(
+        input_value, from_unit, to_unit, category, conversion_data
+    )
     assert result == expected
