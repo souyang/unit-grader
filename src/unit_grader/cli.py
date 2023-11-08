@@ -13,7 +13,10 @@ Main Functions:
 import os
 from typing import Optional
 import typer
-from unit_grader.config.data import UNIT_CONVERSION_INSTRUCTIONS, UNEXPECTED_EXIT
+from unit_grader.config.data import (
+    UNIT_CONVERSION_INSTRUCTIONS,
+    UNEXPECTED_EXIT,
+)
 from unit_grader.commands.conversion_grader import grade_response
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.console import Console
@@ -23,10 +26,11 @@ import tomli
 app = typer.Typer()  # creates a CLI app
 app_name = "unit-grader"
 
+
 def get_project_meta() -> Optional[dict[str, str]]:
     """
     Get the project metadata from the pyproject.toml file.
-    
+
     Args:
         None
 
@@ -41,6 +45,7 @@ def get_project_meta() -> Optional[dict[str, str]]:
     except (IOError, KeyError):
         return None  # Handle file I/O errors or missing 'project' key
 
+
 def version_callback(show_version: bool) -> None:
     """
     Get the project version from the pyproject.toml file.
@@ -54,8 +59,10 @@ def version_callback(show_version: bool) -> None:
 
     if show_version:
         pkg_meta = get_project_meta()
-        if ("version" not in pkg_meta):
-            typer.echo(f"Unable to get version configuration information. {UNEXPECTED_EXIT}")
+        if "version" not in pkg_meta:
+            typer.echo(
+                f"Unable to get version information. {UNEXPECTED_EXIT}"
+            )
         else:
             app_version = str(pkg_meta["version"])
             typer.echo(f"{app_name}: {app_version}")

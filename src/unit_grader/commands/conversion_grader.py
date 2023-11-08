@@ -12,14 +12,16 @@ from rich import print
 from typing import Optional
 
 
-def check_unit_existence(dictionary: dict[str, list[str]], unit_to_check: str) -> Optional[str]:
+def check_unit_existence(
+    dictionary: dict[str, list[str]], unit_to_check: str
+) -> Optional[str]:
     """
     Check if a unit exists in a dictionary.
-    
+
     Args:
         dictionary (dict): The dictionary to check.
         unit_to_check (str): The unit to check.
-    
+
     Returns:
         str: The category of the unit (e.g., 'temperature' or 'volume').
         None: If the unit does not exist.
@@ -30,15 +32,17 @@ def check_unit_existence(dictionary: dict[str, list[str]], unit_to_check: str) -
     return None
 
 
-def validate_input(from_unit: str, to_unit: str, input_value: str) -> Optional[str]:
+def validate_input(
+    from_unit: str, to_unit: str, input_value: str
+) -> Optional[str]:
     """
     Validate the input values
-    
+
     Args:
         from_unit (str): The unit to convert from.
         to_unit (str): The unit to convert to.
         input_value (str): The input value to be converted.
-    
+
     Returns:
         str: The category of the units (e.g., 'temperature' or 'volume').
         None: If the input is invalid.
@@ -89,7 +93,9 @@ def validate_input(from_unit: str, to_unit: str, input_value: str) -> Optional[s
     return from_unit_category
 
 
-def grade_response(input_value: str, from_unit: str, to_unit: str, student_response: str) -> Answer:
+def grade_response(
+    input_value: str, from_unit: str, to_unit: str, student_response: str
+) -> Answer:
     """
     Grade a student's response to a conversion question.
 
@@ -100,7 +106,7 @@ def grade_response(input_value: str, from_unit: str, to_unit: str, student_respo
         student_response (str): The student's response.
 
     Returns:
-        Answer: The result of the grading. 
+        Answer: The result of the grading.
         Possible values are: Answer.CORRECT, Answer.INCORRECT, Answer.INVALID
     """
     # unit name validation

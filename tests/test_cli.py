@@ -3,12 +3,7 @@
 import pytest
 from typer.testing import CliRunner
 from typer import Exit
-from unit_grader.cli import (
-    app,
-    get_project_meta,
-    version_callback,
-    app_name
-)
+from unit_grader.cli import app, get_project_meta, version_callback, app_name
 from unit_grader.commands.conversion_grader import (
     grade_response,
     Answer,
@@ -77,6 +72,7 @@ def test_get_project_meta(mocker):
     # Assert that the 'tomli.load' function was called with the correct data
     assert project_meta == {"name": "my_project", "version": "1.0.0"}
 
+
 def test_not_get_project_meta(mocker):
     # Define a sample TOML content loaded from pyproject.toml
     sample_toml_content = b"""
@@ -101,17 +97,20 @@ def test_not_get_project_meta(mocker):
     # Assert that the 'tomli.load' function was called with wrong data
     assert project_meta is None
 
+
 def test_version_callback(mocker, capsys):
     mocker.patch(
-        get_project_meta_function_name, return_value={"version": "1.0.0", "name": app_name}
+        get_project_meta_function_name,
+        return_value={"version": "1.0.0", "name": app_name},
     )  # Mock get_project_meta function
-    
+
     with pytest.raises(Exit):
         version_callback(True)  # Call the function
     # Capture the output using capsys
     captured = capsys.readouterr()
     output = captured.out.strip()
     assert output == f"{app_name}: 1.0.0"
+
 
 def test_version_callback_no_version_data(mocker, capsys):
     mocker.patch(
@@ -122,4 +121,7 @@ def test_version_callback_no_version_data(mocker, capsys):
     # Capture the output using capsys
     captured = capsys.readouterr()
     output = captured.out.strip()
-    assert output == f"Unable to get version configuration information. {UNEXPECTED_EXIT}"
+    assert (
+        output
+        == f"Unable to get version information. {UNEXPECTED_EXIT}"
+    )

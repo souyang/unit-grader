@@ -3,10 +3,11 @@ import numpy as np  # Import numpy for rounding
 from rich import print
 from typing import Optional
 
+
 def is_valid_numeric_string(numeric_string: str) -> bool:
     """
     Check if a string is a valid numeric string.
-    
+
     Args:
         s (str): The string to check.
 
@@ -22,7 +23,13 @@ def is_valid_numeric_string(numeric_string: str) -> bool:
         )
 
 
-def convert_units(input_value: str, from_unit: str, to_unit: str, category: str, conversion_data: str) -> Optional[float]:
+def convert_units(
+    input_value: str,
+    from_unit: str,
+    to_unit: str,
+    category: str,
+    conversion_data: str,
+) -> Optional[float]:
     """
     Convert an input value from one unit to another.
 
@@ -30,7 +37,7 @@ def convert_units(input_value: str, from_unit: str, to_unit: str, category: str,
         input_value (float): The input value to be converted.
         from_unit (str): The unit to convert from.
         to_unit (str): The unit to convert to.
-        category (str): The category of the units (e.g., 'temperature' or 'volume').
+        category (str): The unit category ('temperature' or 'volume').
         conversion_data (dict): The conversion data.
 
     Returns:
