@@ -30,10 +30,10 @@ jobs:
             pip install black flake8 pytest-cov pytest-mock
 
       - name: Lint with flake8
-        run: flake8 unit_conversion_grader && flakes8 tests
+        run: flake8 unit_grader && flakes8 tests
 
       - name: Format code with black
-        run:  black unit_conversion_grader && black tests
+        run:  black unit_grader && black tests
 
       - name: Run unit tests with pytest
         run: pytest

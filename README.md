@@ -14,4 +14,4 @@ For **development**:
 - `git clone https://github.com/souyang/unit-grader.git`
 - `cd unit-grader`
 - `python -m pip install -e .`
-  - (or: `make install && source venv/bin/activate` for a venv)
+  - (or: `make install && source .venv/bin/activate` for a venv)

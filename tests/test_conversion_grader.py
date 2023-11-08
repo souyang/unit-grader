@@ -1,29 +1,32 @@
-from unit_conversion_grader.commands.conversion_grader import (
+from src.unit_grader.commands.conversion_grader import (
     check_unit_existence,
     validate_input,
     grade_response,
 )
 
-from unit_conversion_grader.config.enums import (
+from src.unit_grader.config.enums import (
     Answer,
     UnitCategory,
     TemperatureUnits,
     VolumeUnits,
 )
-from unit_conversion_grader.config.data import UNITS
+from src.unit_grader.config.data import UNITS
 
 import pytest
 
-check_unit_existence_function = (
-    "unit_conversion_grader.commands." "conversion_grader.check_unit_existence"
+check_unit_existence_function_name = (
+    "src.unit_grader.commands." "conversion_grader.check_unit_existence"
 )
-is_valid_numeric_string_function = (
-    "unit_conversion_grader." "utils.common.is_valid_numeric_string"
+
+is_valid_numeric_string_function_name = (
+    "src.unit_grader.utils." "common.is_valid_numeric_string"
 )
-validate_input_function = (
-    "unit_conversion_grader" ".commands.conversion_grader.validate_input"
+
+validate_input_function_name = (
+    "src.unit_grader.commands." "conversion_grader.validate_input"
 )
-convert_units_function = "unit_conversion_grader" ".utils.common.convert_units"
+
+convert_units_function_name = "src.unit_grader.utils.common.convert_units"
 
 # Test check_unit_existence
 test_cases_check_unit_existence_temperature = [
@@ -88,7 +91,7 @@ def test_check_unit_existence_nonexistent(dictionary, unit_to_check, expected):
 
 def test_validate_input_invalid_from_unit(mocker):
     mocker.patch(
-        check_unit_existence_function,
+        check_unit_existence_function_name,
         side_effect=[UnitCategory.TEMPERATURE.value, None],
     )
     result = validate_input(
@@ -99,7 +102,7 @@ def test_validate_input_invalid_from_unit(mocker):
 
 def test_validate_input_invalid_to_unit(mocker):
     mocker.patch(
-        check_unit_existence_function,
+        check_unit_existence_function_name,
         side_effect=[UnitCategory.TEMPERATURE.value, None],
     )
     result = validate_input(TemperatureUnits.CELSIUS.value, "Dummy_Unit", "25")
@@ -108,7 +111,7 @@ def test_validate_input_invalid_to_unit(mocker):
 
 def test_validate_input_invalid_from_and_to_unit(mocker):
     mocker.patch(
-        check_unit_existence_function,
+        check_unit_existence_function_name,
         side_effect=[None, None],
     )
     result = validate_input("Dummy_Unit", "Dummy_Unit", "25")
@@ -117,7 +120,7 @@ def test_validate_input_invalid_from_and_to_unit(mocker):
 
 def test_validate_input_different_unit_categories(mocker):
     mocker.patch(
-        check_unit_existence_function,
+        check_unit_existence_function_name,
         side_effect=[
             UnitCategory.TEMPERATURE.value,
             UnitCategory.VOLUME.value,
@@ -131,7 +134,7 @@ def test_validate_input_different_unit_categories(mocker):
 
 def test_validate_input_invalid_input_value(mocker):
     mocker.patch(
-        check_unit_existence_function,
+        check_unit_existence_function_name,
         side_effect=[
             UnitCategory.TEMPERATURE.value,
             UnitCategory.TEMPERATURE.value,
@@ -147,7 +150,7 @@ def test_validate_input_invalid_input_value(mocker):
 
 def test_validate_input_valid_temperature(mocker):
     mocker.patch(
-        check_unit_existence_function,
+        check_unit_existence_function_name,
         side_effect=[
             UnitCategory.TEMPERATURE.value,
             UnitCategory.TEMPERATURE.value,
@@ -163,7 +166,7 @@ def test_validate_input_valid_temperature(mocker):
 
 def test_validate_input_valid_volume(mocker):
     mocker.patch(
-        check_unit_existence_function,
+        check_unit_existence_function_name,
         side_effect=[UnitCategory.VOLUME.value, UnitCategory.VOLUME.value],
     )
     result = validate_input(
@@ -174,7 +177,7 @@ def test_validate_input_valid_volume(mocker):
 
 def test_validate_input_unexpected_exception(mocker):
     mocker.patch(
-        check_unit_existence_function,
+        check_unit_existence_function_name,
         side_effect=Exception("This is a deliberate exception"),
     )
     result = validate_input(
@@ -185,14 +188,15 @@ def test_validate_input_unexpected_exception(mocker):
 
 # Test grade_response
 
+
 # Test grade_response when user response is not a number
 def test_grade_response_non_numeric_user_response(mocker):
     mocker.patch(
-        is_valid_numeric_string_function,
+        is_valid_numeric_string_function_name,
         return_value=False,
     )
     mocker.patch(
-        validate_input_function,
+        validate_input_function_name,
         return_value=UnitCategory.TEMPERATURE.value,
     )
     result = grade_response(
@@ -207,15 +211,15 @@ def test_grade_response_non_numeric_user_response(mocker):
 # Test grade_response when user response is incorrect
 def test_grade_response_incorrect_response(mocker):
     mocker.patch(
-        is_valid_numeric_string_function,
+        is_valid_numeric_string_function_name,
         return_value=True,
     )
     mocker.patch(
-        validate_input_function,
+        validate_input_function_name,
         return_value=UnitCategory.TEMPERATURE.value,
     )
     mocker.patch(
-        convert_units_function,
+        convert_units_function_name,
         return_value=-241.1,
     )
     result = grade_response(
@@ -230,11 +234,11 @@ def test_grade_response_incorrect_response(mocker):
 # Test grade_response when from_unit/to_unit/input_value is invalid
 def test_grade_response_invalid_input(mocker):
     mocker.patch(
-        is_valid_numeric_string_function,
+        is_valid_numeric_string_function_name,
         return_value=True,
     )
     mocker.patch(
-        validate_input_function,
+        validate_input_function_name,
         return_value=None,
     )
     result = grade_response(
@@ -254,11 +258,11 @@ but input_value is different from user_response
 
 def test_grade_response_same_unit_incorrect_user_response(mocker):
     mocker.patch(
-        is_valid_numeric_string_function,
+        is_valid_numeric_string_function_name,
         return_value=True,
     )
     mocker.patch(
-        validate_input_function,
+        validate_input_function_name,
         return_value=UnitCategory.TEMPERATURE.value,
     )
     result = grade_response(
@@ -273,14 +277,14 @@ def test_grade_response_same_unit_incorrect_user_response(mocker):
 # Test grade_response when convert_units returns None
 def test_grade_response_failed_convert_units(mocker):
     mocker.patch(
-        is_valid_numeric_string_function,
+        is_valid_numeric_string_function_name,
         return_value=True,
     )
     mocker.patch(
-        validate_input_function,
+        validate_input_function_name,
         return_value=UnitCategory.TEMPERATURE.value,
     )
-    mocker.patch(convert_units_function, return_value=None)
+    mocker.patch(convert_units_function_name, return_value=None)
 
     result = grade_response(
         "32",
@@ -331,15 +335,15 @@ def test_grade_response_correct_response(
     input_value, from_unit, to_unit, user_response, expected, mocker
 ):
     mocker.patch(
-        "unit_conversion_grader.utils.common.is_valid_numeric_string",
+        is_valid_numeric_string_function_name,
         return_value=True,
     )
     mocker.patch(
-        "unit_conversion_grader.commands.conversion_grader.validate_input",
+        validate_input_function_name,
         return_value=UnitCategory.TEMPERATURE.value,
     )
     mocker.patch(
-        "unit_conversion_grader.utils.common.convert_units",
+        convert_units_function_name,
         return_value=user_response,
     )
     # Test correct response

@@ -1,8 +1,8 @@
 """
-    This module provides a CLI tool for converting units of
-    measure and grading student responses to conversion questions.
+This module provides a CLI tool for converting units of
+measure and grading student responses to conversion questions.
 
-    Main Functions:
+Main Functions:
     - grade_response: Grade a student's response to a conversion question.
     - Allow users to specify parameters via CLI arguments such as:
         - input_value: The input value provided in the question.
@@ -11,40 +11,60 @@
         - student_response: The student's response.
 """
 import os
+from typing import Optional
 import typer
-from unit_conversion_grader.config.data import UNIT_CONVERSION_INSTRUCTIONS
-from unit_conversion_grader.commands.conversion_grader import grade_response
+from src.unit_grader.config.data import UNIT_CONVERSION_INSTRUCTIONS, UNEXPECTED_EXIT
+from src.unit_grader.commands.conversion_grader import grade_response
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.console import Console
 from rich import print
+import tomli
 
 app = typer.Typer()  # creates a CLI app
-
-app_name = "unit-grader"
-
-
-def get_version():
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    version_file_path = os.path.join(script_dir, "../version.txt")
-    with open(version_file_path, "r") as version_file:
-        return version_file.read().strip()
+app_name = "unit_grader"
 
 
-def version_callback(value: bool):
-    if value:
-        version = get_version()
-        typer.echo(f"{app_name} version {version}")
+def get_project_meta() -> Optional[dict[str, str]]:
+    """
+    Get the project metadata from the pyproject.toml file.
+    
+    Args:
+        None
+
+    Returns:
+        dict: The project metadata.
+    """
+    try:
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        version_file_path = os.path.join(script_dir, "../../pyproject.toml")
+        with open(version_file_path, mode="rb") as pyproject:
+            return tomli.load(pyproject)["project"]
+    except (IOError, KeyError):
+        return None  # Handle file I/O errors or missing 'project' key
+
+def version_callback(show_version: bool) -> None:
+    """
+    Get the project version from the pyproject.toml file.
+
+    Args:
+        show_version (bool): A flag to indicate whether to show the version.
+
+    Returns:
+        None
+    """
+
+    if show_version:
+        pkg_meta = get_project_meta()
+        if ("version" not in pkg_meta):
+            typer.echo(f"Unable to get version configuration information. {UNEXPECTED_EXIT}")
+        else:
+            app_version = str(pkg_meta["version"])
+            typer.echo(f"{app_name}: {app_version}")
         typer.Exit()
 
 
 @app.command(app_name, no_args_is_help=True)
 def grade_conversion(
-    interactive: bool = typer.Option(
-        False,
-        "--interactive",
-        "-i",
-        help="Interactive mode.",
-    ),
     input_value: str = typer.Option(
         None, "--input-value", "-v", help="Input numerical value."
     ),
@@ -63,16 +83,24 @@ def grade_conversion(
     student_response: str = typer.Option(
         None, "--student-response", "-s", help="Student's response."
     ),
-    version: bool = typer.Option(
-        None,
-        "--version",
-        help="Show version and exit.",
-        callback=version_callback,
+    version: Optional[bool] = typer.Option(
+        None, "--version", "-V", callback=version_callback, is_eager=True
     ),
-):
+) -> None:
+    # type: (str, str, str, str, Optional[bool]) -> None
     """
     Unit Conversion Grader Tool to grade a student's
     response to the unit conversion question.
+    
+    Args:
+        input_value (str): The input value provided in the question.
+        from_unit (str): The unit mentioned in the question.
+        to_unit (str): The target unit mentioned in the question.
+        student_response (str): The student's response.
+        version (bool): A flag to indicate whether to show the version.
+    
+    Returns:
+        None
     """
     console = Console()
     with Progress(

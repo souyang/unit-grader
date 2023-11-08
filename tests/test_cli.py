@@ -1,19 +1,25 @@
 # tests/test_main.py
 
 from typer.testing import CliRunner
-from unit_conversion_grader.cli import (
+from src.unit_grader.cli import (
     app,
-    get_version,
+    get_project_meta,
     version_callback,
     app_name,
 )
-from unit_conversion_grader.commands.conversion_grader import (
+from src.unit_grader.commands.conversion_grader import (
     grade_response,
     Answer,
 )
+from src.unit_grader.config.data import UNEXPECTED_EXIT
 
 # Create a CliRunner for testing the CLI app
 runner = CliRunner()
+
+grad_response_function_name = (
+    "src.unit_grader.commands.conversion_grader.grade_response"
+)
+get_project_meta_function_name = "src.unit_grader.cli.get_project_meta"
 
 
 # Test the grade_response function
@@ -25,7 +31,7 @@ def test_grade_response():
 # Test the grade_conversion CLI command
 def test_grade_conversion(mocker):
     mocker.patch(
-        "unit_conversion_grader.commands.conversion_grader.grade_response",
+        grad_response_function_name,
         return_value=Answer.CORRECT,
     )
     result = runner.invoke(
@@ -45,31 +51,70 @@ def test_grade_conversion(mocker):
     assert "Result:" in result.output
 
 
-def test_get_version(mocker):
-    version_content = "1.0.0"
+def test_get_project_meta(mocker):
+    # Define a sample TOML content loaded from pyproject.toml
+    sample_toml_content = b"""
+    [project]
+    name = "my_project"
+    version = "1.0.0"
+    """
 
     # Create a mocker fixture to mock the open function
-    mocker.patch("builtins.open", mocker.mock_open(read_data=version_content))
+    mocker.patch(
+        "builtins.open", mocker.mock_open(read_data=sample_toml_content)
+    )
 
-    # Call the get_version function
-    version = get_version()
+    # Create a mock for 'tomli.load' function
+    mocker.patch(
+        "tomli.load",
+        return_value={"project": {"name": "my_project", "version": "1.0.0"}},
+    )
 
-    # Assert that the returned version matches the expected version_content
-    assert version == version_content
+    project_meta = get_project_meta()
 
+    # Assert that the 'tomli.load' function was called with the correct data
+    assert project_meta == {"name": "my_project", "version": "1.0.0"}
+
+def test_not_get_project_meta(mocker):
+    # Define a sample TOML content loaded from pyproject.toml
+    sample_toml_content = b"""
+    [test]
+    name = "my_project"
+    version = "1.0.0"
+    """
+
+    # Create a mocker fixture to mock the open function
+    mocker.patch(
+        "builtins.open", mocker.mock_open(read_data=sample_toml_content)
+    )
+
+    # Create a mock for 'tomli.load' function
+    mocker.patch(
+        "tomli.load",
+        return_value={"test": {"name": "my_project", "version": "1.0.0"}},
+    )
+
+    project_meta = get_project_meta()
+
+    # Assert that the 'tomli.load' function was called with wrong data
+    assert project_meta is None
 
 def test_version_callback(mocker, capsys):
-    value = True
-
     mocker.patch(
-        "unit_conversion_grader.cli.get_version", return_value="1.0.0"
-    )
-    # Call the version_callback function with the mocked get_version
-    version_callback(value)
-
+        get_project_meta_function_name, return_value={"version": "1.0.0"}
+    )  # Mock get_project_meta function
+    version_callback(True)  # Call the function
     # Capture the output using capsys
     captured = capsys.readouterr()
     output = captured.out.strip()
+    assert output == f"{app_name}: 1.0.0"
 
-    # Assert the output
-    assert output == f"{app_name} version 1.0.0"
+def test_version_callback_no_version_data(mocker, capsys):
+    mocker.patch(
+        get_project_meta_function_name, return_value={"test": "1.0.0"}
+    )  # Mock get_project_meta function
+    version_callback(True)  # Call the function
+    # Capture the output using capsys
+    captured = capsys.readouterr()
+    output = captured.out.strip()
+    assert output == f"Unable to get version configuration information. {UNEXPECTED_EXIT}"

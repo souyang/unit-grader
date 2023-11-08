@@ -4,13 +4,22 @@ for the conversion calculator.
 """
 from ..config.enums import TemperatureUnits, VolumeUnits, UnitCategory
 
+# Ask for unexpected exit
+UNEXPECTED_EXIT = "Unexpected exit. Please contact the developer."
+
+# Help instructions
 HELP_INSTRUCTION = "Please use --help to see valid options."
 
-UNIT_CONVERSION_INSTRUCTIONS = ("Select a conversion unit (Kelvin, Celsius,"
-                                "Fahrenheit,Rankine for temperature; liters,"
-                                " tablespoons, cubic-inches, cups, cubic-feet,"
-                                " gallons for volume). Please note that the"
-                                " unit is case-sensitive.")
+# Conversion instructions
+UNIT_CONVERSION_INSTRUCTIONS = (
+    "Select a conversion unit (Kelvin, Celsius,"
+    "Fahrenheit,Rankine for temperature; liters,"
+    " tablespoons, cubic-inches, cups, cubic-feet,"
+    " gallons for volume). Please note that the"
+    " unit is case-sensitive."
+)
+
+# Units in each category
 UNITS = {
     UnitCategory.TEMPERATURE.value: [
         TemperatureUnits.KELVIN.value,
@@ -28,6 +37,7 @@ UNITS = {
     ],
 }
 
+# Conversion data between units
 CONVERSION_DATA = {
     UnitCategory.TEMPERATURE.value: {
         (

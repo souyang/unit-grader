@@ -1,3 +1,4 @@
+
 [project]
 name = "unit-grader"
 version = "1.0.0"
@@ -6,42 +7,63 @@ authors = [
     {name = "simon ouyang", email = "simonouyang@gmail.com"},
 ]
 
-[tool.black]
-line-length = 79  # Set the maximum line length to 79 characters (following PEP 8).
-target-version = ['py39']  # Set the target Python version(s), e.g., Python 3.9.
-
 dependencies = [
-    "altgraph==0.17.2",
-    "click==8.1.7",
-    "colorama==0.4.6",
-    "coverage==7.3.2",
-    "exceptiongroup==1.1.3",
-    "future==0.18.2",
-    "iniconfig==2.0.0",
-    "macholib==1.15.2",
-    "markdown-it-py==3.0.0",
-    "mdurl==0.1.2",
-    "numpy==1.26.1",
-    "packaging==23.2",
-    "pip==23.3.1",
-    "pluggy==1.3.0",
-    "Pygments==2.16.1",
-    "pytest>=7.4.3",
-    "pytest-mock==3.12.0",
-    "rich==13.6.0",
-    "setuptools==68.2.2",
-    "shellingham==1.5.4",
-    "six==1.15.0",
-    "tomli==2.0.1",
-    "typer==0.9.0",
-    "typing-extensions==4.8.0",
-    "wheel==0.37.0",
+    "typer>=0.9.0",
+    "numpy>=1.26.1",
+    "rich>=13.6.0",
+    "tomli>=2.0.1",
+    "typing>=3.7.4.3",
 ]
 requires-python = ">=3.9,<3.13"
 readme = "README.md"
-license = {text = "MIT"}
+license = {file= "LICENSE"}
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Topic :: Utilities",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Intended Audience :: End Users/Desktop",
+    "Programming Language :: Python :: 3",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: MIT License",
+]
+
+[project.scripts]
+unit-grader = "unit_grader.cli:app"
+
+[tool.pdm.scripts]
+lint = "python3 -m flake8 ./tests ./src/unit_grader"
+format = "python3 -m black ./tests ./src/unit_grader"
+test = "python3 -m pytest --cov=src/unit_grader ./tests"
+all = {composite = ["format", "lint", "test"]}
+
+[tool.pdm.dev-dependencies]
+test = [
+    "pytest>=7.4.3",
+    "pytest-mock>=3.12.0",
+    "pytest-cov>=4.1.0",
+]
+lint = [
+    "flake8>=6.1.0",
+    "black>=23.10.1",
+]
+build = [
+    "pdm>=2.10.1",
+    "setuptools>=68.2.2",
+    "wheel>=0.41.3",
+]
+doc = [
+    "sphinx>=7.2.6",
+    "sphinx-rtd-theme>=1.3.0",
+    "myst-parser>=2.0.0",
+]
+[tool.black]
+line-length = 79  # Set the maximum line length to 79 characters (following PEP 8).
+target-version = ["py38", "py39", "py310", "py311"]  # Set the target Python version(s), e.g., Python 3.9.
 
 [build-system]
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
-

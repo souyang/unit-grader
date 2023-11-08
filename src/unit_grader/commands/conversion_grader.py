@@ -9,78 +9,87 @@ from ..utils.common import convert_units, is_valid_numeric_string
 import typer
 import numpy as np  # Import numpy for rounding
 from rich import print
+from typing import Optional
 
 
-def check_unit_existence(dictionary, unit_to_check):
+def check_unit_existence(dictionary: dict[str, list[str]], unit_to_check: str) -> Optional[str]:
     """
     Check if a unit exists in a dictionary.
+    
     Args:
         dictionary (dict): The dictionary to check.
         unit_to_check (str): The unit to check.
+    
     Returns:
         str: The category of the unit (e.g., 'temperature' or 'volume').
         None: If the unit does not exist.
     """
     for key, units in dictionary.items():
-
         if unit_to_check in units:
             return key
     return None
 
 
-def validate_input(from_unit, to_unit, input_value):
+def validate_input(from_unit: str, to_unit: str, input_value: str) -> Optional[str]:
     """
     Validate the input values
+    
     Args:
         from_unit (str): The unit to convert from.
         to_unit (str): The unit to convert to.
         input_value (str): The input value to be converted.
+    
     Returns:
         str: The category of the units (e.g., 'temperature' or 'volume').
         None: If the input is invalid.
     """
 
     try:
-
         if not is_valid_numeric_string(input_value):
             raise ValueError(
-                (f"{input_value} as input_value"
-                 f" needs to be numeric. {HELP_INSTRUCTION}")
+                (
+                    f"{input_value} as input_value"
+                    f" needs to be numeric. {HELP_INSTRUCTION}"
+                )
             )
         from_unit_category = check_unit_existence(UNITS, from_unit)
         to_unit_category = check_unit_existence(UNITS, to_unit)
 
         if from_unit_category is None:
             raise ValueError(
-                (f"{from_unit} as from_unit"
-                 f" is not supported. {UNIT_CONVERSION_INSTRUCTIONS}")
+                (
+                    f"{from_unit} as from_unit"
+                    f" is not supported. {UNIT_CONVERSION_INSTRUCTIONS}"
+                )
             )
 
         if to_unit_category is None:
             raise ValueError(
-                (f"{to_unit} as to_unit"
-                 f" is not supported. {UNIT_CONVERSION_INSTRUCTIONS}")
+                (
+                    f"{to_unit} as to_unit"
+                    f" is not supported. {UNIT_CONVERSION_INSTRUCTIONS}"
+                )
             )
 
         if from_unit_category != to_unit_category:
             raise ValueError(
-                (f"Ensure the selected conversion units"
-                 " match their respective categories"
-                 f" for a valid conversion. {UNIT_CONVERSION_INSTRUCTIONS}")
+                (
+                    f"Ensure the selected conversion units"
+                    " match their respective categories"
+                    f" for a valid conversion. {UNIT_CONVERSION_INSTRUCTIONS}"
+                )
             )
 
     except ValueError as e:
         print(f"[bold red]Input Error: {e}[/bold red]")
         return None
     except Exception as e:
-        print(
-            f"[bold red]Error: {e}.[/bold red]"
-        )
+        print(f"[bold red]Error: {e}.[/bold red]")
         return None
     return from_unit_category
 
 
-def grade_response(input_value, from_unit, to_unit, student_response):
+def grade_response(input_value: str, from_unit: str, to_unit: str, student_response: str) -> Answer:
     """
     Grade a student's response to a conversion question.
 
@@ -91,9 +100,8 @@ def grade_response(input_value, from_unit, to_unit, student_response):
         student_response (str): The student's response.
 
     Returns:
-        Answer: The result of the grading,
-                one of [Answer.CORRECT,
-                Answer.INCORRECT, Answer.INVALID].
+        Answer: The result of the grading. 
+        Possible values are: Answer.CORRECT, Answer.INCORRECT, Answer.INVALID
     """
     # unit name validation
     category = validate_input(from_unit, to_unit, input_value)

@@ -1,5 +1,5 @@
 [run]
-source = unit_conversion_grader
+source = unit_grader
 omit = */__init__.py
 
 [report]
