@@ -4,4 +4,4 @@ src
 .. toctree::
    :maxdepth: 4
 
-   src
+   unit_grader

@@ -13,16 +13,15 @@ Main Functions:
 import os
 from typing import Optional
 import typer
-from src.unit_grader.config.data import UNIT_CONVERSION_INSTRUCTIONS, UNEXPECTED_EXIT
-from src.unit_grader.commands.conversion_grader import grade_response
+from unit_grader.config.data import UNIT_CONVERSION_INSTRUCTIONS, UNEXPECTED_EXIT
+from unit_grader.commands.conversion_grader import grade_response
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.console import Console
 from rich import print
 import tomli
 
 app = typer.Typer()  # creates a CLI app
-app_name = "unit_grader"
-
+app_name = "unit-grader"
 
 def get_project_meta() -> Optional[dict[str, str]]:
     """
@@ -60,13 +59,13 @@ def version_callback(show_version: bool) -> None:
         else:
             app_version = str(pkg_meta["version"])
             typer.echo(f"{app_name}: {app_version}")
-        typer.Exit()
+        raise typer.Exit()
 
 
-@app.command(app_name, no_args_is_help=True)
+@app.command(name=app_name, no_args_is_help=True)
 def grade_conversion(
     input_value: str = typer.Option(
-        None, "--input-value", "-v", help="Input numerical value."
+        None, "--input-value", "-i", help="Input numerical value."
     ),
     from_unit: str = typer.Option(
         None,
@@ -87,20 +86,9 @@ def grade_conversion(
         None, "--version", "-V", callback=version_callback, is_eager=True
     ),
 ) -> None:
-    # type: (str, str, str, str, Optional[bool]) -> None
     """
     Unit Conversion Grader Tool to grade a student's
     response to the unit conversion question.
-    
-    Args:
-        input_value (str): The input value provided in the question.
-        from_unit (str): The unit mentioned in the question.
-        to_unit (str): The target unit mentioned in the question.
-        student_response (str): The student's response.
-        version (bool): A flag to indicate whether to show the version.
-    
-    Returns:
-        None
     """
     console = Console()
     with Progress(

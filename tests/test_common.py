@@ -1,9 +1,9 @@
-from src.unit_grader.config.data import CONVERSION_DATA
-from src.unit_grader.utils.common import (
+from unit_grader.config.data import CONVERSION_DATA
+from unit_grader.utils.common import (
     convert_units,
     is_valid_numeric_string,
 )
-from src.unit_grader.config.enums import (
+from unit_grader.config.enums import (
     UnitCategory,
     TemperatureUnits,
     VolumeUnits,

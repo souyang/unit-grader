@@ -1,32 +1,32 @@
-from src.unit_grader.commands.conversion_grader import (
+from unit_grader.commands.conversion_grader import (
     check_unit_existence,
     validate_input,
     grade_response,
 )
 
-from src.unit_grader.config.enums import (
+from unit_grader.config.enums import (
     Answer,
     UnitCategory,
     TemperatureUnits,
     VolumeUnits,
 )
-from src.unit_grader.config.data import UNITS
+from unit_grader.config.data import UNITS
 
 import pytest
 
 check_unit_existence_function_name = (
-    "src.unit_grader.commands." "conversion_grader.check_unit_existence"
+    "unit_grader.commands." "conversion_grader.check_unit_existence"
 )
 
 is_valid_numeric_string_function_name = (
-    "src.unit_grader.utils." "common.is_valid_numeric_string"
+    "unit_grader.utils." "common.is_valid_numeric_string"
 )
 
 validate_input_function_name = (
-    "src.unit_grader.commands." "conversion_grader.validate_input"
+    "unit_grader.commands." "conversion_grader.validate_input"
 )
 
-convert_units_function_name = "src.unit_grader.utils.common.convert_units"
+convert_units_function_name = "unit_grader.utils.common.convert_units"
 
 # Test check_unit_existence
 test_cases_check_unit_existence_temperature = [

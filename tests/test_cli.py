@@ -1,25 +1,27 @@
 # tests/test_main.py
 
+import pytest
 from typer.testing import CliRunner
-from src.unit_grader.cli import (
+from typer import Exit
+from unit_grader.cli import (
     app,
     get_project_meta,
     version_callback,
-    app_name,
+    app_name
 )
-from src.unit_grader.commands.conversion_grader import (
+from unit_grader.commands.conversion_grader import (
     grade_response,
     Answer,
 )
-from src.unit_grader.config.data import UNEXPECTED_EXIT
+from unit_grader.config.data import UNEXPECTED_EXIT
 
 # Create a CliRunner for testing the CLI app
 runner = CliRunner()
 
 grad_response_function_name = (
-    "src.unit_grader.commands.conversion_grader.grade_response"
+    "unit_grader.commands.conversion_grader.grade_response"
 )
-get_project_meta_function_name = "src.unit_grader.cli.get_project_meta"
+get_project_meta_function_name = "unit_grader.cli.get_project_meta"
 
 
 # Test the grade_response function
@@ -101,9 +103,11 @@ def test_not_get_project_meta(mocker):
 
 def test_version_callback(mocker, capsys):
     mocker.patch(
-        get_project_meta_function_name, return_value={"version": "1.0.0"}
+        get_project_meta_function_name, return_value={"version": "1.0.0", "name": app_name}
     )  # Mock get_project_meta function
-    version_callback(True)  # Call the function
+    
+    with pytest.raises(Exit):
+        version_callback(True)  # Call the function
     # Capture the output using capsys
     captured = capsys.readouterr()
     output = captured.out.strip()
@@ -113,7 +117,8 @@ def test_version_callback_no_version_data(mocker, capsys):
     mocker.patch(
         get_project_meta_function_name, return_value={"test": "1.0.0"}
     )  # Mock get_project_meta function
-    version_callback(True)  # Call the function
+    with pytest.raises(Exit):
+        version_callback(True)  # Call the function
     # Capture the output using capsys
     captured = capsys.readouterr()
     output = captured.out.strip()

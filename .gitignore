@@ -14,3 +14,4 @@ coverage.xml
 coverage_report.txt
 docs/_build/
 
+setup.py
