@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: CI Pipeline
 
 on:
   workflow_dispatch:
@@ -41,13 +41,5 @@ jobs:
     - name: Format Code
       run: pdm run format
 
-    - name: Generate Documentation
-      run: |
-        pip install -U sphinx sphinx-rtd-theme
-        sphinx-apidoc -f -o ./docs src/
-        sphinx-build -b html ./docs ./docs/_build/html
-
-    - name: Build and Publish to PyPI
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: |
-        pdm publish --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }}
+    - name: Build Package
+      run: pdm build
