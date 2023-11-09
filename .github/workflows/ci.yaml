@@ -45,7 +45,7 @@ jobs:
 
     - name: Generate Documentation
       run: |
-        pip install -U sphinx 
+        pip install -U sphinx sphinx-rtd-theme
         sphinx-apidoc -f -o ./docs src/
         sphinx-build -b html ./docs ./docs/_build/html
 
