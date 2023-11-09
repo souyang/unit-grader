@@ -26,7 +26,7 @@ For **development**:
 ### General Instruction
 - You must be able to provide `input-value`, `from-unit`, `to-unit`, `student-response` as input.
 - `from-unit` and `to-unit` must be in the same unit meansurement category.
-- Expected ouput: `correct`, `incorrect`, `invalid`.
+- Expected output: `correct`, `incorrect`, `invalid`.
 - Supported unit meansurement categories includes `temperature` and `volumns`.
 - units supported in `temperature` category: `Kelvin`, `Celsius`, `Fahrenheit` and `Rankine`. 
 - units supported in `volume` category: `liters`, `tablespoons`, `cubic-inches`, `cups`, `cubic-feet`, `gallons`.

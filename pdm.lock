@@ -5,7 +5,7 @@
 groups = ["default", "test", "lint", "build", "doc", "dev"]
 strategy = ["cross_platform"]
 lock_version = "4.4"
-content_hash = "sha256:4e12d9712170bec6615c914e62ad2692132887263da9a5e691ce7483df7c76a0"
+content_hash = "sha256:735f413aed26a4c799fa51cfd7a28315d273c5c19eb260e365fb37abae7dbc63"
 
 [[package]]
 name = "alabaster"
@@ -256,6 +256,16 @@ dependencies = [
 files = [
     {file = "click-8.1.7-py3-none-any.whl", hash = "sha256:ae74fb96c20a0277a1d615f1e4d73c8414f5a98db8b799a7931d1582f3390c28"},
     {file = "click-8.1.7.tar.gz", hash = "sha256:ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de"},
+]
+
+[[package]]
+name = "codespell"
+version = "2.2.6"
+requires_python = ">=3.8"
+summary = "Codespell"
+files = [
+    {file = "codespell-2.2.6-py3-none-any.whl", hash = "sha256:9ee9a3e5df0990604013ac2a9f22fa8e57669c827124a2e961fe8a1da4cacc07"},
+    {file = "codespell-2.2.6.tar.gz", hash = "sha256:a8c65d8eb3faa03deabab6b3bbe798bea72e1799c7e9e955d57eca4096abcff9"},
 ]
 
 [[package]]

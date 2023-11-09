@@ -67,10 +67,31 @@ doc = [
 ]
 dev = [
     "pre-commit>=3.5.0",
+    "codespell>=2.2.6",
 ]
 [tool.black]
-line-length = 79  # Set the maximum line length to 79 characters (following PEP 8).
+line-length = 88
 target-version = ["py38", "py39", "py310", "py311", "py312"]  # Set the target Python version(s), e.g., Python 3.9.
+
+[tool.flake8]
+extend-ignore = "E203"
+exclude = [
+    ".git",
+    "__pycache__",
+    "**/__pycache__/",
+    "docs/source/conf.py",
+    "build",
+    "dist",
+    ".venv",
+    ".pytest_cache",
+]
+max-complexity = 10
+max-line-length = 88
+
+
+[tool.codespell]
+skip = "./htmlcov/*,./docs/*,./.git,./.pdm,./.pytest_cache,./.vscode,./.github,./.gitignore,./.gitattributes,./.gitmodules,./.pre-commit-config.yaml,pdm.lock"
+
 
 [build-system]
 requires = ["pdm-backend"]
