@@ -44,8 +44,11 @@ jobs:
       run: pdm run format
 
     - name: Generate Documentation
-      run: pdm run docgen
-  
+      run: |
+        pip install -U sphinx sphinx-rtd-theme
+        sphinx-apidoc -f -o ./docs src/
+        sphinx-build -b html ./docs ./docs/_build/html
+
     - name: Deploy Documentation
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       run: |
@@ -59,4 +62,4 @@ jobs:
     
     - name: Build and Publish
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      run: pdm build
+      run: pdm publish
