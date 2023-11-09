@@ -121,7 +121,4 @@ def test_version_callback_no_version_data(mocker, capsys):
     # Capture the output using capsys
     captured = capsys.readouterr()
     output = captured.out.strip()
-    assert (
-        output
-        == f"Unable to get version information. {UNEXPECTED_EXIT}"
-    )
+    assert output == f"Unable to get version information. {UNEXPECTED_EXIT}"

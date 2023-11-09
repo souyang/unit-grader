@@ -2,7 +2,12 @@ import pytest
 from typer.testing import CliRunner
 
 from unit_grader.cli import app
-from unit_grader.config.enums import Answer, TemperatureUnits as T, VolumeUnits as V
+from unit_grader.config.enums import (
+    Answer,
+    TemperatureUnits as T,
+    VolumeUnits as V,
+)
+
 # Create a CliRunner for testing the CLI app
 runner = CliRunner()
 
@@ -46,12 +51,15 @@ test_case_valid_input_correct_response = [
     ("100", V.CUPS.value, V.LITERS.value, "23.66"),
     ("100", V.CUPS.value, V.TABLESPOONS.value, "1600"),
 ]
+
+
 @pytest.mark.parametrize(
     "input_value, from_unit, to_unit, student_response",
     test_case_valid_input_correct_response,
 )
-
-def test_grade_conversion_valid_input_correct_response(input_value, from_unit, to_unit, student_response):
+def test_grade_conversion_valid_input_correct_response(
+    input_value, from_unit, to_unit, student_response
+):
     result = runner.invoke(
         app,
         [
@@ -68,22 +76,26 @@ def test_grade_conversion_valid_input_correct_response(input_value, from_unit, t
     assert result.exit_code == 0
     assert Answer.CORRECT.value in result.output
 
+
 # Test the grade_conversion CLI command with valid input and incorrect response
 
 test_case_valid_input_incorrect_response = [
- ("100", T.CELSIUS.value, T.KELVIN.value, "dog"),
- ("100", T.CELSIUS.value, T.KELVIN.value, "373.15dog"),
- ("100", T.CELSIUS.value, T.KELVIN.value, "373.5"),
- ("100", T.CELSIUS.value, T.KELVIN.value, "373"),
- ("100", T.CELSIUS.value, T.KELVIN.value, "373.001"),
- ("100", T.CELSIUS.value, T.KELVIN.value, ".001"),
+    ("100", T.CELSIUS.value, T.KELVIN.value, "dog"),
+    ("100", T.CELSIUS.value, T.KELVIN.value, "373.15dog"),
+    ("100", T.CELSIUS.value, T.KELVIN.value, "373.5"),
+    ("100", T.CELSIUS.value, T.KELVIN.value, "373"),
+    ("100", T.CELSIUS.value, T.KELVIN.value, "373.001"),
+    ("100", T.CELSIUS.value, T.KELVIN.value, ".001"),
 ]
+
 
 @pytest.mark.parametrize(
     "input_value, from_unit, to_unit, student_response",
     test_case_valid_input_incorrect_response,
 )
-def test_grade_conversion_valid_input_correct_response(input_value, from_unit, to_unit, student_response):
+def test_grade_conversion_valid_input_incorrect_response(
+    input_value, from_unit, to_unit, student_response
+):
     result = runner.invoke(
         app,
         [
@@ -100,31 +112,35 @@ def test_grade_conversion_valid_input_correct_response(input_value, from_unit, t
     assert result.exit_code == 0
     assert Answer.INCORRECT.value in result.output
 
+
 # Test the grade_conversion CLI command with invalid input
 test_case_invalid_input = [
- ("dog", T.CELSIUS.value, T.KELVIN.value, "373.15"),
- ("dog100", T.CELSIUS.value, T.KELVIN.value, "373.15"),
- ("dog100", T.CELSIUS.value, T.KELVIN.value, "dog"),
- ("100", 'CELSISUS', T.KELVIN.value, "373.15"),
- ("100", 'celsius', T.KELVIN.value, "373.15"),
- ("100", 'CelsiuS', T.KELVIN.value, "373.15"),
- ("100", 'Dummy', T.KELVIN.value, "373.15"),
- ("100", 'Dummy', T.KELVIN.value, "dog"),
- ("100", T.CELSIUS.value, V.LITERS.value, "373.15"),
- ("100", V.CUBIC_FEET.value, T.FAHRENHEIT, "373.15"),
- ("100", T.CELSIUS.value, 'KELVIN', "373.15"),
- ("100", T.CELSIUS.value, 'kelvin', "373.15"),
- ("100", T.CELSIUS.value, 'KelviN', "373.15"),
- ("100", T.CELSIUS.value, 'Dummy', "373.15"),
- ("100", T.CELSIUS.value, 'Dummy', "dog"),
- ("100", T.CELSIUS.value, 'Dummy', "373.2"),
+    ("dog", T.CELSIUS.value, T.KELVIN.value, "373.15"),
+    ("dog100", T.CELSIUS.value, T.KELVIN.value, "373.15"),
+    ("dog100", T.CELSIUS.value, T.KELVIN.value, "dog"),
+    ("100", "CELSISUS", T.KELVIN.value, "373.15"),
+    ("100", "celsius", T.KELVIN.value, "373.15"),
+    ("100", "CelsiuS", T.KELVIN.value, "373.15"),
+    ("100", "Dummy", T.KELVIN.value, "373.15"),
+    ("100", "Dummy", T.KELVIN.value, "dog"),
+    ("100", T.CELSIUS.value, V.LITERS.value, "373.15"),
+    ("100", V.CUBIC_FEET.value, T.FAHRENHEIT, "373.15"),
+    ("100", T.CELSIUS.value, "KELVIN", "373.15"),
+    ("100", T.CELSIUS.value, "kelvin", "373.15"),
+    ("100", T.CELSIUS.value, "KelviN", "373.15"),
+    ("100", T.CELSIUS.value, "Dummy", "373.15"),
+    ("100", T.CELSIUS.value, "Dummy", "dog"),
+    ("100", T.CELSIUS.value, "Dummy", "373.2"),
 ]
+
 
 @pytest.mark.parametrize(
     "input_value, from_unit, to_unit, student_response",
     test_case_invalid_input,
 )
-def test_grade_conversion_valid_input_correct_response(input_value, from_unit, to_unit, student_response):
+def test_grade_conversion_invalid_input(
+    input_value, from_unit, to_unit, student_response
+):
     result = runner.invoke(
         app,
         [

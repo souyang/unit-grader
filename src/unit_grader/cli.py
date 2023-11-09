@@ -60,9 +60,7 @@ def version_callback(show_version: bool) -> None:
     if show_version:
         pkg_meta = get_project_meta()
         if "version" not in pkg_meta:
-            typer.echo(
-                f"Unable to get version information. {UNEXPECTED_EXIT}"
-            )
+            typer.echo(f"Unable to get version information. {UNEXPECTED_EXIT}")
         else:
             app_version = str(pkg_meta["version"])
             typer.echo(f"{app_name}: {app_version}")
@@ -95,8 +93,9 @@ def grade_conversion(
 ) -> None:
     """
     Unit Conversion Grader Tool to grade a student's
-    response to the unit conversion question. 
-        - Student's response must match the correct answer after both value are rounded to the tenths place.
+    response to the unit conversion question.
+        - Student's response must match the correct
+        answer after both value are rounded to the tenths place.
     """
     console = Console()
     with Progress(
