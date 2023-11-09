@@ -46,18 +46,3 @@ jobs:
         pip install -U sphinx sphinx-rtd-theme
         sphinx-apidoc -f -o ./docs src/
         sphinx-build -b html ./docs ./docs/_build/html
-
-    - name: Deploy Documentation
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      run: |
-        cd docs/_build/html
-        git init
-        git config user.name "${{ github.actor }}"
-        git config user.email "${{ github.actor }}@users.noreply.github.com"
-        git add .
-        git commit -m "Deploy documentation"
-        git push --force --quiet "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" master:gh-pages
-    
-    - name: Build and Publish
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      run: pdm publish
