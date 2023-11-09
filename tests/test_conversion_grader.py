@@ -94,9 +94,7 @@ def test_validate_input_invalid_from_unit(mocker):
         check_unit_existence_function_name,
         side_effect=[UnitCategory.TEMPERATURE.value, None],
     )
-    result = validate_input(
-        "Dummy_Unit", TemperatureUnits.FAHRENHEIT.value, "25"
-    )
+    result = validate_input("Dummy_Unit", TemperatureUnits.FAHRENHEIT.value, "25")
     assert result is None
 
 
@@ -169,9 +167,7 @@ def test_validate_input_valid_volume(mocker):
         check_unit_existence_function_name,
         side_effect=[UnitCategory.VOLUME.value, UnitCategory.VOLUME.value],
     )
-    result = validate_input(
-        VolumeUnits.LITERS.value, VolumeUnits.TABLESPOONS, "25"
-    )
+    result = validate_input(VolumeUnits.LITERS.value, VolumeUnits.TABLESPOONS, "25")
     assert result == UnitCategory.VOLUME.value
 
 
@@ -180,9 +176,7 @@ def test_validate_input_unexpected_exception(mocker):
         check_unit_existence_function_name,
         side_effect=Exception("This is a deliberate exception"),
     )
-    result = validate_input(
-        VolumeUnits.LITERS.value, VolumeUnits.TABLESPOONS, "25"
-    )
+    result = validate_input(VolumeUnits.LITERS.value, VolumeUnits.TABLESPOONS, "25")
     assert result is None
 
 

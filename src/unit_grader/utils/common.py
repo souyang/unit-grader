@@ -18,9 +18,7 @@ def is_valid_numeric_string(numeric_string: str) -> bool:
         float(numeric_string)  # Try to convert the string to a float
         return True  # If successful, it's a valid numeric string
     except ValueError:
-        return (
-            False  # If it raises a ValueError, it's not a valid numeric string
-        )
+        return False  # If it raises a ValueError, it's not a valid numeric string
 
 
 def convert_units(
@@ -50,9 +48,7 @@ def convert_units(
         if category not in UNITS:
             raise ValueError(f"category {category} is not a valid category.")
 
-        if (from_unit not in UNITS[category]) or (
-            to_unit not in UNITS[category]
-        ):
+        if (from_unit not in UNITS[category]) or (to_unit not in UNITS[category]):
             raise ValueError(
                 (
                     f"from_unit {from_unit} is not a "
@@ -67,10 +63,7 @@ def convert_units(
         # Define conversion factors for temperatures and volumes
         if (from_unit, to_unit) not in conversion_data[category]:
             raise ValueError(
-                (
-                    f"Conversion factor for {from_unit}"
-                    f"to {to_unit} does not exist."
-                )
+                (f"Conversion factor for {from_unit}" f"to {to_unit} does not exist.")
             )
 
         conversion_func = conversion_data[category][(from_unit, to_unit)]

@@ -104,28 +104,22 @@ CONVERSION_DATA = {
         * (5 / 9),
     },
     UnitCategory.VOLUME.value: {
-        (VolumeUnits.LITERS.value, VolumeUnits.TABLESPOONS.value): lambda x: x
-        * 67.628,
+        (VolumeUnits.LITERS.value, VolumeUnits.TABLESPOONS.value): lambda x: x * 67.628,
         (
             VolumeUnits.LITERS.value,
             VolumeUnits.CUBIC_INCHES.value,
         ): lambda x: x
         * 61.024,
-        (VolumeUnits.LITERS.value, VolumeUnits.CUPS.value): lambda x: x
-        * 4.167,
-        (VolumeUnits.LITERS.value, VolumeUnits.CUBIC_FEET.value): lambda x: x
-        / 28.317,
-        (VolumeUnits.LITERS.value, VolumeUnits.GALLONS.value): lambda x: x
-        / 3.785,
-        (VolumeUnits.TABLESPOONS.value, VolumeUnits.LITERS.value): lambda x: x
-        / 67.628,
+        (VolumeUnits.LITERS.value, VolumeUnits.CUPS.value): lambda x: x * 4.167,
+        (VolumeUnits.LITERS.value, VolumeUnits.CUBIC_FEET.value): lambda x: x / 28.317,
+        (VolumeUnits.LITERS.value, VolumeUnits.GALLONS.value): lambda x: x / 3.785,
+        (VolumeUnits.TABLESPOONS.value, VolumeUnits.LITERS.value): lambda x: x / 67.628,
         (
             VolumeUnits.TABLESPOONS.value,
             VolumeUnits.CUBIC_INCHES.value,
         ): lambda x: x
         / 1.108,
-        (VolumeUnits.TABLESPOONS.value, VolumeUnits.CUPS.value): lambda x: x
-        / 16.231,
+        (VolumeUnits.TABLESPOONS.value, VolumeUnits.CUPS.value): lambda x: x / 16.231,
         (
             VolumeUnits.TABLESPOONS.value,
             VolumeUnits.CUBIC_FEET.value,
@@ -146,8 +140,7 @@ CONVERSION_DATA = {
             VolumeUnits.TABLESPOONS.value,
         ): lambda x: x
         * 1.108,
-        (VolumeUnits.CUBIC_INCHES.value, VolumeUnits.CUPS.value): lambda x: x
-        / 14.646,
+        (VolumeUnits.CUBIC_INCHES.value, VolumeUnits.CUPS.value): lambda x: x / 14.646,
         (
             VolumeUnits.CUBIC_INCHES.value,
             VolumeUnits.CUBIC_FEET.value,
@@ -158,18 +151,12 @@ CONVERSION_DATA = {
             VolumeUnits.GALLONS.value,
         ): lambda x: x
         / 231,
-        (VolumeUnits.CUPS.value, VolumeUnits.LITERS.value): lambda x: x
-        / 4.167,
-        (VolumeUnits.CUPS.value, VolumeUnits.CUBIC_INCHES.value): lambda x: x
-        * 14.646,
-        (VolumeUnits.CUPS.value, VolumeUnits.TABLESPOONS.value): lambda x: x
-        * 16.231,
-        (VolumeUnits.CUPS.value, VolumeUnits.CUBIC_FEET.value): lambda x: x
-        / 118,
-        (VolumeUnits.CUPS.value, VolumeUnits.GALLONS.value): lambda x: x
-        / 15.772,
-        (VolumeUnits.CUBIC_FEET.value, VolumeUnits.LITERS.value): lambda x: x
-        * 28.317,
+        (VolumeUnits.CUPS.value, VolumeUnits.LITERS.value): lambda x: x / 4.167,
+        (VolumeUnits.CUPS.value, VolumeUnits.CUBIC_INCHES.value): lambda x: x * 14.646,
+        (VolumeUnits.CUPS.value, VolumeUnits.TABLESPOONS.value): lambda x: x * 16.231,
+        (VolumeUnits.CUPS.value, VolumeUnits.CUBIC_FEET.value): lambda x: x / 118,
+        (VolumeUnits.CUPS.value, VolumeUnits.GALLONS.value): lambda x: x / 15.772,
+        (VolumeUnits.CUBIC_FEET.value, VolumeUnits.LITERS.value): lambda x: x * 28.317,
         (
             VolumeUnits.CUBIC_FEET.value,
             VolumeUnits.CUBIC_INCHES.value,
@@ -180,25 +167,20 @@ CONVERSION_DATA = {
             VolumeUnits.TABLESPOONS.value,
         ): lambda x: x
         * 1915,
-        (VolumeUnits.CUBIC_FEET.value, VolumeUnits.CUPS.value): lambda x: x
-        * 118,
-        (VolumeUnits.CUBIC_FEET.value, VolumeUnits.GALLONS.value): lambda x: x
-        * 7.481,
-        (VolumeUnits.GALLONS.value, VolumeUnits.LITERS.value): lambda x: x
-        * 3.785,
+        (VolumeUnits.CUBIC_FEET.value, VolumeUnits.CUPS.value): lambda x: x * 118,
+        (VolumeUnits.CUBIC_FEET.value, VolumeUnits.GALLONS.value): lambda x: x * 7.481,
+        (VolumeUnits.GALLONS.value, VolumeUnits.LITERS.value): lambda x: x * 3.785,
         (
             VolumeUnits.GALLONS.value,
             VolumeUnits.CUBIC_INCHES.value,
         ): lambda x: x
         * 231,
-        (VolumeUnits.GALLONS.value, VolumeUnits.CUBIC_FEET.value): lambda x: x
-        / 7.48,
+        (VolumeUnits.GALLONS.value, VolumeUnits.CUBIC_FEET.value): lambda x: x / 7.48,
         (
             VolumeUnits.GALLONS.value,
             VolumeUnits.TABLESPOONS.value,
         ): lambda x: x
         * 256,
-        (VolumeUnits.GALLONS.value, VolumeUnits.CUPS.value): lambda x: x
-        * 15.773,
+        (VolumeUnits.GALLONS.value, VolumeUnits.CUPS.value): lambda x: x * 15.773,
     },
 }

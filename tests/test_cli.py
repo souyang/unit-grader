@@ -13,9 +13,7 @@ from unit_grader.config.data import UNEXPECTED_EXIT
 # Create a CliRunner for testing the CLI app
 runner = CliRunner()
 
-grad_response_function_name = (
-    "unit_grader.commands.conversion_grader.grade_response"
-)
+grad_response_function_name = "unit_grader.commands.conversion_grader.grade_response"
 get_project_meta_function_name = "unit_grader.cli.get_project_meta"
 
 
@@ -57,9 +55,7 @@ def test_get_project_meta(mocker):
     """
 
     # Create a mocker fixture to mock the open function
-    mocker.patch(
-        "builtins.open", mocker.mock_open(read_data=sample_toml_content)
-    )
+    mocker.patch("builtins.open", mocker.mock_open(read_data=sample_toml_content))
 
     # Create a mock for 'tomli.load' function
     mocker.patch(
@@ -82,9 +78,7 @@ def test_not_get_project_meta(mocker):
     """
 
     # Create a mocker fixture to mock the open function
-    mocker.patch(
-        "builtins.open", mocker.mock_open(read_data=sample_toml_content)
-    )
+    mocker.patch("builtins.open", mocker.mock_open(read_data=sample_toml_content))
 
     # Create a mock for 'tomli.load' function
     mocker.patch(

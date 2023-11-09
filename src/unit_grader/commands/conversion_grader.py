@@ -32,9 +32,7 @@ def check_unit_existence(
     return None
 
 
-def validate_input(
-    from_unit: str, to_unit: str, input_value: str
-) -> Optional[str]:
+def validate_input(from_unit: str, to_unit: str, input_value: str) -> Optional[str]:
     """
     Validate the input values
 
@@ -120,9 +118,7 @@ def grade_response(
         return Answer.INCORRECT
 
     if from_unit == to_unit:
-        if np.round(float(input_value), 1) == np.round(
-            float(student_response), 1
-        ):
+        if np.round(float(input_value), 1) == np.round(float(student_response), 1):
             return Answer.CORRECT
         else:
             return Answer.INCORRECT

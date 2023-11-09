@@ -104,16 +104,12 @@ def grade_conversion(
         transient=True,
         console=console,
     ) as progress:
-        conversion_task = progress.add_task(
-            description="Processing...", total=1
-        )
+        conversion_task = progress.add_task(description="Processing...", total=1)
         print(f"\n[green]input_value: {input_value}[/green]")
         print(f"[green]from_unit: {from_unit}[/green]")
         print(f"[green]to_unit: {to_unit}[/green]")
         print(f"[green]student_response: {student_response}[/green]")
-        result = grade_response(
-            input_value, from_unit, to_unit, student_response
-        )
+        result = grade_response(input_value, from_unit, to_unit, student_response)
         progress.update(conversion_task, completed=1)
         progress.stop()
         print(f"\n[yellow]{result.value}[/yellow]")
