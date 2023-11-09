@@ -48,14 +48,13 @@ jobs:
     
       - name: Build the HTML
         run: |
+          ls docs
           python -m pip install --upgrade pip
           pip install sphinx sphinx_rtd_theme
+          sphinx-apidoc -o docs ./src
           cd docs
-          sphinx-apidoc -o docs ../src
-          make clean
           make html
           
-  
       - name: Deploy to Netlify
         id: netlify
         uses: nwtgck/actions-netlify@v1
