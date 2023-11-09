@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [3.9, "3.10", 3.11, 3.12]
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
         os: ["windows-latest", "ubuntu-latest", "macos-latest"]
 
     steps:
@@ -45,10 +45,6 @@ jobs:
 
     - name: Generate Documentation
       run: pdm run docgen
-
-    - name: Build and Publish
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      run: pdm build
   
     - name: Deploy Documentation
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -60,3 +56,7 @@ jobs:
         git add .
         git commit -m "Deploy documentation"
         git push --force --quiet "https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" master:gh-pages
+    
+    - name: Build and Publish
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      run: pdm build
