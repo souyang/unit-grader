@@ -92,10 +92,13 @@ def grade_conversion(
     ),
 ) -> None:
     """
+
     Unit Conversion Grader Tool to grade a student's
     response to the unit conversion question.
-        - Student's response must match the correct
-        answer after both value are rounded to the tenths place.
+
+    Student's response must match the correct answer after both value are
+    rounded to the tenths place.
+
     """
     console = Console()
     with Progress(

@@ -44,8 +44,13 @@ jobs:
       run: pdm run format
 
     - name: Generate Documentation
-      run: pdm run docgen
-  
+      run: |
+        sphinx-apidoc -o docs src/
+        cd docs
+        make clean
+        make html
+        cd ..
+
     - name: Deploy Documentation
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       run: |
@@ -59,4 +64,4 @@ jobs:
     
     - name: Build and Publish
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      run: pdm build
+      run: pdm publish
