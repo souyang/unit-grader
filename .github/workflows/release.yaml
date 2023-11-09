@@ -28,7 +28,4 @@ jobs:
 
     - name: Build and Publish
       run: |
-        pdm build
-        pdm publish --dry-run  # Test the publication process without actually publishing
-        pdm publish --repository pypi
-
+        pdm publish
