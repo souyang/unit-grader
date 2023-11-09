@@ -23,11 +23,10 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: ["3.9"]
-        os: ["windows-latest", "ubuntu-latest", "macos-latest"]
     permissions:
       contents: write
     steps:
