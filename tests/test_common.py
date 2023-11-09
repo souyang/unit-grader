@@ -89,9 +89,7 @@ test_convert_units_invalid_category = [
 def test_convert_units_invalid_category(
     input_value, from_unit, to_unit, category, conversion_data, expected
 ):
-    result = convert_units(
-        input_value, from_unit, to_unit, category, conversion_data
-    )
+    result = convert_units(input_value, from_unit, to_unit, category, conversion_data)
     assert result == expected
 
 
@@ -155,9 +153,7 @@ test_convert_units_invalid_from_unit_to_unit = [
 def test_convert_units_invalid_from_unit_to_unit(
     input_value, from_unit, to_unit, category, conversion_data, expected
 ):
-    result = convert_units(
-        input_value, from_unit, to_unit, category, conversion_data
-    )
+    result = convert_units(input_value, from_unit, to_unit, category, conversion_data)
     assert result == expected
 
 
@@ -194,9 +190,7 @@ test_convert_units_invalid_conversion_factor = [
 def test_convert_units_invalid_conversion_factor(
     input_value, from_unit, to_unit, category, conversion_data, expected
 ):
-    result = convert_units(
-        input_value, from_unit, to_unit, category, conversion_data
-    )
+    result = convert_units(input_value, from_unit, to_unit, category, conversion_data)
     assert result == expected
 
 
@@ -228,9 +222,7 @@ test_convert_units_same_valid_from_unit_to_unit = [
 def test_convert_units_same_valid_from_unit_to_unit(
     input_value, from_unit, to_unit, category, conversion_data, expected
 ):
-    result = convert_units(
-        input_value, from_unit, to_unit, category, conversion_data
-    )
+    result = convert_units(input_value, from_unit, to_unit, category, conversion_data)
     assert result == expected
 
 
@@ -273,9 +265,7 @@ test_convert_units_invalid_conversion_data = [
 def test_convert_units_invalid_conversion_data(
     input_value, from_unit, to_unit, category, conversion_data, expected
 ):
-    result = convert_units(
-        input_value, from_unit, to_unit, category, conversion_data
-    )
+    result = convert_units(input_value, from_unit, to_unit, category, conversion_data)
     assert result == expected
 
 
@@ -323,9 +313,7 @@ test_convert_units_invalid_conversion_function = [
 def test_convert_units_invalid_conversion_function(
     input_value, from_unit, to_unit, category, conversion_data, expected
 ):
-    result = convert_units(
-        input_value, from_unit, to_unit, category, conversion_data
-    )
+    result = convert_units(input_value, from_unit, to_unit, category, conversion_data)
     assert result == expected
 
 
@@ -799,7 +787,5 @@ test_convert_units_different_valid_from_unit_to_unit = [
 def test_convert_units_different_valid_from_unit_to_unit(
     input_value, from_unit, to_unit, category, conversion_data, expected
 ):
-    result = convert_units(
-        input_value, from_unit, to_unit, category, conversion_data
-    )
+    result = convert_units(input_value, from_unit, to_unit, category, conversion_data)
     assert result == expected

@@ -13,7 +13,10 @@ Main Functions:
 import os
 from typing import Optional
 import typer
-from unit_grader.config.data import UNIT_CONVERSION_INSTRUCTIONS, UNEXPECTED_EXIT
+from unit_grader.config.data import (
+    UNIT_CONVERSION_INSTRUCTIONS,
+    UNEXPECTED_EXIT,
+)
 from unit_grader.commands.conversion_grader import grade_response
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.console import Console
@@ -23,10 +26,11 @@ import tomli
 app = typer.Typer()  # creates a CLI app
 app_name = "unit-grader"
 
+
 def get_project_meta() -> Optional[dict[str, str]]:
     """
     Get the project metadata from the pyproject.toml file.
-    
+
     Args:
         None
 
@@ -41,6 +45,7 @@ def get_project_meta() -> Optional[dict[str, str]]:
     except (IOError, KeyError):
         return None  # Handle file I/O errors or missing 'project' key
 
+
 def version_callback(show_version: bool) -> None:
     """
     Get the project version from the pyproject.toml file.
@@ -54,8 +59,8 @@ def version_callback(show_version: bool) -> None:
 
     if show_version:
         pkg_meta = get_project_meta()
-        if ("version" not in pkg_meta):
-            typer.echo(f"Unable to get version configuration information. {UNEXPECTED_EXIT}")
+        if "version" not in pkg_meta:
+            typer.echo(f"Unable to get version information. {UNEXPECTED_EXIT}")
         else:
             app_version = str(pkg_meta["version"])
             typer.echo(f"{app_name}: {app_version}")
@@ -89,6 +94,8 @@ def grade_conversion(
     """
     Unit Conversion Grader Tool to grade a student's
     response to the unit conversion question.
+        - Student's response must match the correct
+        answer after both value are rounded to the tenths place.
     """
     console = Console()
     with Progress(
@@ -97,19 +104,15 @@ def grade_conversion(
         transient=True,
         console=console,
     ) as progress:
-        conversion_task = progress.add_task(
-            description="Processing...", total=1
-        )
+        conversion_task = progress.add_task(description="Processing...", total=1)
         print(f"\n[green]input_value: {input_value}[/green]")
         print(f"[green]from_unit: {from_unit}[/green]")
         print(f"[green]to_unit: {to_unit}[/green]")
         print(f"[green]student_response: {student_response}[/green]")
-        result = grade_response(
-            input_value, from_unit, to_unit, student_response
-        )
+        result = grade_response(input_value, from_unit, to_unit, student_response)
         progress.update(conversion_task, completed=1)
         progress.stop()
-        print(f"\nResult: {result.value}")
+        print(f"\n[yellow]{result.value}[/yellow]")
 
 
 if __name__ == "__main__":

@@ -1,22 +1,31 @@
-name: Build and publish Python packages to PyPI
+name: Release Pipeline
 
 on:
   workflow_dispatch:
-  release:
-    types:
-      - published
 
 jobs:
-  pypi-publish:
-    name: upload release to PyPI
-    runs-on: ubuntu-latest
-    permissions:
-      # IMPORTANT: this permission is mandatory for trusted publishing
-      id-token: write
+  build_and_publish:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        python-version: ["3.9"]
+        os: ["windows-latest", "ubuntu-latest", "macos-latest"]
+
     steps:
-      - uses: actions/checkout@v3
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
-      - uses: pdm-project/setup-pdm@v3
+    - name: Set up PDM
+      uses: pdm-project/setup-pdm@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: true
+        cache-dependency-path: '**/pdm.lock'
 
-      - name: Publish package distributions to PyPI
-        run: pdm publish
+    - name: Build and Publish
+      run: |
+        pdm build
+        pdm publish --dry-run  # Test the publication process without actually publishing
+        pdm publish --repository pypi
+
