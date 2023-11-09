@@ -46,13 +46,6 @@ jobs:
         pip install -U sphinx sphinx-rtd-theme
         sphinx-apidoc -f -o ./docs src/
         sphinx-build -b html ./docs ./docs/_build/html
-
-        - name: Set up PDM
-        uses: pdm-project/setup-pdm@v3
-        with:
-          python-version: ${{ matrix.python-version }}
-          cache: true
-          cache-dependency-path: '**/pdm.lock'
   
   deploy:
     runs-on: ${{ matrix.os }}
