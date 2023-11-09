@@ -4,7 +4,6 @@ on:
     push:
         branches:
             - main
-            - bug/keep-fixing-url
     workflow_dispatch:
 
 jobs:
