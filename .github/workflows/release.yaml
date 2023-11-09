@@ -26,7 +26,7 @@ jobs:
         cache: true
         cache-dependency-path: '**/pdm.lock'
 
-    - name: Build and Publish
+    - name: Build and Publish to PyPI
       run: |
-        pdm publish
+        pdm publish -u ${{ secrets.PYPI_USERNAME }} -p ${{ secrets.PYPI_PASSWORD }}
 
