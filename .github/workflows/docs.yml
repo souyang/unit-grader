@@ -1,5 +1,5 @@
 # Sample workflow for building and deploying a Jekyll site to GitHub Pages
-name: Deploy Jekyll with GitHub Pages dependencies preinstalled
+name: Deploy to GitHub Pages
 
 on:
   # Runs on pushes targeting the default branch
@@ -56,7 +56,7 @@ jobs:
         with:
           docs-folder: 'docs/'
           pre-build-command: 'pip install sphinx sphinx-rtd-theme'
-          build-command: 'sphinx-build -b html -nW ./src _build/html' 
+          build-command: 'sphinx-build -b html -nW . _build/html' 
     
       # Attach the HTML output the artifacts to the GitHub Actions job, for easier inspection.  
       - name: Upload artifacts
@@ -68,7 +68,7 @@ jobs:
       # If the change happens on the default branch, take the contents of docs/build/html and push it to the gh-pages branch.  
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: docs/_build/html

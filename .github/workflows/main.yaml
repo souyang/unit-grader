@@ -46,16 +46,8 @@ jobs:
         pip install -U sphinx sphinx-rtd-theme
         sphinx-apidoc -f -o ./docs src/
         sphinx-build -b html ./docs ./docs/_build/html
-  
-  deploy:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        python-version: ["3.9"]
-        os: ["windows-latest", "ubuntu-latest", "macos-latest"]
-    needs: build
-    steps:
-      - name: Build and Publish to PyPI
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: |
-          pdm publish -username ${{ secrets.PYPI_USERNAME }} -password ${{ secrets.PYPI_PASSWORD }}
+
+    - name: Build and Publish to PyPI
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      run: |
+        pdm publish -username ${{ secrets.PYPI_USERNAME }} -password ${{ secrets.PYPI_PASSWORD }}
