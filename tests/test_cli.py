@@ -45,7 +45,7 @@ def test_grade_conversion(mocker):
         ],
     )
     assert result.exit_code == 0
-    assert "Result:" in result.output
+    assert Answer.CORRECT.value in result.output
 
 
 def test_get_project_meta(mocker):

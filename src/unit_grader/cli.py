@@ -95,7 +95,8 @@ def grade_conversion(
 ) -> None:
     """
     Unit Conversion Grader Tool to grade a student's
-    response to the unit conversion question.
+    response to the unit conversion question. 
+        - Student's response must match the correct answer after both value are rounded to the tenths place.
     """
     console = Console()
     with Progress(
@@ -116,7 +117,7 @@ def grade_conversion(
         )
         progress.update(conversion_task, completed=1)
         progress.stop()
-        print(f"\nResult: {result.value}")
+        print(f"\n[yellow]{result.value}[/yellow]")
 
 
 if __name__ == "__main__":
