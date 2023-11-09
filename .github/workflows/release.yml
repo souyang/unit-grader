@@ -28,6 +28,6 @@ jobs:
 
   
             - name: Build and Publish to PyPI
-              if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+              if: github.ref == 'refs/heads/main'
               run: |
                 pdm publish --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }}              
