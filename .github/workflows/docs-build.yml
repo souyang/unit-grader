@@ -43,13 +43,13 @@ jobs:
           cache: true
           cache-dependency-path: '**/pdm.lock'
        
-      # Create Virtual Environment
-      - name: Create Virtual Environment
-        run: pdm venv create 3.9
+      # # Create Virtual Environment
+      # - name: Create Virtual Environment
+      #   run: pdm venv create 3.9
 
-      # Activate Virtual Environment
-      - name: Activate Virtual Environment
-        run: eval $(pdm venv activate for-test)
+      # # Activate Virtual Environment
+      # - name: Activate Virtual Environment
+      #   run: eval $(pdm venv activate for-test)
 
       # Install dependencies
       - name: Install dependencies
