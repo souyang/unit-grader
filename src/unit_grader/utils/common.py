@@ -17,8 +17,10 @@ def is_valid_numeric_string(numeric_string: str) -> bool:
     try:
         float(numeric_string)  # Try to convert the string to a float
         return True  # If successful, it's a valid numeric string
+    except TypeError:
+        return False
     except ValueError:
-        return False  # If it raises a ValueError, it's not a valid numeric string
+        return False
 
 
 def convert_units(
@@ -26,7 +28,7 @@ def convert_units(
     from_unit: str,
     to_unit: str,
     category: str,
-    conversion_data: str,
+    conversion_data: dict,
 ) -> Optional[float]:
     """
     Convert an input value from one unit to another.

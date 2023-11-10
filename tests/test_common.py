@@ -1,3 +1,12 @@
+"""
+    ----------------------------------------------------------------------------
+    This module contains the unit tests for the functions in the common.py file.
+    ----------------------------------------------------------------------------
+    The following functions are tested:
+        * is_valid_numeric_string
+        * convert_units
+
+"""
 from unit_grader.config.data import CONVERSION_DATA
 from unit_grader.utils.common import (
     convert_units,
@@ -22,7 +31,14 @@ test_is_valid_numeric_string_valid = [
     "input_value, expected",
     test_is_valid_numeric_string_valid,
 )
-def test_is_valid_numeric_string_valid(input_value, expected):
+def test_is_valid_numeric_string_valid(input_value: str, expected: bool) -> None:
+    """
+    Test the is_valid_numeric_string function with valid input.
+
+    Expected Behavior:
+    -------------------
+    Ensure that the function returns True.
+    """
     result = is_valid_numeric_string(input_value)
     assert result == expected
 
@@ -33,6 +49,7 @@ test_is_valid_numeric_string_invalid = [
     ("-25.0+", False),
     ("hello", False),
     ("234hello", False),
+    (None, False),
 ]
 
 
@@ -40,7 +57,14 @@ test_is_valid_numeric_string_invalid = [
     "input_value, expected",
     test_is_valid_numeric_string_invalid,
 )
-def test_is_valid_numeric_string_invalid(input_value, expected):
+def test_is_valid_numeric_string_invalid(input_value: str, expected: bool) -> None:
+    """
+    Test the is_valid_numeric_string function with invalid input.
+
+    Expected Behavior:
+    -------------------
+    Ensure that the function returns False
+    """
     result = is_valid_numeric_string(input_value)
     assert result == expected
 
@@ -87,8 +111,20 @@ test_convert_units_invalid_category = [
     test_convert_units_invalid_category,
 )
 def test_convert_units_invalid_category(
-    input_value, from_unit, to_unit, category, conversion_data, expected
-):
+    input_value: str,
+    from_unit: str,
+    to_unit: str,
+    category: str,
+    conversion_data: dict,
+    expected: bool,
+) -> None:
+    """
+    Test the convert_units function with invalid category.
+
+    Expected Behavior:
+    -------------------
+    Ensure that the function returns None.
+    """
     result = convert_units(input_value, from_unit, to_unit, category, conversion_data)
     assert result == expected
 
@@ -151,8 +187,13 @@ test_convert_units_invalid_from_unit_to_unit = [
     test_convert_units_invalid_from_unit_to_unit,
 )
 def test_convert_units_invalid_from_unit_to_unit(
-    input_value, from_unit, to_unit, category, conversion_data, expected
-):
+    input_value: str,
+    from_unit: str,
+    to_unit: str,
+    category: str,
+    conversion_data: dict,
+    expected: bool,
+) -> None:
     result = convert_units(input_value, from_unit, to_unit, category, conversion_data)
     assert result == expected
 
@@ -188,8 +229,20 @@ test_convert_units_invalid_conversion_factor = [
     test_convert_units_invalid_conversion_factor,
 )
 def test_convert_units_invalid_conversion_factor(
-    input_value, from_unit, to_unit, category, conversion_data, expected
-):
+    input_value: str,
+    from_unit: str,
+    to_unit: str,
+    category: str,
+    conversion_data: dict,
+    expected: bool,
+) -> None:
+    """
+    Test the convert_units function with invalid conversion factor.
+
+    Expected Behavior:
+    -------------------
+    Ensure that the function returns None.
+    """
     result = convert_units(input_value, from_unit, to_unit, category, conversion_data)
     assert result == expected
 
@@ -220,8 +273,20 @@ test_convert_units_same_valid_from_unit_to_unit = [
     test_convert_units_same_valid_from_unit_to_unit,
 )
 def test_convert_units_same_valid_from_unit_to_unit(
-    input_value, from_unit, to_unit, category, conversion_data, expected
-):
+    input_value: str,
+    from_unit: str,
+    to_unit: str,
+    category: str,
+    conversion_data: dict,
+    expected: bool,
+) -> None:
+    """
+    Test the convert_units function with same valid from_unit to_unit.
+
+    Expected Behavior:
+    -------------------
+    Ensure that the function returns the input value.
+    """
     result = convert_units(input_value, from_unit, to_unit, category, conversion_data)
     assert result == expected
 
@@ -263,8 +328,20 @@ test_convert_units_invalid_conversion_data = [
     test_convert_units_invalid_conversion_data,
 )
 def test_convert_units_invalid_conversion_data(
-    input_value, from_unit, to_unit, category, conversion_data, expected
-):
+    input_value: str,
+    from_unit: str,
+    to_unit: str,
+    category: str,
+    conversion_data: dict,
+    expected: bool,
+) -> None:
+    """
+    Test the convert_units function when the conversion function is None.
+
+    Expected Behavior:
+    -------------------
+    Ensure that the function returns None.
+    """
     result = convert_units(input_value, from_unit, to_unit, category, conversion_data)
     assert result == expected
 
@@ -311,8 +388,20 @@ test_convert_units_invalid_conversion_function = [
     test_convert_units_invalid_conversion_function,
 )
 def test_convert_units_invalid_conversion_function(
-    input_value, from_unit, to_unit, category, conversion_data, expected
-):
+    input_value: str,
+    from_unit: str,
+    to_unit: str,
+    category: str,
+    conversion_data: dict,
+    expected: bool,
+) -> None:
+    """
+    Test the convert_units function when the conversion function is invalid.
+
+    Expected Behavior:
+    -------------------
+    Ensure that the function returns None.
+    """
     result = convert_units(input_value, from_unit, to_unit, category, conversion_data)
     assert result == expected
 
@@ -785,7 +874,19 @@ test_convert_units_different_valid_from_unit_to_unit = [
     test_convert_units_different_valid_from_unit_to_unit,
 )
 def test_convert_units_different_valid_from_unit_to_unit(
-    input_value, from_unit, to_unit, category, conversion_data, expected
-):
+    input_value: str,
+    from_unit: str,
+    to_unit: str,
+    category: str,
+    conversion_data: dict,
+    expected: bool,
+) -> None:
+    """
+    Test the convert_units function with different valid from_unit to_unit.
+
+    Expected Behavior:
+    -------------------
+    Ensure that the function returns the correct value.
+    """
     result = convert_units(input_value, from_unit, to_unit, category, conversion_data)
     assert result == expected

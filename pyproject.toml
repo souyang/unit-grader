@@ -68,6 +68,7 @@ doc = [
 dev = [
     "pre-commit>=3.5.0",
     "codespell>=2.2.6",
+    "bump2version>=1.0.1",
 ]
 [tool.black]
 line-length = 88
@@ -92,6 +93,10 @@ max-line-length = 88
 [tool.codespell]
 skip = "./htmlcov/*,./docs/*,./.git,./.pdm,./.pytest_cache,./.vscode,./.github,./.gitignore,./.gitattributes,./.gitmodules,./.pre-commit-config.yaml,pdm.lock"
 
+[tool.bump2version]
+current_version = "1.0.2"
+commit = true
+tag = true
 
 [build-system]
 requires = ["pdm-backend"]
