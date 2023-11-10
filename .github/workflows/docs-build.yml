@@ -1,11 +1,10 @@
 # Sample workflow for building and deploying a Jekyll site to GitHub Pages
-name: Build and Deploy documentation
+name: API Documentation
 
 on:
   # Runs on pushes targeting the default branch
   push:
-    # branches: ["main"]
-    branches: ["feature/doc-ci-pipeline"]
+    branches: ["main"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
