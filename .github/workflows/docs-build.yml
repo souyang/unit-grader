@@ -45,13 +45,13 @@ jobs:
 
       # Install dependencies
       - name: Install dependencies
-        run: pdm sync
+        run: pdm install
     
       - name: Build the HTML
         run: |
           ls docs -R # list files and directories recursively
           python -m pip install --upgrade pip
-          pip install sphinx sphinx_rtd_theme typer numpy
+          pip install sphinx sphinx_rtd_theme
           sphinx-apidoc -o docs ./src
           ls docs -R # list files and directories recursively
           cd docs
