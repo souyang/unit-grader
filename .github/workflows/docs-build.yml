@@ -49,11 +49,9 @@ jobs:
     
       - name: Build the HTML
         run: |
-          ls docs -R # list files and directories recursively
           python -m pip install --upgrade pip
-          pip install sphinx sphinx_rtd_theme
+          pip install sphinx sphinx_rtd_theme numpy "typer[all]"
           sphinx-apidoc -o docs ./src
-          ls docs -R # list files and directories recursively
           cd docs
           make clean
           make html
