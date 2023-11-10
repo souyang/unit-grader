@@ -1,5 +1,5 @@
 # Sample workflow for building and deploying a Jekyll site to GitHub Pages
-name: Build and Deploy documentation
+name: API Documentation
 
 on:
   # Runs on pushes targeting the default branch
@@ -41,26 +41,16 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: true
           cache-dependency-path: '**/pdm.lock'
-       
-      # Create Virtual Environment
-      - name: Create Virtual Environment
-        run: pdm venv create 3.9
-
-      # Activate Virtual Environment
-      - name: Activate Virtual Environment
-        run: eval $(pdm venv activate for-test)
 
       # Install dependencies
       - name: Install dependencies
-        run: pdm sync
+        run: pdm install
     
       - name: Build the HTML
         run: |
-          ls docs -R # list files and directories recursively
           python -m pip install --upgrade pip
-          pip install sphinx sphinx_rtd_theme
+          pip install sphinx sphinx_rtd_theme numpy "typer[all]"
           sphinx-apidoc -o docs ./src
-          ls docs -R # list files and directories recursively
           cd docs
           make clean
           make html

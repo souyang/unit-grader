@@ -4,16 +4,16 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 import os
 import sys
-from unit_grader.cli import get_project_meta
-sys.path.insert(0, os.path.abspath('..'))
+
+sys.path.insert(0, os.path.abspath('../src'))
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
-pkg_meta = get_project_meta()
+
 project = 'Unit Conversion Grader'
 copyright = '2023, Simon Ouyang'
 author = 'Simon Ouyang'
-release = str(pkg_meta["version"]) if "version" in pkg_meta else "1.0.0"
+release = '1.0.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -23,6 +23,9 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.napoleon'
 ]
+
+# The master toctree document.
+master_doc = "index"
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
