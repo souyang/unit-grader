@@ -94,7 +94,7 @@ max-line-length = 88
 skip = "./htmlcov/*,./docs/*,./.git,./.pdm,./.pytest_cache,./.vscode,./.github,./.gitignore,./.gitattributes,./.gitmodules,./.pre-commit-config.yaml,pdm.lock"
 
 [tool.bump2version]
-current_version = "pyproject.toml:project.version"
+current_version = "1.0.2"
 commit = true
 tag = true
 
