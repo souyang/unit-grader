@@ -41,7 +41,15 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: true
           cache-dependency-path: '**/pdm.lock'
-        
+       
+      # Create Virtual Environment
+      - name: Create Virtual Environment
+        run: pdm venv create 3.9
+
+      # Activate Virtual Environment
+      - name: Activate Virtual Environment
+        run: eval $(pdm venv activate for-test)
+
       # Install dependencies
       - name: Install dependencies
         run: pdm sync
@@ -54,6 +62,7 @@ jobs:
           sphinx-apidoc -o docs ./src
           ls docs -R # list files and directories recursively
           cd docs
+          make clean
           make html
           
       - name: Deploy to Netlify
