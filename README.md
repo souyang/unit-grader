@@ -7,7 +7,7 @@ Unit Conversion Grader a command-line interface (CLI) program that allows you to
 
 Choose either **stable** or **development**.
 
-### Stable Release
+### Stable
 
 - `python -m pip install unit-grader`
 
