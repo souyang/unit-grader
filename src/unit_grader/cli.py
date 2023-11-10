@@ -19,7 +19,6 @@ from unit_grader.config.data import (
 )
 from unit_grader.commands.conversion_grader import grade_response
 from rich.progress import Progress, SpinnerColumn, TextColumn
-from rich.console import Console
 from rich import print
 import tomli
 
@@ -70,25 +69,28 @@ def version_callback(show_version: bool) -> None:
 @app.command(name=app_name, no_args_is_help=True)
 def grade_conversion(
     input_value: str = typer.Option(
-        None, "--input-value", "-i", help="Input numerical value."
+        ..., "--input-value", "-i", help="Input numerical value."
     ),
     from_unit: str = typer.Option(
-        None,
+        ...,
         "--from-unit",
         "-f",
         help=f"Input conversion unit: {UNIT_CONVERSION_INSTRUCTIONS}",
     ),
     to_unit: str = typer.Option(
-        None,
+        ...,
         "--to-unit",
         "-t",
         help=f"Target conversion unit: {UNIT_CONVERSION_INSTRUCTIONS}",
     ),
     student_response: str = typer.Option(
-        None, "--student-response", "-s", help="Student's response."
+        ..., "--student-response", "-s", help="Student's response."
     ),
-    version: Optional[bool] = typer.Option(
-        None, "--version", "-V", callback=version_callback, is_eager=True
+    verbose: bool = typer.Option(
+        False, "--verbose", "-v", help="Enable verbose output."
+    ),
+    version: bool = typer.Option(
+        False, "--version", "-V", callback=version_callback, is_eager=True
     ),
 ) -> None:
     """
@@ -100,18 +102,18 @@ def grade_conversion(
     rounded to the tenths place.
 
     """
-    console = Console()
     with Progress(
         SpinnerColumn(),
         TextColumn("[progress.description]{task.description}"),
         transient=True,
-        console=console,
     ) as progress:
         conversion_task = progress.add_task(description="Processing...", total=1)
-        print(f"\n[green]input_value: {input_value}[/green]")
-        print(f"[green]from_unit: {from_unit}[/green]")
-        print(f"[green]to_unit: {to_unit}[/green]")
-        print(f"[green]student_response: {student_response}[/green]")
+        if verbose:
+            print("[green]Verbose mode is enabled.[/green]")
+            print(f"[green]input_value: {input_value}[/green]")
+            print(f"[green]from_unit: {from_unit}[/green]")
+            print(f"[green]to_unit: {to_unit}[/green]")
+            print(f"[green]student_response: {student_response}[/green]")
         result = grade_response(input_value, from_unit, to_unit, student_response)
         progress.update(conversion_task, completed=1)
         progress.stop()

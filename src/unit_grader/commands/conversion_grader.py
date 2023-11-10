@@ -48,10 +48,10 @@ def validate_input(from_unit: str, to_unit: str, input_value: str) -> Optional[s
 
     try:
         if not is_valid_numeric_string(input_value):
-            raise ValueError(
+            raise TypeError(
                 (
                     f"{input_value} as input_value"
-                    f" needs to be numeric. {HELP_INSTRUCTION}"
+                    f" needs to be a number. {HELP_INSTRUCTION}"
                 )
             )
         from_unit_category = check_unit_existence(UNITS, from_unit)
@@ -81,7 +81,9 @@ def validate_input(from_unit: str, to_unit: str, input_value: str) -> Optional[s
                     f" for a valid conversion. {UNIT_CONVERSION_INSTRUCTIONS}"
                 )
             )
-
+    except TypeError as e:
+        print(f"[bold red]Input Error: {e}[/bold red]")
+        return None
     except ValueError as e:
         print(f"[bold red]Input Error: {e}[/bold red]")
         return None
@@ -109,7 +111,6 @@ def grade_response(
     """
     # unit name validation
     category = validate_input(from_unit, to_unit, input_value)
-
     if category is None:  # invalid input
         return Answer.INVALID
 

@@ -1,3 +1,11 @@
+"""
+End-to-End Tests for the Unit Grader CLI App
+------------------------------------------------------------------
+This module contains end-to-end tests for the unit_grader CLI app.
+------------------------------------------------------------------
+The following commands are tested:
+        * unit-grader
+"""
 import pytest
 from typer.testing import CliRunner
 
@@ -58,8 +66,15 @@ test_case_valid_input_correct_response = [
     test_case_valid_input_correct_response,
 )
 def test_grade_conversion_valid_input_correct_response(
-    input_value, from_unit, to_unit, student_response
-):
+    input_value: str, from_unit: str, to_unit: str, student_response: str
+) -> None:
+    """
+    Test the grade_conversion CLI command with valid input and correct response.
+
+    Expected Behavior:
+    -------------------
+    Ensure that the function returns correct.
+    """
     result = runner.invoke(
         app,
         [
@@ -94,8 +109,15 @@ test_case_valid_input_incorrect_response = [
     test_case_valid_input_incorrect_response,
 )
 def test_grade_conversion_valid_input_incorrect_response(
-    input_value, from_unit, to_unit, student_response
-):
+    input_value: str, from_unit: str, to_unit: str, student_response: str
+) -> None:
+    """
+    Test the grade_conversion CLI command with valid input and correct response.
+
+    Expected Behavior:
+    -------------------
+    Ensure that the function returns incorrect.
+    """
     result = runner.invoke(
         app,
         [
@@ -139,8 +161,15 @@ test_case_invalid_input = [
     test_case_invalid_input,
 )
 def test_grade_conversion_invalid_input(
-    input_value, from_unit, to_unit, student_response
-):
+    input_value: str, from_unit: str, to_unit: str, student_response: str
+) -> None:
+    """
+    Test the grade_conversion CLI command with invalid input.
+
+    Expected Behavior:
+    -------------------
+    Ensure that the function returns invalid.
+    """
     result = runner.invoke(
         app,
         [

@@ -41,5 +41,9 @@ jobs:
     - name: Format Code
       run: pdm run format
 
-    - name: Build Package
-      run: pdm build
+    - name: Build and Publish to PyPI
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      run: |
+        pip install bump2version
+        bump2version --current-version 
+        pdm publish --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }} 
