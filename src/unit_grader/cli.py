@@ -37,10 +37,16 @@ def get_project_meta() -> Optional[dict[str, str]]:
         dict: The project metadata.
     """
     try:
+        # use tomli instead of importlib.metadata
+        # since after have bumper2version installed,
+        # importlib.metadata return the version with unexpected postfix
+        # i.e., version is 1.0.1+editable instead of 1.0.1
         script_dir = os.path.dirname(os.path.abspath(__file__))
         version_file_path = os.path.join(script_dir, "../../pyproject.toml")
         with open(version_file_path, mode="rb") as pyproject:
             return tomli.load(pyproject)["project"]
+    except tomli.TOMLDecodeError:
+        return None  # Invalid TOML file
     except (IOError, KeyError):
         return None  # Handle file I/O errors or missing 'project' key
 
@@ -59,7 +65,9 @@ def version_callback(show_version: bool) -> None:
     if show_version:
         pkg_meta = get_project_meta()
         if "version" not in pkg_meta:
-            typer.echo(f"Unable to get version information. {UNEXPECTED_EXIT}")
+            typer.echo(
+                f"[bold red]Unable to get version information. {UNEXPECTED_EXIT}[/bold red]"
+            )
         else:
             app_version = str(pkg_meta["version"])
             typer.echo(f"{app_name}: {app_version}")

@@ -31,6 +31,16 @@ Typer was selected for its clean and intuitive syntax, making it easy to build p
 - Integration with Python type hints for better code readability and type checking when compared with `Click`.
 - Typer's CliRunner provides a convenient way to simulate command-line input and output for integration testing without any external process when compared with `Argparse` and `Click`. 
 
+## Tomli
+Tomli is a Python library for parsing TOML. It is fully compatible with TOML v1.0.0.
+
+### Why we choose Tomli
+It is 100% spec compliant and is the fastest pure Python parson with no dependencies and it could solve the issue of importlib.metadata output local version identifier (such as +editable)
+
+### Comparison with other tools
+- It is pure Python with zero dependencies
+- It is 16x faster than tomlkit and 2.3x faster than toml
+- It eliminate the local veresion identifier (such as +editable) when output version
 
 ## Pre-Commit
 

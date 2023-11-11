@@ -178,7 +178,7 @@ def test_get_project_meta(mocker: pytest_mock.MockFixture) -> None:
     assert project_meta == {"name": "my_project", "version": "1.0.0"}
 
 
-def test_not_get_project_meta(mocker: pytest_mock.MockFixture) -> None:
+def test_not_get_project_meta_valid_toml(mocker: pytest_mock.MockFixture) -> None:
     """
     Test the get_project_meta function
      when incorrect data is present in pyproject.toml.
@@ -203,6 +203,32 @@ def test_not_get_project_meta(mocker: pytest_mock.MockFixture) -> None:
         "tomli.load",
         return_value={"test": {"name": "my_project", "version": "1.0.0"}},
     )
+
+    project_meta = get_project_meta()
+
+    # Assert that the 'tomli.load' function was called with wrong data
+    assert project_meta is None
+
+
+def test_not_get_project_meta_invalid_toml(mocker: pytest_mock.MockFixture) -> None:
+    """
+    Test the get_project_meta function
+     when incorrect data is present in pyproject.toml.
+
+    Expected Behavior:
+    -------------------
+    Ensure that the function returns None.
+
+    """
+    # Define a sample TOML content loaded from pyproject.toml
+    sample_toml_content = b"""
+    test
+    name = "my_project"
+    version = "1.0.0"
+    """
+
+    # Create a mocker fixture to mock the open function
+    mocker.patch("builtins.open", mocker.mock_open(read_data=sample_toml_content))
 
     project_meta = get_project_meta()
 
@@ -254,4 +280,7 @@ def test_version_callback_no_version_data(
     # Capture the output using capsys
     captured = capsys.readouterr()
     output = captured.out.strip()
-    assert output == f"Unable to get version information. {UNEXPECTED_EXIT}"
+    assert (
+        output
+        == f"[bold red]Unable to get version information. {UNEXPECTED_EXIT}[/bold red]"
+    )
