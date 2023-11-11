@@ -6,16 +6,26 @@
         * grade_conversion
         * get_project_meta
         * version_callback
+        * enable_verbose
 
 """
 import pytest
 import pytest_mock
-from typer.testing import CliRunner
 from typer import Exit
-from unit_grader.cli import app, get_project_meta, version_callback, app_name
-from unit_grader.config.enums import Answer
-from unit_grader.config.data import UNEXPECTED_EXIT
+from typer.testing import CliRunner
 
+from unit_grader.cli import (
+    app,
+    app_name,
+    get_project_meta,
+    version_callback,
+    enableLogging,
+)
+from unit_grader.config.data import UNEXPECTED_EXIT
+from unit_grader.config.enums import Answer
+import logging
+
+LOGGER = logging.getLogger(__name__)
 # Create a CliRunner for testing the CLI app
 runner = CliRunner()
 
@@ -60,7 +70,46 @@ def test_grade_conversion_without_verbose(mocker: pytest_mock.MockFixture) -> No
     assert Answer.CORRECT.value in result.output
 
 
-def test_grade_conversion_verbose(mocker: pytest_mock.MockFixture) -> None:
+@pytest.fixture
+def setup_logging():
+    logging.basicConfig(level=logging.NOTSET)
+
+
+def test_enable_verbose(
+    capfd: pytest.CaptureFixture, mocker: pytest_mock.MockerFixture
+) -> None:
+    """
+    Test the enable_verbose function
+     when verbose is True
+
+    Expected Behavior:
+    -------------------
+    Ensure that verbose mode is enabled
+    """
+    mock_logger_basicConfig = mocker.patch("logging.basicConfig")
+    enableLogging(verbose=True)
+    mock_logger_basicConfig.assert_called_once_with(
+        level=logging.DEBUG, format="[%(levelname)s] %(message)s"
+    )
+    captured = capfd.readouterr()
+    assert "Verbose mode is enabled." in captured.out
+
+
+def test_enableLogging_non_verbose(
+    capfd: pytest.CaptureFixture, mocker: pytest_mock.MockerFixture
+) -> None:
+    mock_logger_basicConfig = mocker.patch("logging.basicConfig")
+    enableLogging(verbose=False)
+    mock_logger_basicConfig.assert_called_once_with(
+        level=logging.INFO, format="[%(levelname)s] %(message)s"
+    )
+    captured = capfd.readouterr()
+    assert "Verbose mode is enabled." not in captured.out
+
+
+def test_grade_conversion_verbose(
+    mocker: pytest_mock.MockFixture, caplog: pytest.CaptureFixture
+) -> None:
     """
     Test the grade_conversion CLI command with correct arugments and verbose mode
 
@@ -73,6 +122,7 @@ def test_grade_conversion_verbose(mocker: pytest_mock.MockFixture) -> None:
         grad_response_function_name,
         return_value=Answer.CORRECT,
     )
+    caplog.set_level(logging.DEBUG)
     result = runner.invoke(
         app,
         [
@@ -84,15 +134,15 @@ def test_grade_conversion_verbose(mocker: pytest_mock.MockFixture) -> None:
             "Kelvin",
             "--student-response",
             "305.2",
-            "--verbose"
+            "--verbose",
         ],
     )
     assert result.exit_code == 0
     assert "Verbose mode is enabled." in result.output
-    assert "input_value: 32" in result.output
-    assert "from_unit: Celsius" in result.output
-    assert "to_unit: Kelvin" in result.output
-    assert "student_response: 305.2" in result.output
+    assert "input_value: 32" in caplog.text
+    assert "from_unit: Celsius" in caplog.text
+    assert "to_unit: Kelvin" in caplog.text
+    assert "student_response: 305.2" in caplog.text
     assert Answer.CORRECT.value in result.output
 
 
@@ -128,7 +178,7 @@ def test_get_project_meta(mocker: pytest_mock.MockFixture) -> None:
     assert project_meta == {"name": "my_project", "version": "1.0.0"}
 
 
-def test_not_get_project_meta(mocker: pytest_mock.MockFixture) -> None:
+def test_not_get_project_meta_valid_toml(mocker: pytest_mock.MockFixture) -> None:
     """
     Test the get_project_meta function
      when incorrect data is present in pyproject.toml.
@@ -153,6 +203,32 @@ def test_not_get_project_meta(mocker: pytest_mock.MockFixture) -> None:
         "tomli.load",
         return_value={"test": {"name": "my_project", "version": "1.0.0"}},
     )
+
+    project_meta = get_project_meta()
+
+    # Assert that the 'tomli.load' function was called with wrong data
+    assert project_meta is None
+
+
+def test_not_get_project_meta_invalid_toml(mocker: pytest_mock.MockFixture) -> None:
+    """
+    Test the get_project_meta function
+     when incorrect data is present in pyproject.toml.
+
+    Expected Behavior:
+    -------------------
+    Ensure that the function returns None.
+
+    """
+    # Define a sample TOML content loaded from pyproject.toml
+    sample_toml_content = b"""
+    test
+    name = "my_project"
+    version = "1.0.0"
+    """
+
+    # Create a mocker fixture to mock the open function
+    mocker.patch("builtins.open", mocker.mock_open(read_data=sample_toml_content))
 
     project_meta = get_project_meta()
 
@@ -204,4 +280,7 @@ def test_version_callback_no_version_data(
     # Capture the output using capsys
     captured = capsys.readouterr()
     output = captured.out.strip()
-    assert output == f"Unable to get version information. {UNEXPECTED_EXIT}"
+    assert (
+        output
+        == f"[bold red]Unable to get version information. {UNEXPECTED_EXIT}[/bold red]"
+    )

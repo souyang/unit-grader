@@ -9,22 +9,16 @@
         * grade_response
 
 """
+import pytest
 import pytest_mock
+
 from unit_grader.commands.conversion_grader import (
     check_unit_existence,
-    validate_input,
     grade_response,
-)
-
-from unit_grader.config.enums import (
-    Answer,
-    UnitCategory,
-    TemperatureUnits,
-    VolumeUnits,
+    validate_input,
 )
 from unit_grader.config.data import UNITS
-
-import pytest
+from unit_grader.config.enums import Answer, TemperatureUnits, UnitCategory, VolumeUnits
 
 # Define the function names for patching
 check_unit_existence_function_name = (

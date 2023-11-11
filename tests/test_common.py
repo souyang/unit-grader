@@ -7,17 +7,11 @@
         * convert_units
 
 """
-from unit_grader.config.data import CONVERSION_DATA
-from unit_grader.utils.common import (
-    convert_units,
-    is_valid_numeric_string,
-)
-from unit_grader.config.enums import (
-    UnitCategory,
-    TemperatureUnits,
-    VolumeUnits,
-)
 import pytest
+
+from unit_grader.config.data import CONVERSION_DATA
+from unit_grader.config.enums import TemperatureUnits, UnitCategory, VolumeUnits
+from unit_grader.utils.common import convert_units, is_valid_numeric_string
 
 # is_valid_numeric_string
 test_is_valid_numeric_string_valid = [
@@ -352,15 +346,13 @@ mock_data_invalid_conversion_fuction = {
         (
             TemperatureUnits.CELSIUS.value,
             TemperatureUnits.KELVIN.value,
-        ): lambda x: x
-        / 0,
+        ): lambda x: x / 0,
     },
     UnitCategory.VOLUME.value: {
         (
             VolumeUnits.LITERS.value,
             VolumeUnits.CUBIC_INCHES.value,
-        ): lambda x: x
-        / 0,
+        ): lambda x: x / 0,
     },
 }
 test_convert_units_invalid_conversion_function = [
