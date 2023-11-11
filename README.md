@@ -5,9 +5,12 @@ Unit Conversion Grader a command-line interface (CLI) program that allows you to
 
 ## Installation
 
-Choose either **stable** or **development**.
+Choose either **stable release** or **development**.
 
-### Stable
+### Python and Pip Installation
+Please ensure you download and install python3.9+ and pip. Checkout [python official webiste](https://www.python.org/downloads/) and [pip official website](https://pip.pypa.io/en/stable/cli/pip_download/) for detail.
+
+### Stable Release
 
 - `python -m pip install unit-grader`
 
@@ -93,7 +96,7 @@ student_response: 305.2
 
 
 ## CI/CD Pipeline for code
-This project uses CI/CD pipelines to automate the testing, building, and deployment processes. The main CI/CD tool employed is [GitHub Actions], and the configuration is stored in [`.github/workflows/main.yaml`, `.github/workflows/docs.yaml`, `.github/workflows/main.yaml`].
+This project uses CI/CD pipelines to automate the testing, building, and deployment processes. The main CI/CD tool employed is [GitHub Actions], and the configuration is stored in [`.github/workflows/main.yaml`, `.github/workflows/docs.yaml`].
 
 ### Continuous Integration (CI)
 
@@ -113,12 +116,43 @@ The CD pipeline is triggered when changes are merged into the main branch, and i
 3. **End-to-End Tests**: [Optional] Automated end-to-end tests may be performed in the staging environment.
 4. **Deployment to Production**: Upon successful testing, the application is deployed to the production environment.
 
+## Documentation
+
+This project's documentation is automatically generated using Sphinx and integrated into the CI/CD pipeline. The documentation includes details about the API, code structure, and usage.
+
+### API Documentation
+
+The API documentation is generated from docstrings in the source code. Sphinx extracts these docstrings and formats them into a user-friendly documentation website. To view the latest documentation, visit [Documentation Link].
+
+### Generation in CI/CD Pipeline
+
+The documentation is automatically generated and deployed as part of the CI/CD pipeline when a commit is pushed to the `main` branch. The main steps in the CI/CD pipeline related to documentation are as follows:
+
+1. **Documentation Build**: Sphinx is used to build the documentation from the source code.
+2. **Artifact Storage**: The generated documentation artifacts are stored, making them accessible for further steps.
+3. **Deployment**: The documentation is deployed to Netlify. Please see [here](https://unit-grader-api-docs.netlify.app/)
+
+### Viewing the Documentation Locally
+
+To build and view the documentation locally, follow these steps:
+
+```bash
+# Install Sphinx (if not already installed)
+pdm install
+# Lint, format code and build api docs
+pre-commit run --all-files
+# Change to the 'docs' directory
+cd docs
+# Open the generated HTML files in a browser
+open _build/html/index.html
+```
+
 ## Vision
 
 
 
 ## Contributing
-We welcome contributions! Please follow our contribution guidelines.
+We welcome contributions! Please follow our contribution guidelines [here](.github/CONTRIBUTING.md).
 
 ## Licence
 This project is licensed under the MIT License.

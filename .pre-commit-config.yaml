@@ -13,26 +13,35 @@ repos:
   rev: v0.15
   hooks:
     - id: validate-pyproject
-      name: Validate pyproject.toml
 
 - repo: https://github.com/pycqa/isort
   rev: 5.12.0
   hooks:
   - id: isort
-    name: Format imports
+    name: Sort imports with isort
     args: ["--profile", "black"]
-    
+
 - repo: https://github.com/psf/black
   rev: 23.1.0
   hooks:
     - id: black
-      name: Format code
+      name: Format code with black
       args: [--config, pyproject.toml]
-      type: [python]
 
 - repo: https://github.com/PyCQA/flake8
   rev: 6.0.0
   hooks:
     - id: flake8
-      name: Check PEP8
+      name: Check code style with flake8
       args: [--config, .flake8]
+
+- repo: local
+  hooks:
+    - id: api-docs
+      name: Generate API docs
+      language: python
+      entry: bash -c "sphinx-apidoc -f -o docs src && cd docs && make clean && make html"
+      pass_filenames: false
+      additional_dependencies:
+        - sphinx
+        - sphinx_rtd_theme
