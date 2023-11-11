@@ -10,6 +10,7 @@ Main Functions:
         - to_unit: The target unit mentioned in the question.
         - student_response: The student's response.
 """
+import logging
 import os
 from typing import Optional
 
@@ -65,6 +66,15 @@ def version_callback(show_version: bool) -> None:
         raise typer.Exit()
 
 
+def enableLogging(verbose: bool) -> None:
+    lvl = logging.INFO
+    fmt = "[%(levelname)s] %(message)s"
+    if verbose:
+        print("[green]Verbose mode is enabled.[/green]")
+        lvl = logging.DEBUG
+    logging.basicConfig(level=lvl, format=fmt)
+
+
 @app.command(name=app_name, no_args_is_help=True)
 def grade_conversion(
     input_value: str = typer.Option(
@@ -107,16 +117,15 @@ def grade_conversion(
         transient=True,
     ) as progress:
         conversion_task = progress.add_task(description="Processing...", total=1)
-        if verbose:
-            print("[green]Verbose mode is enabled.[/green]")
-            print(f"[green]input_value: {input_value}[/green]")
-            print(f"[green]from_unit: {from_unit}[/green]")
-            print(f"[green]to_unit: {to_unit}[/green]")
-            print(f"[green]student_response: {student_response}[/green]")
+        enableLogging(verbose)
+        logging.debug(f"input_value: {input_value}")
+        logging.debug(f"from_unit: {from_unit}")
+        logging.debug(f"to_unit: {to_unit}")
+        logging.debug(f"student_response: {student_response}")
         result = grade_response(input_value, from_unit, to_unit, student_response)
         progress.update(conversion_task, completed=1)
         progress.stop()
-        print(f"\n[yellow]{result.value}[/yellow]")
+        print(f"[yellow bold]{result.value}[/yellow bold]")
 
 
 if __name__ == "__main__":

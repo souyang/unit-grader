@@ -346,15 +346,13 @@ mock_data_invalid_conversion_fuction = {
         (
             TemperatureUnits.CELSIUS.value,
             TemperatureUnits.KELVIN.value,
-        ): lambda x: x
-        / 0,
+        ): lambda x: x / 0,
     },
     UnitCategory.VOLUME.value: {
         (
             VolumeUnits.LITERS.value,
             VolumeUnits.CUBIC_INCHES.value,
-        ): lambda x: x
-        / 0,
+        ): lambda x: x / 0,
     },
 }
 test_convert_units_invalid_conversion_function = [

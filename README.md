@@ -15,11 +15,25 @@ Please ensure you download and install python3.9+ and pip. Checkout [python offi
 - `python -m pip install unit-grader`
 
 ### Development
-- `brew install pdm`
+- Install Python with version 3.9 or higher
+- Follow [official documentation](https://github.com/pdm-project/pdm#installation) to install PDM
 - `git clone https://github.com/souyang/unit-grader.git`
 - `cd unit-grader`
 - `pdm venv create --with venv 3.9`
 - `python3 -m pip install -e .`
+
+## Third-Party Tools Overview
+
+In the development of this project, we've leveraged the following third-party tools to enhance functionality and streamline development:
+
+- [PDM](THIRD_PARTY_TOOLS.md#pdm): A Python project management tool and package installer.
+- [Typer](THIRD_PARTY_TOOLS.md#typer): A Python library for building command-line applications.
+- [Pre-Commit](THIRD_PARTY_TOOLS.md#pre-commit): A framework for managing and maintaining multi-language pre-commit hooks.
+- [Pytest](THIRD_PARTY_TOOLS.md#pytest): A testing framework for Python.
+- [Ruff](THIRD_PARTY_TOOLS.md#ruff): A linter and formatter for Python.
+- [Sphinx](THIRD_PARTY_TOOLS.md#sphinx): A documentation generator for Python projects.
+
+For detailed information about each tool and why we chose them, refer to the [detailed documentation](THIRD_PARTY_TOOLS.md).
 
 ## Command Usage
 
@@ -75,7 +89,7 @@ unit-grader -i dog  -f Kelvin -t Celsius -s -173.15 # output: invalid
 ## Advanced Usage
 
 ### Detail information in Verbose Mode 
-You can get the detail information of your input in verbose mode
+You can get the detail information of your input in verbose mode for debugging purpose.
 For example, `unit-grader -i 100  -f Kelvin -t dog -s -173.15 -v` will print out the messages
 
 ```
@@ -86,7 +100,7 @@ to_unit: Kelvin
 student_response: 305.2
 ```
 
-### Error Handling
+## Error Handling
 | Use Case | Sample Command | Expected Message Reported to user
 | ---------|----------|----------|
 | `Input numeric value` is not a number | `unit-grader -i dog  -f Kelvin -t Celsius -s -173.15` | Input Error: dog as input_value needs to be a number. Please use --help to see valid options.
@@ -148,10 +162,10 @@ open _build/html/index.html
 ```
 
 ## Vision
+To be continued
 
 
-
-## Contributing
+## Contributing Guideline
 We welcome contributions! Please follow our contribution guidelines [here](.github/CONTRIBUTING.md).
 
 ## Licence
