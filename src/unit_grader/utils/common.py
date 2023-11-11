@@ -1,7 +1,9 @@
-from ..config.data import UNITS
+from typing import Optional
+
 import numpy as np  # Import numpy for rounding
 from rich import print
-from typing import Optional
+
+from ..config.data import UNITS
 
 
 def is_valid_numeric_string(numeric_string: str) -> bool:

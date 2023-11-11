@@ -5,31 +5,26 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath('../src'))
+sys.path.insert(0, os.path.abspath("../src"))
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Unit Conversion Grader'
-copyright = '2023, Simon Ouyang'
-author = 'Simon Ouyang'
-release = '1.0.0'
+project = "Unit Conversion Grader"
+copyright = "2023, Simon Ouyang"
+author = "Simon Ouyang"
+release = "1.0.0"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.viewcode',
-    'sphinx.ext.napoleon'
-]
+extensions = ["sphinx.ext.autodoc", "sphinx.ext.viewcode", "sphinx.ext.napoleon"]
 
 # The master toctree document.
 master_doc = "index"
 
-templates_path = ['_templates']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
-
+templates_path = ["_templates"]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 
 autodoc_default_options = {
@@ -45,7 +40,7 @@ autodoc_typehints_format = "short"
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+html_theme = "sphinx_rtd_theme"
 html_theme_options = {
     # Toc options
     "collapse_navigation": True,
@@ -55,5 +50,3 @@ html_theme_options = {
     "titles_only": False,
 }
 html_static_path = []
-
-

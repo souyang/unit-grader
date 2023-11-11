@@ -5,7 +5,7 @@
 groups = ["default", "test", "lint", "build", "doc", "dev"]
 strategy = ["cross_platform"]
 lock_version = "4.4"
-content_hash = "sha256:0127a33983a13fea44a3440656f6bb118e9dfd2a87d0669589ba8e19fbfd27b4"
+content_hash = "sha256:484f64d2f310d1ecc5148d51a6369be276840e724748040fc6bf2b836560b81e"
 
 [[package]]
 name = "alabaster"
@@ -567,6 +567,16 @@ summary = "A library for installing Python wheels."
 files = [
     {file = "installer-0.7.0-py3-none-any.whl", hash = "sha256:05d1933f0a5ba7d8d6296bb6d5018e7c94fa473ceb10cf198a92ccea19c27b53"},
     {file = "installer-0.7.0.tar.gz", hash = "sha256:a26d3e3116289bb08216e0d0f7d925fcef0b0194eedfa0c944bcaaa106c4b631"},
+]
+
+[[package]]
+name = "isort"
+version = "5.12.0"
+requires_python = ">=3.8.0"
+summary = "A Python utility / library to sort Python imports."
+files = [
+    {file = "isort-5.12.0-py3-none-any.whl", hash = "sha256:f84c2818376e66cf843d497486ea8fed8700b340f308f076c6fb1229dff318b6"},
+    {file = "isort-5.12.0.tar.gz", hash = "sha256:8bef7dde241278824a6d83f44a544709b065191b95b6e50894bdc722fcba0504"},
 ]
 
 [[package]]

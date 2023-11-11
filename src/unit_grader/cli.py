@@ -12,15 +12,14 @@ Main Functions:
 """
 import os
 from typing import Optional
-import typer
-from unit_grader.config.data import (
-    UNIT_CONVERSION_INSTRUCTIONS,
-    UNEXPECTED_EXIT,
-)
-from unit_grader.commands.conversion_grader import grade_response
-from rich.progress import Progress, SpinnerColumn, TextColumn
-from rich import print
+
 import tomli
+import typer
+from rich import print
+from rich.progress import Progress, SpinnerColumn, TextColumn
+
+from unit_grader.commands.conversion_grader import grade_response
+from unit_grader.config.data import UNEXPECTED_EXIT, UNIT_CONVERSION_INSTRUCTIONS
 
 app = typer.Typer()  # creates a CLI app
 app_name = "unit-grader"

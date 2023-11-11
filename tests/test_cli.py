@@ -10,11 +10,12 @@
 """
 import pytest
 import pytest_mock
-from typer.testing import CliRunner
 from typer import Exit
-from unit_grader.cli import app, get_project_meta, version_callback, app_name
-from unit_grader.config.enums import Answer
+from typer.testing import CliRunner
+
+from unit_grader.cli import app, app_name, get_project_meta, version_callback
 from unit_grader.config.data import UNEXPECTED_EXIT
+from unit_grader.config.enums import Answer
 
 # Create a CliRunner for testing the CLI app
 runner = CliRunner()
@@ -84,7 +85,7 @@ def test_grade_conversion_verbose(mocker: pytest_mock.MockFixture) -> None:
             "Kelvin",
             "--student-response",
             "305.2",
-            "--verbose"
+            "--verbose",
         ],
     )
     assert result.exit_code == 0

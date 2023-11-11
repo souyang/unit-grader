@@ -2,7 +2,7 @@
 This module contains the conversion data
 for the conversion calculator.
 """
-from ..config.enums import TemperatureUnits, VolumeUnits, UnitCategory
+from ..config.enums import TemperatureUnits, UnitCategory, VolumeUnits
 
 # Ask for unexpected exit
 UNEXPECTED_EXIT = "Unexpected exit. Please contact the developer."

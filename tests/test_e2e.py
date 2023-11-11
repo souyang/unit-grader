@@ -10,11 +10,9 @@ import pytest
 from typer.testing import CliRunner
 
 from unit_grader.cli import app
-from unit_grader.config.enums import (
-    Answer,
-    TemperatureUnits as T,
-    VolumeUnits as V,
-)
+from unit_grader.config.enums import Answer
+from unit_grader.config.enums import TemperatureUnits as T
+from unit_grader.config.enums import VolumeUnits as V
 
 # Create a CliRunner for testing the CLI app
 runner = CliRunner()

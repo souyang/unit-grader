@@ -7,17 +7,11 @@
         * convert_units
 
 """
-from unit_grader.config.data import CONVERSION_DATA
-from unit_grader.utils.common import (
-    convert_units,
-    is_valid_numeric_string,
-)
-from unit_grader.config.enums import (
-    UnitCategory,
-    TemperatureUnits,
-    VolumeUnits,
-)
 import pytest
+
+from unit_grader.config.data import CONVERSION_DATA
+from unit_grader.config.enums import TemperatureUnits, UnitCategory, VolumeUnits
+from unit_grader.utils.common import convert_units, is_valid_numeric_string
 
 # is_valid_numeric_string
 test_is_valid_numeric_string_valid = [

@@ -43,6 +43,9 @@ format = "python3 -m black ./tests ./src/unit_grader"
 test = "python3 -m pytest --cov=src/unit_grader ./tests"
 all = {composite = ["format", "lint", "test"]}
 
+[tool.isort]
+skip = [".md", ".json", "docs/conf.py", "htmlcov", "tests", "dist", "build", ".mypy_cache", ".pytest_cache", ".coverage", ".venv", "venv"]
+
 [tool.pdm.dev-dependencies]
 test = [
     "pytest>=7.4.3",
@@ -52,6 +55,7 @@ test = [
 lint = [
     "flake8>=6.1.0",
     "black>=23.10.1",
+    "isort>=5.12.0",
 ]
 build = [
     "pdm>=2.10.1",
@@ -72,20 +76,19 @@ dev = [
 ]
 [tool.black]
 line-length = 88
-target-version = ["py38", "py39", "py310", "py311", "py312"]  # Set the target Python version(s), e.g., Python 3.9.
-
-[tool.flake8]
-extend-ignore = "E203"
-exclude = [
-    ".git",
-    "__pycache__",
-    "**/__pycache__/",
-    "docs/source/conf.py",
-    "build",
-    "dist",
-    ".venv",
-    ".pytest_cache",
-]
+target-version = ["py39", "py310", "py311"]  # Set the target Python version(s), e.g., Python 3.9.
+extend-exclude ='''
+    venv,
+    | docs,
+    | htmlcov,
+    | tests,
+    | dist,
+    | build,
+    | .mypy_cache,
+    | .pytest_cache,
+    | .coverage,
+    | .venv,
+'''
 max-complexity = 10
 max-line-length = 88
 
