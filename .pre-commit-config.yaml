@@ -40,11 +40,7 @@ repos:
     - id: api-docs
       name: Generate API docs
       language: python
-      entry: bash -c "sphinx-apidoc -f -o docs src && sphinx-build -W docs docs/_build"
+      entry: bash -c "pdm install && pdm run doc"
       pass_filenames: false
       additional_dependencies:
-        - sphinx
-        - sphinx_rtd_theme
-        - tomli
-        - "typer[all]"
-        - numpy
+        - pdm
