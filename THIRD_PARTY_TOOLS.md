@@ -40,7 +40,7 @@ It is 100% spec compliant and is the fastest pure Python parson with no dependen
 ### Comparison with other tools
 - It is pure Python with zero dependencies
 - It is 16x faster than tomlkit and 2.3x faster than toml
-- It eliminate the local veresion identifier (such as +editable) when output version
+- It eliminate the local version identifier (such as +editable) when output version
 
 ## Pre-Commit
 
@@ -79,6 +79,15 @@ Ruff, offers unparalleled speed, being 10-100 times faster than existing linters
 - Support over 700+ built-in rules inclidng Flake8 plugins flake8-bugbear.
 - Could replace `Flake8`, `Black` and `isort` as all-in-one for formatting and linting.
 
+## codespell
+codespell is a light-weight and fast tool catch spelling mistakes in code.
+
+### Why we choose codespell
+It is simple and fast and could quickly identify the common spelling errors and it is lightweight addition to CI/CD.
+
+### Comparison with other tools
+It is much light weight and fast when compared with `pyspelling` and is ideal tool for pre-commit hook and CI/CD pipeline.
+
 ## Sphinx
 
 Sphinx is a documentation generator for Python projects.
@@ -89,4 +98,4 @@ Sphinx is a robust documentation tool that integrates seamlessly with Python pro
 
 ### Comparison with other tools
 - Sphinx has rich ecosystem of extensions and themes that make the documentation highly customizable when compared with `MkDocs`
-- Sphinx could support generating PDF or ePub besides HTML and could suit will with extenstive API documentation for future maintainance when compared with `MkDocs`
+- Sphinx could support generating PDF or ePub besides HTML and could suit will with extenstive API documentation for future maintenance when compared with `MkDocs`

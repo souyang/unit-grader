@@ -37,7 +37,7 @@ get_project_meta_function_name = "unit_grader.cli.get_project_meta"
 def test_grade_conversion_without_verbose(mocker: pytest_mock.MockFixture) -> None:
     """
     Test the grade_conversion CLI command
-      with correct arugments but without verbose mode
+      with correct arguments but without verbose mode
 
     Expected Behavior:
     -------------------
@@ -111,7 +111,7 @@ def test_grade_conversion_verbose(
     mocker: pytest_mock.MockFixture, caplog: pytest.CaptureFixture
 ) -> None:
     """
-    Test the grade_conversion CLI command with correct arugments and verbose mode
+    Test the grade_conversion CLI command with correct arguments and verbose mode
 
     Expected Behavior:
     -------------------
