@@ -11,44 +11,16 @@ Main Functions:
         - student_response: The student's response.
 """
 import logging
-import os
-from typing import Optional
 
-import tomli
 import typer
 from rich import print
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
+from . import __version__, __appname__
 from unit_grader.commands.conversion_grader import grade_response
-from unit_grader.config.data import UNEXPECTED_EXIT, UNIT_CONVERSION_INSTRUCTIONS
+from unit_grader.config.data import UNIT_CONVERSION_INSTRUCTIONS
 
 app = typer.Typer()  # creates a CLI app
-app_name = "unit-grader"
-
-
-def get_project_meta() -> Optional[dict[str, str]]:
-    """
-    Get the project metadata from the pyproject.toml file.
-
-    Args:
-        None
-
-    Returns:
-        dict: The project metadata.
-    """
-    try:
-        # use tomli instead of importlib.metadata
-        # since after have bumper2version installed,
-        # importlib.metadata return the version with unexpected postfix
-        # i.e., version is 1.0.1+editable instead of 1.0.1
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        version_file_path = os.path.join(script_dir, "../../pyproject.toml")
-        with open(version_file_path, mode="rb") as pyproject:
-            return tomli.load(pyproject)["project"]
-    except tomli.TOMLDecodeError:
-        return None  # Invalid TOML file
-    except (IOError, KeyError):
-        return None  # Handle file I/O errors or missing 'project' key
 
 
 def version_callback(show_version: bool) -> None:
@@ -63,14 +35,7 @@ def version_callback(show_version: bool) -> None:
     """
 
     if show_version:
-        pkg_meta = get_project_meta()
-        if "version" not in pkg_meta:
-            typer.echo(
-                f"[bold red]Unable to get version information. {UNEXPECTED_EXIT}[/bold red]"
-            )
-        else:
-            app_version = str(pkg_meta["version"])
-            typer.echo(f"{app_name}: {app_version}")
+        typer.echo(f"{__appname__}: {__version__}")
         raise typer.Exit()
 
 
@@ -83,7 +48,7 @@ def enableLogging(verbose: bool) -> None:
     logging.basicConfig(level=lvl, format=fmt)
 
 
-@app.command(name=app_name, no_args_is_help=True)
+@app.command(name=__appname__, no_args_is_help=True)
 def grade_conversion(
     input_value: str = typer.Option(
         ..., "--input-value", "-i", help="Input numerical value."

@@ -85,7 +85,7 @@ jobs:
           set -e
           git pull --no-edit origin feature/version-update
           CURRENT_VERSION=$(awk -F '"' '/^version/{print $2}' "pyproject.toml")
-          pdm bumpversion --current-version $CURRENT_VERSION patch pyproject.toml --verbose --no-configured-files
+          pdm bumpversion --current-version $CURRENT_VERSION patch pyproject.toml unit_grader/__init__.py --verbose --no-configured-files
           NEW_VERSION=$(awk -F '"' '/^version/{print $2}' "pyproject.toml")
           
           # Check if there are changes before committing

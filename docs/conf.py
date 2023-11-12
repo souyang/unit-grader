@@ -4,15 +4,16 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 import os
 import sys
+from unit_grader import __version__
 
 sys.path.insert(0, os.path.abspath("../src"))
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
-
+app_version = __version__
 project = "Unit Conversion Grader"
 copyright = "2023, Simon Ouyang"
 author = "Simon Ouyang"
-release = "1.0.0"
+release = app_version
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

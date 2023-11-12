@@ -11,3 +11,5 @@ The unit_grader package contains the following
           to conversion questions.
 
 """
+__version__ = "1.0.2"
+__appname__ = "unit-grader"
