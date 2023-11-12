@@ -47,9 +47,9 @@ Check for merge conflicts................................................Passed
 Check for broken symlinks............................(no files to check)Skipped
 Check Toml...............................................................Passed
 Validate pyproject.toml..................................................Passed
-ruff.....................................................................Passed
-ruff-format..............................................................Passed
-Run Pytest...............................................................Failed
+Lint and fix code with ruff.....................................................................Passed
+Format code with ruff..............................................................Passed
+Run unit test and integration test...............................................................Failed
 - hook id: check-coverage
 - exit code: 3
 - hook id: black
@@ -68,9 +68,9 @@ Check for merge conflicts................................................Passed
 Check for broken symlinks............................(no files to check)Skipped
 Check Toml...............................................................Passed
 Validate pyproject.toml..................................................Passed
-ruff.................................................(no files to check)Skipped
-ruff-format..........................................(no files to check)Skipped
-Run Pytest...............................................................Passed
+Lint and fix code with ruff.....................................................................Passed
+Format code with ruff..............................................................Passed
+Run unit test and integration test...............................................................Passed
 Generate API docs........................................................Passed
 ```
 Now your file has been committed and you can push your changes.
