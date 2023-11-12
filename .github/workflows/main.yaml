@@ -86,7 +86,7 @@ jobs:
           git pull --no-edit origin feature/version-update
           CURRENT_VERSION=$(awk -F '"' '/^version/{print $2}' "pyproject.toml")
           pdm bumpversion --current-version $CURRENT_VERSION patch pyproject.toml --commit --tag --message "${new_version} Release [skip ci]" --verbose --no-configured-files
-          git remote set-url origin https://x-access-token:${{ secrets.SOUYANG_GITHUB_TOKEN }}.com/souyang/unit-grader.git
+          git remote set-url origin https://x-access-token:${{ secrets.SOUYANG_GITHUB_TOKEN }}@github.com/souyang/unit-grader
           git push
           set +e
     
