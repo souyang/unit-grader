@@ -98,8 +98,8 @@ jobs:
             git commit -m "[Bot] Updating version from ${CURRENT_VERSION} to ${NEW_VERSION}"
             git push
             # Create and publish a new release tag
-            git tag -a v{NEW_VERSION} -m "Releasing version ${NEW_VERSION}"
-            git push origin v{NEW_VERSION}
+            git tag -a "v${NEW_VERSION}" -m "Releasing version ${NEW_VERSION}"
+            git push origin "v${NEW_VERSION}"
           fi
           set +e            
     
