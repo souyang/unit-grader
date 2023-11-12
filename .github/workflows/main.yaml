@@ -51,18 +51,19 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/feature/version-update'
     steps:
-      - name: Setup Git
-        run: |
-          git config user.name "souyang"
-          git config user.email 'souyang@users.noreply.github.com'
-          git remote set-url origin https://x-access-token:${{ secrets.SOUYANG_GITHUB_TOKEN }}@github.com/souyang/unit-grader
-          git checkout  ${GITHUB_REF##*/}
       - name: Set up PDM
         uses: pdm-project/setup-pdm@v3
         with:
           python-version: "3.9"
           cache: true
           cache-dependency-path: '**/pdm.lock'
+      - name: Setup Git
+        run: |
+          ls
+          git config user.name "souyang"
+          git config user.email 'souyang@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.SOUYANG_GITHUB_TOKEN }}@github.com/souyang/unit-grader
+          git checkout  ${GITHUB_REF##*/}
       - name: Install dependencies
         run: pdm sync
       - name: Bump Patch Version
