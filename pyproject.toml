@@ -68,14 +68,16 @@ doc = [
 ]
 dev = [
     "pre-commit>=3.5.0",
-    "bump2version>=1.0.1",
     "codespell>=2.2.6",
+    "python-semantic-release>=8.3.0",
 ]
 
-[tool.bump2version]
-current_version = "1.0.2"
-commit = true
-tag = true
+[tool.semantic_release]
+version_toml = ["pyproject.toml:project.version"]
+branch = "feature/version-update"
+upload_to_PyPI = false
+upload_to_release = true
+build_command = "pip install pdm && pdm install && pdm build"
 
 [tool.coverage.run]
 omit = [".*", "*/site-packages/*", "*conf.py"]
