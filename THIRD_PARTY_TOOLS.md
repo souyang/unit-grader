@@ -8,14 +8,13 @@ PDM is a Python project management tool and package installer. It simplifies the
 
 ### Why we choose PDM
 
-We chose PDM for its modern and efficient dependency management, which allows for faster and more reliable project setups. It provides features like parallel installations, deterministic builds, and improved performance compared to traditional package managers.
+We chose PDM for its modern and efficient dependency management, which allows for faster and more reliable project setups. It provides features like parallel installations, deterministic builds, and improved performance compared to traditional package managers. It also could auto correct the package version to make it compatible with target python versions.
 
 ### Comparison with other tools
 - PDM is PEP compliant using pyproject.toml and lockfile specification.
-- PDM could automatically resolve the package version to make it compatible with target python versions  
-- PDM has the option to run custom shell scripts and make the development much simple
+- PDM could automatically resolve the package version to make it compatible with target python versions. 
+- PDM has the option to run custom shell scripts and make the development and devop scripts much simple.
 - PDM is 90% faster than `Pipenv` and 68% faster than `Poetry` regarding installing dependencies with cache and reuse lockfile.
-- You can group your development dependencies in group for better package orgnaization
 
 
 ## Typer
@@ -51,9 +50,9 @@ Pre-Commit is a framework for managing and maintaining multi-language pre-commit
 Pre-Commit is an excellent choice for enforcing code quality and consistency. By using pre-commit hooks, we ensure that code formatting, linting, and other checks are applied automatically before each commit, contributing to a cleaner and more consistent codebase.
 
 ### Comparison with other tools
-- It is a general-purpose framework that can be used for various checks and tasks across multiple languages
-- It is more flexible and can accommodate a wide range of hooks and tools for different purposes even for custom hooks in local repo when compared with `trailer`
-- It has a larger and more active community, with extensive documentation and integration with various tools when compared with `trailer`
+- It is a general-purpose framework that can be used for various checks and tasks across multiple languages when compared with `Lint-Staged` and `Husky` for JavaScript only.
+- It is more flexible and can accommodate a wide range of hooks and tools for different purposes even for custom hooks in local repo when compared with `overcommit`
+- It has a larger and more active community, with extensive documentation and integration with various tools when compared with `overcommit`
 
 ## Pytest
 
@@ -108,5 +107,7 @@ A small command line tool to simplify releasing software by updating all version
 bump-my-version is a robust simple tool that simplifying the release with auto increment the version number
 
 ### Comparison with other tools
-
-TO BE CONTINUED
+- It is build system independent when compared with `setuptools-scm` depending on `setuptools` build system.
+- It is actively maintained when compared with `bumpversion`, `bump2version` and `standard-version`.
+- It could update the version directly in configuration files whereas alternative tool such as `versioneer` cannot change configuration files and use the source code files such as `__init__.py` to control version.
+ 
