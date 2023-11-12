@@ -67,7 +67,7 @@ jobs:
         env:
           COMMIT_MSG: ${{ github.event.head_commit.message }}
         run: |
-          pdm bump2version --current-version $(awk -F '"' '/^version/{print $2}' "pyproject.toml") patch pyproject.toml
+          pdm bumpversion --current-version $(awk -F '"' '/^version/{print $2}' "pyproject.toml") patch pyproject.toml
       - name: Commit version change to main - Push
           # Skip CI tag is import below otherwise it would trigger continuous version bumps
         run: |
