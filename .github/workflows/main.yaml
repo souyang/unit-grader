@@ -56,7 +56,6 @@ jobs:
         with:
           python-version: "3.9"
           cache: true
-          cache-dependency-path: '**/pdm.lock'
       - name: Setup Git
         run: |
           ls
