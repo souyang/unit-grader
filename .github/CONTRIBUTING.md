@@ -68,9 +68,9 @@ Check for merge conflicts................................................Passed
 Check for broken symlinks............................(no files to check)Skipped
 Check Toml...............................................................Passed
 Validate pyproject.toml..................................................Passed
-Sort imports with isort..................................................Passed
-Format code with black...................................................Passed
-Check code style with flake8.............................................Passed
+ruff.................................................(no files to check)Skipped
+ruff-format..........................................(no files to check)Skipped
+Run Pytest...............................................................Passed
 Generate API docs........................................................Passed
 ```
 Now your file has been committed and you can push your changes.
