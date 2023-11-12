@@ -8,7 +8,7 @@ Unit Conversion Grader a command-line interface (CLI) program that allows you to
 Choose either **stable release** or **development**.
 
 ### Python and Pip Installation
-Please ensure you download and install python3.9+ and pip. Checkout [python official webiste](https://www.python.org/downloads/) and [pip official website](https://pip.pypa.io/en/stable/cli/pip_download/) for detail.
+Please ensure you download and install python3.9+ and pip. Checkout [python official website](https://www.python.org/downloads/) and [pip official website](https://pip.pypa.io/en/stable/cli/pip_download/) for detail.
 
 ### Stable Release
 
@@ -28,8 +28,9 @@ In the development of this project, we've leveraged the following third-party to
 
 - [PDM](THIRD_PARTY_TOOLS.md#pdm): A Python project management tool and package installer.
 - [Typer](THIRD_PARTY_TOOLS.md#typer): A Python library for building command-line applications.
-- [Tomli](THIRD_PARTY_TOOLS.md#Tomli): A Python library for reading TOML and parse it to a json string
+- [Tomli](THIRD_PARTY_TOOLS.md#Tomli): A Python library for reading TOML and parse it to a json string.
 - [Pre-Commit](THIRD_PARTY_TOOLS.md#pre-commit): A framework for managing and maintaining multi-language pre-commit hooks.
+- [codespell](THIRD_PARTY_TOOLS.md#codespell): A tool designed to catch spelling mistakes in code.
 - [Pytest](THIRD_PARTY_TOOLS.md#pytest): A testing framework for Python.
 - [Ruff](THIRD_PARTY_TOOLS.md#ruff): A linter and formatter for Python.
 - [Sphinx](THIRD_PARTY_TOOLS.md#sphinx): A documentation generator for Python projects.
@@ -105,8 +106,8 @@ student_response: 305.2
 | Use Case | Sample Command | Expected Message Reported to user
 | ---------|----------|----------|
 | `Input numeric value` is not a number | `unit-grader -i dog  -f Kelvin -t Celsius -s -173.15` | Input Error: dog as input_value needs to be a number. Please use --help to see valid options.
-| `Input unit of measure` is not supproted or invalid | `unit-grader -i 100  -f Test -t Celsius -s -173.15` | Input Error: Test as from_unit is not supported. Select a conversion unit (Kelvin, Celsius,Fahrenheit,Rankine for temperature; liters, tablespoons, cubic-inches, cups, cubic-feet, gallons for volume). Please note that the unit is case-sensitive.
-| `Target unit of measure` is not supproted or invalid | `unit-grader -i 100  -f Test -t Celsius -s -173.15` | Input Error: Test as from_unit is not supported. Select a conversion unit (Kelvin, Celsius,Fahrenheit,Rankine for temperature; liters, tablespoons, cubic-inches, cups, cubic-feet, gallons for volume). Please note that the unit is case-sensitive.
+| `Input unit of measure` is not supported or invalid | `unit-grader -i 100  -f Test -t Celsius -s -173.15` | Input Error: Test as from_unit is not supported. Select a conversion unit (Kelvin, Celsius,Fahrenheit,Rankine for temperature; liters, tablespoons, cubic-inches, cups, cubic-feet, gallons for volume). Please note that the unit is case-sensitive.
+| `Target unit of measure` is not supported or invalid | `unit-grader -i 100  -f Test -t Celsius -s -173.15` | Input Error: Test as from_unit is not supported. Select a conversion unit (Kelvin, Celsius,Fahrenheit,Rankine for temperature; liters, tablespoons, cubic-inches, cups, cubic-feet, gallons for volume). Please note that the unit is case-sensitive.
 | `Input unit of measure` and `Target unit of measure` are not in the same category | `unit-grader -i 100  -f cups -t Celsius -s -173.15` | Input Error: Ensure the selected conversion units match their respective categories for a valid conversion. Select a conversion unit (Kelvin, Celsius,Fahrenheit,Rankine for temperature; liters, tablespoons, cubic-inches, cups, cubic-feet, gallons for volume). Please note that the unit is case-sensitive.
 
 
@@ -119,8 +120,9 @@ The CI pipeline is triggered on every push to the main branch or when pull reque
 
 1. **Linting**: The code is checked for style and formatting using [Flaker8].
 2. **Formatting**: The code is formatted using [Black].
-2. **Unit Tests**: Unit tests are executed to ensure the code functions as expected. [Pytest]
-3. **Integration Test**: Integration are executed to ensure the CLI App as expected. [Typer.CliRunner]
+3. **Spelling Check**: The code is spellchecked using [codespell]
+4. **Unit Tests**: Unit tests are executed to ensure the code functions as expected. [Pytest]
+5. **Integration Test**: Integration are executed to ensure the CLI App as expected. [Typer.CliRunner]
 
 ### Continuous Deployment (CD)
 

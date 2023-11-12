@@ -41,6 +41,9 @@ jobs:
     - name: Format Code
       run: pdm run format
 
+    - name: Spell Check
+      run: pdm run spell
+
     # - name: Build and Publish to PyPI
     #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     #   run: |

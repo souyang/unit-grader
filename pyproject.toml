@@ -40,9 +40,10 @@ unit-grader = "unit_grader.cli:app"
 [tool.pdm.scripts]
 lint = "python3 -m ruff check ."
 format = "python3 -m ruff format ."
+spell = "codespell"
 test = "python3 -m pytest --cov=src/unit_grader ./tests --cov-fail-under=100 --no-cov-on-fail"
 doc = {shell = "sphinx-apidoc -f -o docs src && sphinx-build -W docs docs/_build"}
-all = {composite = ["format", "lint", "test", "doc"]}
+all = {composite = ["format", "lint", "test", "spell", "doc"]}
 
 [tool.pdm.dev-dependencies]
 test = [
@@ -67,12 +68,9 @@ doc = [
 ]
 dev = [
     "pre-commit>=3.5.0",
-    "codespell>=2.2.6",
     "bump2version>=1.0.1",
+    "codespell>=2.2.6",
 ]
-
-[tool.codespell]
-skip = "./htmlcov/*,./docs/*,./.git,./.pdm,./.pytest_cache,./.vscode,./.github,./.gitignore,./.gitattributes,./.gitmodules,./.pre-commit-config.yaml,pdm.lock"
 
 [tool.bump2version]
 current_version = "1.0.2"
@@ -81,6 +79,13 @@ tag = true
 
 [tool.coverage.run]
 omit = [".*", "*/site-packages/*", "*conf.py"]
+
+[tool.codespell]
+skip= './htmlcov/*,./docs/*,.git,.pdm,.pytest_cache,.vscode,.github,.gitignore,.gitattributes,.gitmodules,.pre-commit-config.yaml,pdm.lock, .venv/*'
+ignore-words = "ignore_words.txt"
+enable-colors = ""
+count = ""
+quiet-level = 3
 
 [tool.coverage.report]
 show_missing = true
