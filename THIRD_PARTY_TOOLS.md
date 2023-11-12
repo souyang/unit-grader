@@ -99,3 +99,5 @@ Sphinx is a robust documentation tool that integrates seamlessly with Python pro
 ### Comparison with other tools
 - Sphinx has rich ecosystem of extensions and themes that make the documentation highly customizable when compared with `MkDocs`
 - Sphinx could support generating PDF or ePub besides HTML and could suit will with extenstive API documentation for future maintenance when compared with `MkDocs`
+
+## Bump2version

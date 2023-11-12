@@ -1,7 +1,7 @@
 
 [project]
 name = "unit-grader"
-version = "1.0.6"
+version = "1.0.2"
 description = "Unit Conversion Grader a command-line interface (CLI) program that allows you to convert among units of measurement and grade the users response to determine the result."
 authors = [
     {name = "simon ouyang", email = "simonouyang@gmail.com"},
@@ -70,7 +70,7 @@ doc = [
 dev = [
     "pre-commit>=3.5.0",
     "codespell>=2.2.6",
-    "bump2version>=1.0.1",
+    "bump-my-version>=0.12.0",
 ]
 
 [tool.coverage.run]
