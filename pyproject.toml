@@ -43,6 +43,7 @@ format = "python3 -m ruff format ."
 spell = "codespell"
 test = "python3 -m pytest --cov=src/unit_grader ./tests --cov-fail-under=100 --no-cov-on-fail"
 doc = {shell = "sphinx-apidoc -f -o docs src && sphinx-build -W docs docs/_build"}
+bumpversion = "bump-my-version bump"
 all = {composite = ["format", "lint", "test", "spell", "doc"]}
 
 [tool.pdm.dev-dependencies]
@@ -68,14 +69,9 @@ doc = [
 ]
 dev = [
     "pre-commit>=3.5.0",
-    "bump2version>=1.0.1",
     "codespell>=2.2.6",
+    "bump-my-version>=0.12.0",
 ]
-
-[tool.bump2version]
-current_version = "1.0.2"
-commit = true
-tag = true
 
 [tool.coverage.run]
 omit = [".*", "*/site-packages/*", "*conf.py"]

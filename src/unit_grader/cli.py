@@ -11,44 +11,19 @@ Main Functions:
         - student_response: The student's response.
 """
 import logging
-import os
-from typing import Optional
 
-import tomli
 import typer
 from rich import print
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
+from unit_grader.utils.common import get_project_meta
 from unit_grader.commands.conversion_grader import grade_response
-from unit_grader.config.data import UNEXPECTED_EXIT, UNIT_CONVERSION_INSTRUCTIONS
+from unit_grader.config.data import UNIT_CONVERSION_INSTRUCTIONS
 
 app = typer.Typer()  # creates a CLI app
-app_name = "unit-grader"
-
-
-def get_project_meta() -> Optional[dict[str, str]]:
-    """
-    Get the project metadata from the pyproject.toml file.
-
-    Args:
-        None
-
-    Returns:
-        dict: The project metadata.
-    """
-    try:
-        # use tomli instead of importlib.metadata
-        # since after have bumper2version installed,
-        # importlib.metadata return the version with unexpected postfix
-        # i.e., version is 1.0.1+editable instead of 1.0.1
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        version_file_path = os.path.join(script_dir, "../../pyproject.toml")
-        with open(version_file_path, mode="rb") as pyproject:
-            return tomli.load(pyproject)["project"]
-    except tomli.TOMLDecodeError:
-        return None  # Invalid TOML file
-    except (IOError, KeyError):
-        return None  # Handle file I/O errors or missing 'project' key
+app_metadata = get_project_meta()
+app_version = app_metadata["version"]
+app_name = app_metadata["name"]
 
 
 def version_callback(show_version: bool) -> None:
@@ -63,18 +38,20 @@ def version_callback(show_version: bool) -> None:
     """
 
     if show_version:
-        pkg_meta = get_project_meta()
-        if "version" not in pkg_meta:
-            typer.echo(
-                f"[bold red]Unable to get version information. {UNEXPECTED_EXIT}[/bold red]"
-            )
-        else:
-            app_version = str(pkg_meta["version"])
-            typer.echo(f"{app_name}: {app_version}")
+        typer.echo(f"{app_name}: {app_version}")
         raise typer.Exit()
 
 
 def enableLogging(verbose: bool) -> None:
+    """
+    Enable logging based on the verbosity level.
+
+    Args:
+        verbose (bool): A flag to indicate whether to enable verbose output.
+
+    Returns:
+        None
+    """
     lvl = logging.INFO
     fmt = "[%(levelname)s] %(message)s"
     if verbose:
@@ -119,17 +96,17 @@ def grade_conversion(
     rounded to the tenths place.
 
     """
+    enableLogging(verbose)
+    logging.debug(f"input_value: {input_value}")
+    logging.debug(f"from_unit: {from_unit}")
+    logging.debug(f"to_unit: {to_unit}")
+    logging.debug(f"student_response: {student_response}")
     with Progress(
         SpinnerColumn(),
         TextColumn("[progress.description]{task.description}"),
         transient=True,
     ) as progress:
         conversion_task = progress.add_task(description="Processing...", total=1)
-        enableLogging(verbose)
-        logging.debug(f"input_value: {input_value}")
-        logging.debug(f"from_unit: {from_unit}")
-        logging.debug(f"to_unit: {to_unit}")
-        logging.debug(f"student_response: {student_response}")
         result = grade_response(input_value, from_unit, to_unit, student_response)
         progress.update(conversion_task, completed=1)
         progress.stop()
