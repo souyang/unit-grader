@@ -34,6 +34,7 @@ In the development of this project, we've leveraged the following third-party to
 - [Pytest](THIRD_PARTY_TOOLS.md#pytest): A testing framework for Python.
 - [Ruff](THIRD_PARTY_TOOLS.md#ruff): A linter and formatter for Python.
 - [Sphinx](THIRD_PARTY_TOOLS.md#sphinx): A documentation generator for Python projects.
+- [bump-my-version](THIRD_PARTY_TOOLS.md#bump-my-version): A small command line tool to simplify releasing software by updating all version strings in code by the correct increment and optionally commit and tag the changes.
 
 For detailed information about each tool and why we chose them, refer to the [detailed documentation](THIRD_PARTY_TOOLS.md).
 

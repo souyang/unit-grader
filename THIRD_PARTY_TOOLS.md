@@ -100,4 +100,13 @@ Sphinx is a robust documentation tool that integrates seamlessly with Python pro
 - Sphinx has rich ecosystem of extensions and themes that make the documentation highly customizable when compared with `MkDocs`
 - Sphinx could support generating PDF or ePub besides HTML and could suit will with extenstive API documentation for future maintenance when compared with `MkDocs`
 
-## Bump2version
+## bump-my-version
+A small command line tool to simplify releasing software by updating all version strings in code by the correct increment and optionally commit and tag the changes.
+
+### Why we choose bump-my-version
+
+bump-my-version is a robust simple tool that simplifying the release with auto increment the version number
+
+### Comparison with other tools
+
+TO BE CONTINUED
