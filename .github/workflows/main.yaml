@@ -90,14 +90,15 @@ jobs:
             TAG_NAME="v$NEW_VERSION"
             if git rev-parse -q --verify "refs/tags/$TAG_NAME" > /dev/null; then
               echo "Tag $TAG_NAME exists. Deleting remotely..."
-              git push origin --delete "$TAG_NAME"
+              git push origin :"$TAG_NAME"
               echo "Tag $TAG_NAME deleted remotely."
             else
               echo "Tag $TAG_NAME does not exist."
             fi              
             git tag -a "$TAG_NAME" -m "Releasing version $NEW_VERSION"
             git push origin "$TAG_NAME"
-            echo "Tag $TAG_NAME is created remotely."      
+            echo "Tag $TAG_NAME is created remotely."  
+            git tag -l --sort=-version:refname "v*"
           fi
           set +e            
     
