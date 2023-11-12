@@ -45,10 +45,6 @@ jobs:
 
     - name: Spell Check
       run: pdm run spell
-
-    - name: Debug Event
-      run: |
-        echo 'Event: ${{ github.event_name }}, Ref: ${{ github.ref }}'
   
   release:
     needs: build
