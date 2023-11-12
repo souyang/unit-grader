@@ -99,9 +99,7 @@ jobs:
             git push
             # Create and publish a new release tag
             git tag -a v{NEW_VERSION} -m "Releasing version ${NEW_VERSION}"
-            git push origin {NEW_VERSION}
-            LATEST_TAG=git tag -l --sort=-version:refname "v*"
-            echo("Current release tag: ${LATEST_TAG}")
+            git push origin v{NEW_VERSION}
           fi
           set +e            
     
