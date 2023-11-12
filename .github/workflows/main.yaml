@@ -17,7 +17,8 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.9"]
-        os: ["windows-latest", "ubuntu-latest", "macos-latest"]
+        os: ["ubuntu-latest"]
+        # os: ["windows-latest", "ubuntu-latest", "macos-latest"]
 
     steps:
     - name: Checkout Repository
@@ -44,11 +45,15 @@ jobs:
 
     - name: Spell Check
       run: pdm run spell
+
+    - name: Debug Event
+      run: |
+        echo 'Event: ${{ github.event_name }}, Ref: ${{ github.ref }}'
   
   release:
     needs: build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/feature/version-update'
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/feature/version-update'
     steps:
       - uses: actions/checkout@v2
         with:
