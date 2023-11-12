@@ -38,7 +38,7 @@ If you are not familiar with the concept of [git hooks](https://git-scm.com/docs
 
 As an introduction of the actual failed workflow, here is an example of the process you will encounter when you make a commit that is successful:
 ```bash
-git add your_file.md # suppose your_file.py contains grammar error
+git add your_file.md # suppose your_file.md contains grammar error
 git commit -m "commit message"
 Check for added large files..............................................Passed
 Check for case conflicts.................................................Passed
