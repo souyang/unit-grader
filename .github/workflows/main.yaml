@@ -63,12 +63,18 @@ jobs:
           cache-dependency-path: '**/pdm.lock'
       - name: Install dependencies
         run: pdm sync
-      - name: Python Semantic Release
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "action@github.com"
-          pip install python-semantic-release
-          semantic-release publish -D commit_author="github-actions <action@github.com>"        
+      - name: Bump Patch Version
         env:
-          GH_TOKEN: ${{ secrets.SOUYANG_GITHUB_TOKEN }}
-          PyPI_TOKEN: ${{ secrets.PYPI_PASSWORD }}
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+        run: |
+          pdm bump2version --current-version $(awk -F '"' '/^version/{print $2}' "pyproject.toml") patch pyproject.toml
+      - name: Commit version change to main - Push
+          # Skip CI tag is import below otherwise it would trigger continuous version bumps
+        run: |
+          git commit -am "[skip ci]Automated version bump" 
+          git push
+      # - name: Create Release
+      #   run: |
+      #     pdm publish --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }} 
+
+
