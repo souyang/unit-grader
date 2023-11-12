@@ -47,9 +47,11 @@ Check for merge conflicts................................................Passed
 Check for broken symlinks............................(no files to check)Skipped
 Check Toml...............................................................Passed
 Validate pyproject.toml..................................................Passed
-Sort imports with isort....................................................................Passed
-Format code with black....................................................................Failed
-Check code style with flake8...................................................................Passed
+Lint and fix code with ruff.....................................................................Passed
+Format code with ruff..............................................................Passed
+Run unit test and integration test...............................................................Failed
+- hook id: check-coverage
+- exit code: 3
 - hook id: black
 - files were modified by this hook
 ```
@@ -66,9 +68,9 @@ Check for merge conflicts................................................Passed
 Check for broken symlinks............................(no files to check)Skipped
 Check Toml...............................................................Passed
 Validate pyproject.toml..................................................Passed
-Sort imports with isort..................................................Passed
-Format code with black...................................................Passed
-Check code style with flake8.............................................Passed
+Lint and fix code with ruff.....................................................................Passed
+Format code with ruff..............................................................Passed
+Run unit test and integration test...............................................................Passed
 Generate API docs........................................................Passed
 ```
 Now your file has been committed and you can push your changes.
