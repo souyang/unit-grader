@@ -74,17 +74,12 @@ jobs:
 
       - name: Install dependencies
         run: pdm sync
+
       - name: Bump Patch Version
-        env:
-          COMMIT_MSG: ${{ github.event.head_commit.message }}
         run: |
-          CURRENT_VERSION = $(awk -F '"' '/^version/{print $2}' "pyproject.toml")
-          pdm bumpversion --current-version $CURRENT_VERSION patch pyproject.toml --tag --commit --message $'{new_version} Release\n\n[skip ci]' --verbose;
-      - name: Commit version change to main - Push
-          # Skip CI tag is import below otherwise it would trigger continuous version bumps
-        run: |
-          git commit -am "[skip ci]Automated version bump" 
-          git push
+          CURRENT_VERSION=$(awk -F '"' '/^version/{print $2}' "pyproject.toml")
+          pdm bumpversion --current-version $CURRENT_VERSION patch pyproject.toml --tag --commit --message "${new_version} Release [skip ci]" --verbose
+    
       # - name: Create Release
       #   run: |
       #     pdm publish --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }} 
