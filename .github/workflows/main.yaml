@@ -75,6 +75,11 @@ jobs:
       - name: Install dependencies
         run: pdm sync
 
+      - name: Bot Defaults
+        uses: devlooped/actions-bot@v1.0.1
+        with:
+          github-token: ${{ secrets.SOUYANG_GITHUB_TOKEN }}
+    
       - name: Bump Patch Version
         run: |
           CURRENT_VERSION=$(awk -F '"' '/^version/{print $2}' "pyproject.toml")
