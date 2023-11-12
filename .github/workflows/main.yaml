@@ -85,7 +85,7 @@ jobs:
           set -e
           git pull --no-edit origin feature/version-update
           CURRENT_VERSION=$(awk -F '"' '/^version/{print $2}' "pyproject.toml")
-          pdm bumpversion --current-version $CURRENT_VERSION patch pyproject.toml src/unit_grader/__init__.py --verbose --no-configured-files
+          pdm bumpversion --current-version $CURRENT_VERSION patch pyproject.toml --verbose --no-configured-files
           NEW_VERSION=$(awk -F '"' '/^version/{print $2}' "pyproject.toml")
           
           # Check if there are changes before committing
@@ -93,9 +93,15 @@ jobs:
             echo "Version is not updated in pyproject.toml."
           else
             git remote set-url origin https://x-access-token:${{ secrets.SOUYANG_GITHUB_TOKEN }}@github.com/souyang/unit-grader
+            # Commit and push the change on pyproject.toml
             git add pyproject.toml
             git commit -m "[Bot] Updating version from ${CURRENT_VERSION} to ${NEW_VERSION}"
             git push
+            # Create and publish a new release tag
+            git tag -a v{NEW_VERSION} -m "Releasing version ${NEW_VERSION}"
+            git push origin {NEW_VERSION}
+            LATEST_TAG=git tag -l --sort=-version:refname "v*"
+            echo("Current release tag: ${LATEST_TAG}")
           fi
           set +e            
     

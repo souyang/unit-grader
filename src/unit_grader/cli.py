@@ -16,11 +16,14 @@ import typer
 from rich import print
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
-from . import __version__, __appname__
+from unit_grader.utils.common import get_project_meta
 from unit_grader.commands.conversion_grader import grade_response
 from unit_grader.config.data import UNIT_CONVERSION_INSTRUCTIONS
 
 app = typer.Typer()  # creates a CLI app
+app_metadata = get_project_meta()
+app_version = app_metadata["version"]
+app_name = app_metadata["name"]
 
 
 def version_callback(show_version: bool) -> None:
@@ -35,11 +38,20 @@ def version_callback(show_version: bool) -> None:
     """
 
     if show_version:
-        typer.echo(f"{__appname__}: {__version__}")
+        typer.echo(f"{app_name}: {app_version}")
         raise typer.Exit()
 
 
 def enableLogging(verbose: bool) -> None:
+    """
+    Enable logging based on the verbosity level.
+
+    Args:
+        verbose (bool): A flag to indicate whether to enable verbose output.
+
+    Returns:
+        None
+    """
     lvl = logging.INFO
     fmt = "[%(levelname)s] %(message)s"
     if verbose:
@@ -48,7 +60,7 @@ def enableLogging(verbose: bool) -> None:
     logging.basicConfig(level=lvl, format=fmt)
 
 
-@app.command(name=__appname__, no_args_is_help=True)
+@app.command(name=app_name, no_args_is_help=True)
 def grade_conversion(
     input_value: str = typer.Option(
         ..., "--input-value", "-i", help="Input numerical value."
@@ -84,17 +96,17 @@ def grade_conversion(
     rounded to the tenths place.
 
     """
+    enableLogging(verbose)
+    logging.debug(f"input_value: {input_value}")
+    logging.debug(f"from_unit: {from_unit}")
+    logging.debug(f"to_unit: {to_unit}")
+    logging.debug(f"student_response: {student_response}")
     with Progress(
         SpinnerColumn(),
         TextColumn("[progress.description]{task.description}"),
         transient=True,
     ) as progress:
         conversion_task = progress.add_task(description="Processing...", total=1)
-        enableLogging(verbose)
-        logging.debug(f"input_value: {input_value}")
-        logging.debug(f"from_unit: {from_unit}")
-        logging.debug(f"to_unit: {to_unit}")
-        logging.debug(f"student_response: {student_response}")
         result = grade_response(input_value, from_unit, to_unit, student_response)
         progress.update(conversion_task, completed=1)
         progress.stop()

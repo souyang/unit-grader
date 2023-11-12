@@ -14,12 +14,7 @@ import pytest_mock
 from typer import Exit
 from typer.testing import CliRunner
 
-from unit_grader.cli import (
-    app,
-    version_callback,
-    enableLogging,
-)
-from unit_grader import __appname__, __version__
+from unit_grader.cli import app, version_callback, enableLogging, app_version, app_name
 from unit_grader.config.enums import Answer
 import logging
 
@@ -158,4 +153,4 @@ def test_version_callback(capsys: pytest_mock.MockerFixture) -> None:
     # Capture the output using capsys
     captured = capsys.readouterr()
     output = captured.out.strip()
-    assert output == f"{__appname__}: {__version__}"
+    assert output == f"{app_name}: {app_version}"
