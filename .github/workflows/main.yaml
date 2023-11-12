@@ -53,25 +53,33 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+
+      # - name: Extract branch name
+      #   if: github.event_name != 'pull_request'
+      #   shell: bash
+      #   run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/})"
+      #   id: extract_branch
+
+      # # extract branch name on pull request
+      # - name: Print branch name
+      #   if: github.event_name == 'pull_request'
+      #   run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_HEAD_REF})"
+
       - name: Set up PDM
         uses: pdm-project/setup-pdm@v3
         with:
           python-version: "3.9"
           cache: true
-      - name: Setup Git
-        run: |
-          ls
-          git config user.name "souyang"
-          git config user.email 'souyang@users.noreply.github.com'
-          git remote set-url origin https://x-access-token:${{ secrets.SOUYANG_GITHUB_TOKEN }}@github.com/souyang/unit-grader
-          git checkout  ${GITHUB_REF##*/}
+          cache-dependency-path: '**/pdm.lock'
+
       - name: Install dependencies
         run: pdm sync
       - name: Bump Patch Version
         env:
           COMMIT_MSG: ${{ github.event.head_commit.message }}
         run: |
-          pdm bumpversion --current-version $(awk -F '"' '/^version/{print $2}' "pyproject.toml") patch pyproject.toml
+          CURRENT_VERSION = $(awk -F '"' '/^version/{print $2}' "pyproject.toml")
+          pdm bumpversion --current-version $CURRENT_VERSION patch pyproject.toml --tag --commit --message $'{new_version} Release\n\n[skip ci]' --verbose;
       - name: Commit version change to main - Push
           # Skip CI tag is import below otherwise it would trigger continuous version bumps
         run: |
