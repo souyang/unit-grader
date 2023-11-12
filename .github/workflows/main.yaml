@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - main
-      - feature/version-update
   pull_request:
     branches:
       - main
@@ -49,7 +48,7 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/feature/version-update'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -72,7 +71,7 @@ jobs:
       - name: Bump Patch Version
         run: |
           set -e
-          git pull --no-edit origin feature/version-update
+          git pull --no-edit origin main
           CURRENT_VERSION=$(awk -F '"' '/^version/{print $2}' "pyproject.toml")
           pdm bumpversion --current-version $CURRENT_VERSION patch pyproject.toml --verbose --no-configured-files
           NEW_VERSION=$(awk -F '"' '/^version/{print $2}' "pyproject.toml")
@@ -102,8 +101,8 @@ jobs:
           fi
           set +e            
     
-      # - name: Create Release
-      #   run: |
-      #     pdm publish --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }} 
+      - name: Create Release
+        run: |
+          pdm publish --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }} 
 
 
