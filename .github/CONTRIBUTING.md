@@ -47,9 +47,11 @@ Check for merge conflicts................................................Passed
 Check for broken symlinks............................(no files to check)Skipped
 Check Toml...............................................................Passed
 Validate pyproject.toml..................................................Passed
-Sort imports with isort....................................................................Passed
-Format code with black....................................................................Failed
-Check code style with flake8...................................................................Passed
+ruff.....................................................................Passed
+ruff-format..............................................................Passed
+Run Pytest...............................................................Failed
+- hook id: check-coverage
+- exit code: 3
 - hook id: black
 - files were modified by this hook
 ```

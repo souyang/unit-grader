@@ -40,7 +40,7 @@ unit-grader = "unit_grader.cli:app"
 [tool.pdm.scripts]
 lint = "python3 -m ruff check ."
 format = "python3 -m ruff format ."
-test = "python3 -m pytest --cov=src/unit_grader ./tests --cov-fail-under=100"
+test = "python3 -m pytest --cov=src/unit_grader ./tests --cov-fail-under=100 --no-cov-on-fail"
 doc = {shell = "sphinx-apidoc -f -o docs src && sphinx-build -W docs docs/_build"}
 all = {composite = ["format", "lint", "test", "doc"]}
 
