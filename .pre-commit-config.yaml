@@ -26,6 +26,17 @@ repos:
 
 - repo: local
   hooks:
+    # Run the pytest
+    - id: check-coverage
+      name: Run Pytest and ensure
+      language: system
+      entry: bash -c "pdm install && pdm run test"
+      language: python
+      additional_dependencies:
+        - pdm
+
+- repo: local
+  hooks:
     - id: api-docs
       name: Generate API docs
       language: python
