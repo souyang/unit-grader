@@ -1,1 +1,0 @@
-pdm publish --username ${ secrets.PYPI_USERNAME } --password ${ secrets.PYPI_PASSWORD }
