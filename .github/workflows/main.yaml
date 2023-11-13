@@ -15,8 +15,12 @@ jobs:
 
     strategy:
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12"]
-        os: ["windows-latest", "ubuntu-latest", "macos-latest"]
+        python-version: ["3.9"]
+        os: ["ubuntu-latest"]
+        # Comment out the following lines to test on all platforms
+        # Avoid testing on all platforms to save CI minutes
+        # python-version: ["3.9", "3.10", "3.11", "3.12"]
+        # os: ["windows-latest", "ubuntu-latest", "macos-latest"]
 
     steps:
     - name: Checkout Repository
