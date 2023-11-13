@@ -8,13 +8,11 @@
 
 """
 import pytest
-import pytest_mock
 
 from unit_grader.config.data import CONVERSION_DATA
 from unit_grader.config.enums import TemperatureUnits, UnitCategory, VolumeUnits
 from unit_grader.utils.common import (
     convert_units,
-    get_project_meta,
     is_valid_numeric_string,
 )
 
@@ -887,93 +885,3 @@ def test_convert_units_different_valid_from_unit_to_unit(
     """
     result = convert_units(input_value, from_unit, to_unit, category, conversion_data)
     assert result == expected
-
-
-def test_get_project_meta(mocker: pytest_mock.MockFixture) -> None:
-    """
-    Test the get_project_meta function
-     when correct data is present in pyproject.toml.
-
-    Expected Behavior:
-    -------------------
-    Ensure that the function returns json content.
-
-    """
-    # Define a sample TOML content loaded from pyproject.toml
-    sample_toml_content = b"""
-    [project]
-    name = "my_project"
-    version = "1.0.0"
-    """
-
-    # Create a mocker fixture to mock the open function
-    mocker.patch("builtins.open", mocker.mock_open(read_data=sample_toml_content))
-
-    # Create a mock for 'tomli.load' function
-    mocker.patch(
-        "tomli.load",
-        return_value={"project": {"name": "my_project", "version": "1.0.0"}},
-    )
-
-    project_meta = get_project_meta()
-
-    # Assert that the 'tomli.load' function was called with the correct data
-    assert project_meta == {"project": {"name": "my_project", "version": "1.0.0"}}
-
-
-def test_not_get_project_meta_valid_toml(mocker: pytest_mock.MockFixture) -> None:
-    """
-    Test the get_project_meta function
-     when incorrect data is present in pyproject.toml.
-
-    Expected Behavior:
-    -------------------
-    Ensure that the function returns None.
-
-    """
-    # Define a sample TOML content loaded from pyproject.toml
-    sample_toml_content = b"""
-    [test]
-    name = "my_project"
-    version = "1.0.0"
-    """
-
-    # Create a mocker fixture to mock the open function
-    mocker.patch("builtins.open", mocker.mock_open(read_data=sample_toml_content))
-
-    # Create a mock for 'tomli.load' function
-    mocker.patch(
-        "tomli.load",
-        return_value={"test": {"name": "my_project", "version": "1.0.0"}},
-    )
-
-    project_meta = get_project_meta()
-
-    # Assert that the 'tomli.load' function was called with wrong data
-    assert project_meta == {"test": {"name": "my_project", "version": "1.0.0"}}
-
-
-def test_not_get_project_meta_invalid_toml(mocker: pytest_mock.MockFixture) -> None:
-    """
-    Test the get_project_meta function
-     when incorrect data is present in pyproject.toml.
-
-    Expected Behavior:
-    -------------------
-    Ensure that the function returns None.
-
-    """
-    # Define a sample TOML content loaded from pyproject.toml
-    sample_toml_content = b"""
-    test
-    name = "my_project"
-    version = "1.0.0"
-    """
-
-    # Create a mocker fixture to mock the open function
-    mocker.patch("builtins.open", mocker.mock_open(read_data=sample_toml_content))
-
-    project_meta = get_project_meta()
-
-    # Assert that the 'tomli.load' function was called with wrong data
-    assert project_meta is None

@@ -1,8 +1,0 @@
-[run]
-source = unit_grader
-omit = */__init__.py
-
-[report]
-exclude_lines =
-    # Ignore classes, functions, or lines with the following comment
-    if __name__ == .__main__.:

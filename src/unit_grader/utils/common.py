@@ -1,13 +1,9 @@
 from typing import Optional
 
-import tomli
-import os
 import numpy as np  # Import numpy for rounding
 from rich import print
 
 from ..config.data import UNITS
-
-get_project_meta_function_name: str = "unit_grader.utils.common.get_project_meta"
 
 
 def is_valid_numeric_string(numeric_string: str) -> bool:
@@ -97,28 +93,3 @@ def convert_units(
     except Exception as e:
         print(f"[bold red]Error: {e}.[/bold red]")
         return None  # Cannot convert for any reason
-
-
-def get_project_meta() -> Optional[dict]:
-    """
-    Get the project metadata from the pyproject.toml file.
-
-    Args:
-        None
-
-    Returns:
-        dict: The project metadata.
-    """
-    try:
-        # use tomli instead of importlib.metadata
-        # since after have bumper2version installed,
-        # importlib.metadata return the version with unexpected postfix
-        # i.e., version is 1.0.1+editable instead of 1.0.1
-        script_dir: str = os.path.dirname(os.path.abspath(__file__))
-        project_config_file_page: str = os.path.join(
-            script_dir, "..", "..", "..", "pyproject.toml"
-        )
-        with open(project_config_file_page, mode="rb") as pyproject:
-            return tomli.load(pyproject)
-    except tomli.TOMLDecodeError:
-        return None  # Invalid TOML file

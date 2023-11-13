@@ -4,7 +4,6 @@
     ------------------------------------------------
     The following functions are tested:
         * grade_conversion
-        * get_project_meta
         * version_callback
         * enable_verbose
 
@@ -21,7 +20,6 @@ from unit_grader.cli import (
     enableLogging,
     app_name,
 )
-from unit_grader.config.data import UNEXPECTED_EXIT
 from unit_grader.config.enums import Answer
 import logging
 
@@ -146,7 +144,7 @@ def test_grade_conversion_verbose(
 
 
 @pytest.fixture
-def mock_app_version_valid(mocker: pytest_mock.MockerFixture) -> None:
+def mock_app_version(mocker: pytest_mock.MockerFixture) -> None:
     """
     Mock the global_config function
     """
@@ -154,12 +152,10 @@ def mock_app_version_valid(mocker: pytest_mock.MockerFixture) -> None:
 
 
 def test_version_callback(
-    capsys: pytest_mock.MockerFixture, mock_app_version_valid: pytest_mock.MockerFixture
+    capsys: pytest_mock.MockerFixture, mock_app_version: pytest_mock.MockerFixture
 ) -> None:
     """
     Test the version_callback function
-     when correct version data is present in pyproject.toml.
-
     Expected Behavior:
     -------------------
     Ensure that the function returns version information.
@@ -174,63 +170,7 @@ def test_version_callback(
 
 
 @pytest.fixture
-def mock_app_version_invalid(mocker: pytest_mock.MockerFixture) -> None:
-    """
-    Mock the global_config function
-    """
-    mocker.patch("unit_grader.cli.app_version", new="unknown", autospec=False)
-
-
-def test_version_callback_invalid_version(
-    capsys: pytest_mock.MockerFixture, mock_app_version_invalid
-) -> None:
-    """
-    Test the version_callback function
-     when wrong version data is present in pyproject.toml.
-
-    Expected Behavior:
-    -------------------
-    Ensure that the function returns error message.
-
-    """
-    with pytest.raises(Exit):
-        version_callback(True)  # Call the function
-    # Capture the output using capsys
-    captured = capsys.readouterr()
-    output = captured.out.strip()
-    assert "Unable to get project version" in output
-
-
-@pytest.fixture
-def mock_feedback_url_invalid(mocker: pytest_mock.MockerFixture) -> None:
-    """
-    Mock the global_config function
-    """
-    mocker.patch("unit_grader.cli.feedback_url", new="unknown", autospec=False)
-
-
-def test_handle_feedback_invalid_feedback_url(
-    capsys: pytest_mock.MockerFixture, mock_feedback_url_invalid
-) -> None:
-    """
-    Test the handle_feedback function
-     when no feedback url is present in pyproject.toml.
-
-    Expected Behavior:
-    -------------------
-    Ensure that the function returns error message.
-
-    """
-
-    handle_feedback()  # Call the function
-    # Capture the output using capsys
-    captured = capsys.readouterr()
-    output = captured.out.strip()
-    assert f"Unable to get feedback url. {UNEXPECTED_EXIT}" in output
-
-
-@pytest.fixture
-def mock_feedback_url_valid(mocker: pytest_mock.MockerFixture) -> None:
+def mock_feedback_url(mocker: pytest_mock.MockerFixture) -> None:
     """
     Mock the global_config function
     """
@@ -238,11 +178,10 @@ def mock_feedback_url_valid(mocker: pytest_mock.MockerFixture) -> None:
 
 
 def test_handle_feedback_valid_feedback_url(
-    capsys: pytest_mock.MockerFixture, mock_feedback_url_valid
+    capsys: pytest_mock.MockerFixture, mock_feedback_url
 ) -> None:
     """
     Test the handle_feedback function
-     when feedback url is present in pyproject.toml.
 
     Expected Behavior:
     -------------------
