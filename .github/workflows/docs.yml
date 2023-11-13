@@ -54,7 +54,7 @@ jobs:
         uses: nwtgck/actions-netlify@v1
         with:
           production-branch: "feature/version-update"
-          dir: "./docs/_build/html" # Change this to the directory where your static site is built
+          publish-dir: "./docs/_build/html" # Change this to the directory where your static site is built
           deploy-message: "Deploy from GitHub Actions"
           github-token: ${{ secrets.GITHUB_TOKEN }}
           enable-pull-request-comment: true
