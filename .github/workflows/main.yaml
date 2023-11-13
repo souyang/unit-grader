@@ -17,6 +17,8 @@ jobs:
       matrix:
         python-version: ["3.9"]
         os: ["ubuntu-latest"]
+        # Comment out the following lines to test on all platforms
+        # Avoid testing on all platforms to save CI minutes
         # python-version: ["3.9", "3.10", "3.11", "3.12"]
         # os: ["windows-latest", "ubuntu-latest", "macos-latest"]
 
@@ -49,7 +51,7 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/bug/fix-release-pipeline'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Bot Defaults
         uses: devlooped/actions-bot@v1.0.1
