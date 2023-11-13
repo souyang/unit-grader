@@ -4,7 +4,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 import os
 import sys
-from unit_grader.cli import app_version as version
+from src.unit_grader.cli import app_version as version
 
 sys.path.insert(0, os.path.abspath("../src"))
 # -- Project information -----------------------------------------------------
