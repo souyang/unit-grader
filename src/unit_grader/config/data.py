@@ -12,8 +12,8 @@ HELP_INSTRUCTION: str = "Please use --help to see valid options."
 
 # Conversion instructions
 UNIT_CONVERSION_INSTRUCTIONS: str = (
-    "Select a conversion unit (Kelvin, Celsius,"
-    "Fahrenheit,Rankine for temperature; liters,"
+    "Select a conversion unit (Kelvin, Celsius, "
+    "Fahrenheit, Rankine for temperature; liters,"
     " tablespoons, cubic-inches, cups, cubic-feet,"
     " gallons for volume). Please note that the"
     " unit is case-sensitive."
