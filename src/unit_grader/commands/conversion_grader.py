@@ -118,7 +118,7 @@ def grade_response(
         return Answer.INVALID
 
     if not is_valid_numeric_string(student_response):
-        typer.echo(f"{student_response} is not a valid numeric string.")
+        typer.echo(f"\n{student_response} is not a valid numeric string.")
         return Answer.INCORRECT
 
     if from_unit == to_unit:

@@ -105,4 +105,29 @@ jobs:
         run: |
           pdm publish --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }} 
 
+      - name: Build API Documentation
+        run: pdm run doc
+            
+      - name: Deploy to Netlify
+        id: netlify
+        uses: nwtgck/actions-netlify@v1
+        with:
+          production-branch: "feature/version-update"
+          publish-dir: "./docs/_build/html" # Change this to the directory where your static site is built
+          deploy-message: "Deploy from GitHub Actions"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          enable-pull-request-comment: true
+          enable-commit-comment: false
+          production-deploy: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
+      - name: Print Notice
+        uses: actions/github-script@v6
+        env:
+          NETLIFY_URL: ${{ steps.netlify.outputs.deploy-url }}
+        with:
+          script: |
+            const {NETLIFY_URL} = process.env
+            core.notice(`Published to: ${NETLIFY_URL}`)

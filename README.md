@@ -13,14 +13,42 @@ Please ensure you download and install python3.9+ and pip. Checkout [python offi
 ### Stable Release
 
 - `python -m pip install unit-grader`
+- Test the CLI to verify the installation via running `unit-grader -i 100  -f Kelvin -t Celsius -s -173.15`
 
 ### Development
 - Install Python with version 3.9 or higher
 - Follow [official documentation](https://github.com/pdm-project/pdm#installation) to install PDM
 - `git clone https://github.com/souyang/unit-grader.git`
 - `cd unit-grader`
-- `pdm venv create --with venv 3.9`
+- `pdm install`
 - `python3 -m pip install -e .`
+- Test the CLI to verify the installation via running `unit-grader -i 100  -f Kelvin -t Celsius -s -173.15`
+
+## Accomplished Tasks
+- [x] Teacher provides `input-value`(input numeric value), `from-unit`(input unit of measnure), `to-unit` (a target unit of value), `student-response` (student's numeric response)
+- [x] System indicates the response is `correct`, `incorrect` or `invalid`.
+- [x] Stuent's response is correct if the response is equal to the answer after response and answer are rounded to tenths place.
+- [x] Unit Testing Coverage is 100%. CI pipeline will fail if coverage is less than 100%.
+- [x] `Sphinx` is used in pre-commit hook and CI/CD pipeline for generating api documentation.
+- [x] A CI/CD pipeline is created. CI will be triggered when a pull request is created or commit is merged to `main`. CD will be triggered after commit is merged to `main`. 
+- [x] The executable deployment is on [pypi](https://pypi.org/project/unit-grader/) and api documentation deployment is on [Netlify](https://unit-grader-api-docs.netlify.app/)
+- [x] Versioning and Verbose Mode are implemented.
+- [x] Pre-Commit hook is created to catch the problems early such as spelling, linting, formatting, docstring, configuration for developer experience.
+- [x] Error reporting is provided to the end user when answer is invalid.
+- [x] User feedback mechanism is setup for enhancing user requirements
+- [x] Logging is enabled
+- [x] Colorizing output for user distinguish between different types of information
+- [x] Progress Bars are enabled for long-running tasks.
+
+## Future Tasks
+- [ ] [Feature Flag Integration](FUTURE_WORK.md#feature-flag-integration)
+- [ ] [Interactive Mode Option](FUTURE_WORK.md#interactive-mode-optoin)
+- [ ] [Configuration Management](FUTURE_WORK.md#configuration-management)
+- [ ] [Observeability](FUTURE_WORK.md#observeability)
+- [ ] [Dockerization](FUTURE_WORK.md#dockerization)
+- [ ] [Localization](FUTURE_WORK.md#localization)
+
+
 
 ## Third-Party Tools Overview
 
