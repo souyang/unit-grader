@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - bug/fix-checkout-version
   pull_request:
     branches:
       - main
@@ -20,7 +21,7 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set up PDM
       uses: pdm-project/setup-pdm@v3
@@ -50,7 +51,7 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up PDM
         uses: pdm-project/setup-pdm@v3
