@@ -8,7 +8,7 @@ if git diff --exit-code; then
 echo "Version is not updated in pyproject.toml."
 exit 1 # Exit with non-zero exit code to indicate failure
 else
-git remote set-url origin https://x-access-token:${{ secrets.SOUYANG_GITHUB_TOKEN }}@github.com/souyang/unit-grader 
+git remote set-url origin https://x-access-token:${secrets.SOUYANG_GITHUB_TOKEN}@github.com/souyang/unit-grader 
 # Commit and push the change on pyproject.toml
 git add pyproject.toml
 git commit -m "[Bot] Updating version from ${CURRENT_VERSION} to ${NEW_VERSION}"
