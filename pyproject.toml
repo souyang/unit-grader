@@ -50,7 +50,7 @@ lint = "python3 -m ruff check ."
 format = "python3 -m ruff format ."
 spell = "codespell"
 test = "python3 -m pytest --cov=src/unit_grader ./tests --cov-fail-under=100 --no-cov-on-fail"
-doc = {shell = "sphinx-apidoc -f -o docs src && sphinx-build -W docs docs/_build"}
+doc = {shell = "sphinx-apidoc -f -o docs src && sphinx-build -W docs docs/_build/html"}
 bumpversion = "bump-my-version bump"
 all = {composite = ["format", "lint", "test", "spell", "doc"]}
 
