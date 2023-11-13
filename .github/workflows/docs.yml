@@ -47,11 +47,7 @@ jobs:
         run: pdm install
     
       - name: Build the HTML
-        run: |
-          python -m pip install --upgrade pip
-          pip install sphinx sphinx_rtd_theme numpy "typer[all]"
-          sphinx-apidoc -o docs ./src
-          sphinx-build -W docs docs/_build
+        run: pdm run doc
           
       - name: Deploy to Netlify
         id: netlify
