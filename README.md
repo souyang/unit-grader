@@ -13,14 +13,42 @@ Please ensure you download and install python3.9+ and pip. Checkout [python offi
 ### Stable Release
 
 - `python -m pip install unit-grader`
+- Test the CLI to verify the installation via running `unit-grader -i 100  -f Kelvin -t Celsius -s -173.15`
 
 ### Development
 - Install Python with version 3.9 or higher
 - Follow [official documentation](https://github.com/pdm-project/pdm#installation) to install PDM
 - `git clone https://github.com/souyang/unit-grader.git`
 - `cd unit-grader`
-- `pdm venv create --with venv 3.9`
+- `pdm install`
 - `python3 -m pip install -e .`
+- Test the CLI to verify the installation via running `unit-grader -i 100  -f Kelvin -t Celsius -s -173.15`
+
+## Accomplished Tasks
+- [x] Teacher provides `input-value`(input numeric value), `from-unit`(input unit of measnure), `to-unit` (a target unit of value), `student-response` (student's numeric response)
+- [x] System indicates the response is `correct`, `incorrect` or `invalid`.
+- [x] Stuent's response is correct if the response is equal to the answer after response and answer are rounded to tenths place.
+- [x] Unit Testing Coverage is 100%. CI pipeline will fail if coverage is less than 100%.
+- [x] `Sphinx` is used in pre-commit hook and CI/CD pipeline for generating api documentation.
+- [x] A CI/CD pipeline is created. CI will be triggered when a pull request is created with target branch is `main` or a commit is merged to `main`. CD will be triggered after a commit is merged to `main`. 
+- [x] The executable deployment is on [pypi](https://pypi.org/project/unit-grader/) and api documentation deployment is on [Netlify](https://unit-grader-api-docs.netlify.app/)
+- [x] Versioning and Verbose are both implemented.
+- [x] Pre-Commit hook is created to catch the problems early such as spelling, linting, formatting, docstring, configuration for best code quality in every commit.
+- [x] Error reporting is provided to the end user when answer is invalid.
+- [x] User feedback mechanism is setup for enhancing user requirements
+- [x] Logging is enabled, user will see diagnose information when `--verbose` or `-v` as the option is set.
+- [x] Colorized output for user distinguish between different types of information.
+- [x] Progress Bar is enabled for long-running tasks.
+
+## Future Tasks
+- [ ] [Feature Flag Integration](FUTURE_WORK.md#feature-flag-integration)
+- [ ] [Interactive Mode Option](FUTURE_WORK.md#interactive-mode-optoin)
+- [ ] [Configuration Management](FUTURE_WORK.md#configuration-management)
+- [ ] [Observeability](FUTURE_WORK.md#observeability)
+- [ ] [Dockerization](FUTURE_WORK.md#dockerization)
+- [ ] [Localization](FUTURE_WORK.md#localization)
+
+
 
 ## Third-Party Tools Overview
 
@@ -49,11 +77,13 @@ unit-grader -i <input-value> -f <from-unit> -t <to-unit> -s <student-response>
 - Provide `input-value`, `from-unit`, `to-unit`, `student-response` as input.
 - `from-unit` and `to-unit` must be in the same unit meansurement category.
 - Expected output: `correct`, `incorrect`, `invalid`.
-- Supported unit meansurement categories include `temperature` and `volumns`.
+- Supported unit meansurement categories include `temperature` and `volume`.
 - units supported in `temperature` category: `Kelvin`, `Celsius`, `Fahrenheit` and `Rankine`. 
 - units supported in `volume` category: `liters`, `tablespoons`, `cubic-inches`, `cups`, `cubic-feet`, `gallons`.
+- Regarding volume units, `tablespoons` means `us tablespoons`, cubic-inches means `cups` means `us cups`, gallons means `us gallons`, 
 - Name of each unit is case sensitive.
 - Student's response must match the correct answer after both value are rounded to the tenths place.
+- The rounding strategy follows round half to even (Banker's rounding). For example round(4.65, 1) == 4.6 and round(4.75, 1) == 4.8.
 
 ### Examples
 ```bash
@@ -165,12 +195,8 @@ cd docs
 open _build/html/index.html
 ```
 
-## Vision
-To be continued
-
-
 ## Contributing Guideline
-We welcome contributions! Please follow our contribution guidelines [here](.github/CONTRIBUTING.md).
+We welcome contributions! Please follow our [contribution guidelines](.github/CONTRIBUTING.md).
 
 ## Licence
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](https://opensource.org/license/mit).

@@ -17,9 +17,8 @@ requires-python = ">=3.9,<3.13"
 readme = "README.md"
 license = {file= "LICENSE"}
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 5 - Production/Stable",
     "Topic :: Utilities",
-    "Topic :: Software Development :: Libraries :: Python Modules",
     "Environment :: Console",
     "Intended Audience :: Developers",
     "Intended Audience :: Education",
@@ -37,12 +36,21 @@ classifiers = [
 [project.scripts]
 unit-grader = "unit_grader.cli:app"
 
+[tool.coverage.run]
+omit = [".*", "*/site-packages/*", "*conf.py"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 100
+
+
+
 [tool.pdm.scripts]
 lint = "python3 -m ruff check ."
 format = "python3 -m ruff format ."
 spell = "codespell"
 test = "python3 -m pytest --cov=src/unit_grader ./tests --cov-fail-under=100 --no-cov-on-fail"
-doc = {shell = "sphinx-apidoc -f -o docs src && sphinx-build -W docs docs/_build"}
+doc = {shell = "sphinx-apidoc -f -o docs src && sphinx-build -W docs docs/_build/html"}
 bumpversion = "bump-my-version bump"
 all = {composite = ["format", "lint", "test", "spell", "doc"]}
 
@@ -69,23 +77,19 @@ doc = [
 ]
 dev = [
     "pre-commit>=3.5.0",
-    "codespell>=2.2.6",
     "bump-my-version>=0.12.0",
+    "codespell>=2.2.6",
 ]
 
-[tool.coverage.run]
-omit = [".*", "*/site-packages/*", "*conf.py"]
-
 [tool.codespell]
-skip= './htmlcov/*,./docs/*,.git,.pdm,.pytest_cache,.vscode,.github,.gitignore,.gitattributes,.gitmodules,.pre-commit-config.yaml,pdm.lock, .venv/*'
+skip= './__pypackages__/*,./htmlcov/*,./docs/*,.git,.pdm,.pytest_cache,.vscode,.github,.gitignore,.gitattributes,.gitmodules,.pre-commit-config.yaml,pdm.lock, .venv/*'
 ignore-words = "ignore_words.txt"
 enable-colors = ""
 count = ""
 quiet-level = 3
 
-[tool.coverage.report]
-show_missing = true
-fail_under = 100
+[tool.unit_grader]
+feedback_url = "https://forms.gle/VxXa27tjU5ZFmyp66"
 
 [build-system]
 requires = ["pdm-backend"]

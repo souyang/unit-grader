@@ -13,5 +13,5 @@ coverage.xml
 .pdm-python
 coverage_report.txt
 docs/_build/
-
+__pypackages__/
 setup.py

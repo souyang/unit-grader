@@ -7,7 +7,7 @@ from rich import print
 
 from ..config.data import UNITS
 
-get_project_meta_function_name = "unit_grader.utils.common.get_project_meta"
+get_project_meta_function_name: str = "unit_grader.utils.common.get_project_meta"
 
 
 def is_valid_numeric_string(numeric_string: str) -> bool:
@@ -99,7 +99,7 @@ def convert_units(
         return None  # Cannot convert for any reason
 
 
-def get_project_meta() -> Optional[dict[str, str]]:
+def get_project_meta() -> Optional[dict]:
     """
     Get the project metadata from the pyproject.toml file.
 
@@ -114,11 +114,11 @@ def get_project_meta() -> Optional[dict[str, str]]:
         # since after have bumper2version installed,
         # importlib.metadata return the version with unexpected postfix
         # i.e., version is 1.0.1+editable instead of 1.0.1
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        project_config_file_page = os.path.join(script_dir, "../../../pyproject.toml")
+        script_dir: str = os.path.dirname(os.path.abspath(__file__))
+        project_config_file_page: str = os.path.join(
+            script_dir, "../../../pyproject.toml"
+        )
         with open(project_config_file_page, mode="rb") as pyproject:
-            return tomli.load(pyproject)["project"]
+            return tomli.load(pyproject)
     except tomli.TOMLDecodeError:
         return None  # Invalid TOML file
-    except (IOError, KeyError):
-        return None  # Handle file I/O errors or missing 'project' key

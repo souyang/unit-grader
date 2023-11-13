@@ -11,6 +11,7 @@ Main Functions:
         - student_response: The student's response.
 """
 import logging
+from typing import Optional
 
 import typer
 from rich import print
@@ -18,12 +19,35 @@ from rich.progress import Progress, SpinnerColumn, TextColumn
 
 from unit_grader.utils.common import get_project_meta
 from unit_grader.commands.conversion_grader import grade_response
-from unit_grader.config.data import UNIT_CONVERSION_INSTRUCTIONS
+from unit_grader.config.data import UNIT_CONVERSION_INSTRUCTIONS, UNEXPECTED_EXIT
 
 app = typer.Typer()  # creates a CLI app
-app_metadata = get_project_meta()
-app_version = app_metadata["version"]
-app_name = app_metadata["name"]
+app_metadata: Optional[dict] = get_project_meta()
+
+app_version: str = (
+    app_metadata["project"]["version"]
+    if app_metadata is not None
+    and app_metadata["project"] is not None
+    and app_metadata["project"]["version"] is not None
+    else "unknown"
+)
+
+app_name: str = (
+    app_metadata["project"]["name"]
+    if app_metadata is not None
+    and app_metadata["project"] is not None
+    and app_metadata["project"]["name"] is not None
+    else "unit-grader"
+)
+
+feedback_url: str = (
+    app_metadata["tool"]["unit_grader"]["feedback_url"]
+    if app_metadata is not None
+    and app_metadata["tool"] is not None
+    and app_metadata["tool"]["unit_grader"] is not None
+    and app_metadata["tool"]["unit_grader"]["feedback_url"] is not None
+    else "unknown"
+)
 
 
 def version_callback(show_version: bool) -> None:
@@ -38,8 +62,22 @@ def version_callback(show_version: bool) -> None:
     """
 
     if show_version:
-        typer.echo(f"{app_name}: {app_version}")
+        if app_version == "unknown":
+            print(
+                f"[red bold]Unable to get project version. {UNEXPECTED_EXIT}[/red bold]"
+            )
+        else:
+            typer.echo(f"{app_name}: {app_version}")
         raise typer.Exit()
+
+
+def handle_feedback():
+    if feedback_url != "unknown":
+        print(
+            f"\n[green bold]We would like your feedback! Please visit {feedback_url} to provide feedback.[/green bold]"
+        )
+    else:
+        print(f"\n[red bold]Unable to get feedback url. {UNEXPECTED_EXIT}[/red bold]")
 
 
 def enableLogging(verbose: bool) -> None:
@@ -52,8 +90,8 @@ def enableLogging(verbose: bool) -> None:
     Returns:
         None
     """
-    lvl = logging.INFO
-    fmt = "[%(levelname)s] %(message)s"
+    lvl: int = logging.INFO
+    fmt: str = "[%(levelname)s] %(message)s"
     if verbose:
         print("[green]Verbose mode is enabled.[/green]")
         lvl = logging.DEBUG
@@ -110,7 +148,8 @@ def grade_conversion(
         result = grade_response(input_value, from_unit, to_unit, student_response)
         progress.update(conversion_task, completed=1)
         progress.stop()
-        print(f"[yellow bold]{result.value}[/yellow bold]")
+        print(f"\nGrade Result: [yellow bold]{result.value}[/yellow bold]")
+        handle_feedback()
 
 
 if __name__ == "__main__":
