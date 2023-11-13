@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - bug/fix-release-pipeline
   pull_request:
     branches:
       - main
@@ -15,8 +16,10 @@ jobs:
 
     strategy:
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12"]
-        os: ["windows-latest", "ubuntu-latest", "macos-latest"]
+        python-version: ["3.9"]
+        os: ["ubuntu-latest"]
+        # python-version: ["3.9", "3.10", "3.11", "3.12"]
+        # os: ["windows-latest", "ubuntu-latest", "macos-latest"]
 
     steps:
     - name: Checkout Repository
@@ -47,7 +50,7 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/bug/fix-release-pipeline'
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -68,14 +71,38 @@ jobs:
           github-token: ${{ secrets.SOUYANG_GITHUB_TOKEN }}
     
       - name: Bump Patch Version
-        run: .github/workflows/bump_version.sh
+        run: .github/scripts/bump_version.sh
                      
-      - name: Create Release
-        run: .github/workflows/create_release.sh
+      # - name: Create Release
+      #   run: .github/scripts/create_release.sh
   
   build_deploy_docs:
     needs: release
     runs-on: ubuntu-latest
     steps:
-      - name: Build and deploy Docs
-        uses: ./build-deploy-docs.yaml
+      - name: Build API Documentation
+        run: pdm run doc
+
+      - name: Deploy to Netlify
+        id: netlify
+        uses: nwtgck/actions-netlify@v1
+        with:
+          production-branch: "main"
+          publish-dir: "./docs/_build/html"
+          deploy-message: "Deploy from GitHub Actions"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          enable-pull-request-comment: true
+          enable-commit-comment: false
+          production-deploy: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      - name: Print Notice
+        uses: actions/github-script@v6
+        env:
+          NETLIFY_URL: ${{ steps.netlify.outputs.deploy-url }}
+        with:
+          script: |
+            const {NETLIFY_URL} = process.env
+            core.notice(`Published to: ${NETLIFY_URL}`)

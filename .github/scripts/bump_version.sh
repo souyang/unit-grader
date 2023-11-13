@@ -1,5 +1,5 @@
 set -e
-git pull --no-edit origin main
+git pull --no-edit origin ${ github.event.ref }
 CURRENT_VERSION=$(awk -F '"' '/^version/{print $2}' "pyproject.toml")
 pdm bumpversion --current-version $CURRENT_VERSION patch pyproject.toml src/unit_grader/__init__.py --verbose --no-configured-files
 NEW_VERSION=$(awk -F '"' '/^version/{print $2}' "pyproject.toml")
