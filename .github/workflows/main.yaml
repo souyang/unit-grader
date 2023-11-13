@@ -5,9 +5,10 @@ on:
   push:
     branches:
       - main
+      - bug/fix-release-pl
   pull_request:
     branches:
-      - bug/fix-release-pl
+      - main
 
 jobs:
   build:
