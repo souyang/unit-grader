@@ -71,7 +71,7 @@ jobs:
           github-token: ${{ secrets.SOUYANG_GITHUB_TOKEN }}
     
       - name: Bump Patch Version
-        run: .github/scripts/bump_version.sh
+        run: scripts/bump_version.sh
                      
       # - name: Create Release
       #   run: .github/scripts/create_release.sh
