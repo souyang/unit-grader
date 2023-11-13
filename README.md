@@ -30,15 +30,15 @@ Please ensure you download and install python3.9+ and pip. Checkout [python offi
 - [x] Stuent's response is correct if the response is equal to the answer after response and answer are rounded to tenths place.
 - [x] Unit Testing Coverage is 100%. CI pipeline will fail if coverage is less than 100%.
 - [x] `Sphinx` is used in pre-commit hook and CI/CD pipeline for generating api documentation.
-- [x] A CI/CD pipeline is created. CI will be triggered when a pull request is created or commit is merged to `main`. CD will be triggered after commit is merged to `main`. 
+- [x] A CI/CD pipeline is created. CI will be triggered when a pull request is created with target branch is `main` or a commit is merged to `main`. CD will be triggered after a commit is merged to `main`. 
 - [x] The executable deployment is on [pypi](https://pypi.org/project/unit-grader/) and api documentation deployment is on [Netlify](https://unit-grader-api-docs.netlify.app/)
-- [x] Versioning and Verbose Mode are implemented.
-- [x] Pre-Commit hook is created to catch the problems early such as spelling, linting, formatting, docstring, configuration for developer experience.
+- [x] Versioning and Verbose are both implemented.
+- [x] Pre-Commit hook is created to catch the problems early such as spelling, linting, formatting, docstring, configuration for best code quality in every commit.
 - [x] Error reporting is provided to the end user when answer is invalid.
 - [x] User feedback mechanism is setup for enhancing user requirements
-- [x] Logging is enabled
-- [x] Colorizing output for user distinguish between different types of information
-- [x] Progress Bars are enabled for long-running tasks.
+- [x] Logging is enabled, user will see diagnose information when `--verbose` or `-v` as the option is set.
+- [x] Colorized output for user distinguish between different types of information.
+- [x] Progress Bar is enabled for long-running tasks.
 
 ## Future Tasks
 - [ ] [Feature Flag Integration](FUTURE_WORK.md#feature-flag-integration)
@@ -195,12 +195,8 @@ cd docs
 open _build/html/index.html
 ```
 
-## Vision
-To be continued
-
-
 ## Contributing Guideline
-We welcome contributions! Please follow our contribution guidelines [here](.github/CONTRIBUTING.md).
+We welcome contributions! Please follow our [contribution guidelines](.github/CONTRIBUTING.md).
 
 ## Licence
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](https://opensource.org/license/mit).
