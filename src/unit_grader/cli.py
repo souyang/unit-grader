@@ -18,12 +18,21 @@ from rich.progress import Progress, SpinnerColumn, TextColumn
 
 from unit_grader.utils.common import get_project_meta
 from unit_grader.commands.conversion_grader import grade_response
-from unit_grader.config.data import UNIT_CONVERSION_INSTRUCTIONS
+from unit_grader.config.data import UNIT_CONVERSION_INSTRUCTIONS, UNEXPECTED_EXIT
 
 app = typer.Typer()  # creates a CLI app
 app_metadata = get_project_meta()
-app_version = app_metadata["version"]
-app_name = app_metadata["name"]
+
+app_version = app_metadata["version"] if app_metadata is not None else "unknown"
+app_name = app_metadata["name"] if app_metadata is not None else "unit-grader"
+
+app_custom_metadata = get_project_meta("tool.project")
+
+feedback_url = (
+    app_custom_metadata["feedback_url"]
+    if app_custom_metadata is not None
+    else "unknown"
+)
 
 
 def version_callback(show_version: bool) -> None:
@@ -38,8 +47,22 @@ def version_callback(show_version: bool) -> None:
     """
 
     if show_version:
-        typer.echo(f"{app_name}: {app_version}")
+        if app_version == "unknown":
+            print(
+                f"[red bold]Unable to get project version. {UNEXPECTED_EXIT}[/red bold]"
+            )
+        else:
+            typer.echo(f"{app_name}: {app_version}")
         raise typer.Exit()
+
+
+def handle_feedback():
+    if feedback_url != "unknown":
+        print(
+            f"We would like your feedback! Please visit {feedback_url} to provide feedback."
+        )
+    else:
+        print(f"[red bold]Unable to get feedback url. {UNEXPECTED_EXIT}[/red bold]")
 
 
 def enableLogging(verbose: bool) -> None:
@@ -111,6 +134,7 @@ def grade_conversion(
         progress.update(conversion_task, completed=1)
         progress.stop()
         print(f"[yellow bold]{result.value}[/yellow bold]")
+        handle_feedback()
 
 
 if __name__ == "__main__":

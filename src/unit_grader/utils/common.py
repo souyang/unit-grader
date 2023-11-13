@@ -99,7 +99,7 @@ def convert_units(
         return None  # Cannot convert for any reason
 
 
-def get_project_meta() -> Optional[dict[str, str]]:
+def get_project_meta(attribute: str = "project") -> Optional[dict]:
     """
     Get the project metadata from the pyproject.toml file.
 
@@ -117,8 +117,8 @@ def get_project_meta() -> Optional[dict[str, str]]:
         script_dir = os.path.dirname(os.path.abspath(__file__))
         project_config_file_page = os.path.join(script_dir, "../../../pyproject.toml")
         with open(project_config_file_page, mode="rb") as pyproject:
-            return tomli.load(pyproject)["project"]
+            return tomli.load(pyproject)[attribute]
     except tomli.TOMLDecodeError:
         return None  # Invalid TOML file
     except (IOError, KeyError):
-        return None  # Handle file I/O errors or missing 'project' key
+        return None  # Handle file I/O errors or missing key

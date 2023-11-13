@@ -5,7 +5,7 @@ for the conversion calculator.
 from ..config.enums import TemperatureUnits, UnitCategory, VolumeUnits
 
 # Ask for unexpected exit
-UNEXPECTED_EXIT = "Unexpected exit. Please contact the developer."
+UNEXPECTED_EXIT = "Unexpected exit. Please contact the maintainer."
 
 # Help instructions
 HELP_INSTRUCTION = "Please use --help to see valid options."
