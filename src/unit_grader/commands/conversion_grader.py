@@ -100,19 +100,20 @@ def grade_response(
 ) -> Answer:
     """
     Grade a student's response to a conversion question.
+    The student's response is correct if it matches the correct answer after both values are rounded to the tenths place. The rounding strategy follows round half to even (Banker's rounding).
+    For example round(4.65, 1) == 4.6 and round(4.75, 1) == 4.8.
 
     Args:
         input_value (str): The input value provided in the question.
         from_unit (str): The unit mentioned in the question.
         to_unit (str): The target unit mentioned in the question.
         student_response (str): The student's response.
-
     Returns:
         Answer: The result of the grading.
         Possible values are: Answer.CORRECT, Answer.INCORRECT, Answer.INVALID
     """
     # unit name validation
-    category = validate_input(from_unit, to_unit, input_value)
+    category: Optional[str] = validate_input(from_unit, to_unit, input_value)
     if category is None:  # invalid input
         return Answer.INVALID
 
@@ -121,14 +122,19 @@ def grade_response(
         return Answer.INCORRECT
 
     if from_unit == to_unit:
-        if np.round(float(input_value), 1) == np.round(float(student_response), 1):
+        correct_answer: float = np.round(float(input_value), 1)
+        student_response: float = np.round(float(student_response), 1)
+        if correct_answer == student_response:
             return Answer.CORRECT
         else:
+            typer.echo(
+                f"{student_response} is not the correct answer. The correct answer is {correct_answer}."
+            )
             return Answer.INCORRECT
 
-    student_response = np.round(float(student_response), 1)
-    input_numeric_value = float(input_value)
-    convert_value = convert_units(
+    student_response: float = np.round(float(student_response), 1)
+    input_numeric_value: float = float(input_value)
+    convert_value: Optional(float) = convert_units(
         input_numeric_value, from_unit, to_unit, category, CONVERSION_DATA
     )
     if convert_value is None:
@@ -136,4 +142,7 @@ def grade_response(
     elif convert_value == student_response:
         return Answer.CORRECT
     else:
+        typer.echo(
+            f"\n{student_response} is not the correct answer. The correct answer is {convert_value}."
+        )
         return Answer.INCORRECT

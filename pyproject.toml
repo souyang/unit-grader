@@ -88,7 +88,7 @@ enable-colors = ""
 count = ""
 quiet-level = 3
 
-[tool.project]
+[tool.unit_grader]
 feedback_url = "https://forms.gle/VxXa27tjU5ZFmyp66"
 
 [build-system]

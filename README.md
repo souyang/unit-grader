@@ -49,11 +49,13 @@ unit-grader -i <input-value> -f <from-unit> -t <to-unit> -s <student-response>
 - Provide `input-value`, `from-unit`, `to-unit`, `student-response` as input.
 - `from-unit` and `to-unit` must be in the same unit meansurement category.
 - Expected output: `correct`, `incorrect`, `invalid`.
-- Supported unit meansurement categories include `temperature` and `volumns`.
+- Supported unit meansurement categories include `temperature` and `volume`.
 - units supported in `temperature` category: `Kelvin`, `Celsius`, `Fahrenheit` and `Rankine`. 
 - units supported in `volume` category: `liters`, `tablespoons`, `cubic-inches`, `cups`, `cubic-feet`, `gallons`.
+- Regarding volume units, `tablespoons` means `us tablespoons`, cubic-inches means `cups` means `us cups`, gallons means `us gallons`, 
 - Name of each unit is case sensitive.
 - Student's response must match the correct answer after both value are rounded to the tenths place.
+- The rounding strategy follows round half to even (Banker's rounding). For example round(4.65, 1) == 4.6 and round(4.75, 1) == 4.8.
 
 ### Examples
 ```bash

@@ -5,13 +5,13 @@ for the conversion calculator.
 from ..config.enums import TemperatureUnits, UnitCategory, VolumeUnits
 
 # Ask for unexpected exit
-UNEXPECTED_EXIT = "Unexpected exit. Please contact the maintainer."
+UNEXPECTED_EXIT: str = "Unexpected exit. Please contact the maintainer."
 
 # Help instructions
-HELP_INSTRUCTION = "Please use --help to see valid options."
+HELP_INSTRUCTION: str = "Please use --help to see valid options."
 
 # Conversion instructions
-UNIT_CONVERSION_INSTRUCTIONS = (
+UNIT_CONVERSION_INSTRUCTIONS: str = (
     "Select a conversion unit (Kelvin, Celsius,"
     "Fahrenheit,Rankine for temperature; liters,"
     " tablespoons, cubic-inches, cups, cubic-feet,"
@@ -20,7 +20,7 @@ UNIT_CONVERSION_INSTRUCTIONS = (
 )
 
 # Units in each category
-UNITS = {
+UNITS: dict = {
     UnitCategory.TEMPERATURE.value: [
         TemperatureUnits.KELVIN.value,
         TemperatureUnits.CELSIUS.value,
@@ -38,7 +38,7 @@ UNITS = {
 }
 
 # Conversion data between units
-CONVERSION_DATA = {
+CONVERSION_DATA: dict = {
     UnitCategory.TEMPERATURE.value: {
         (
             TemperatureUnits.CELSIUS.value,
@@ -95,7 +95,7 @@ CONVERSION_DATA = {
             VolumeUnits.LITERS.value,
             VolumeUnits.CUBIC_INCHES.value,
         ): lambda x: x * 61.024,
-        (VolumeUnits.LITERS.value, VolumeUnits.CUPS.value): lambda x: x * 4.167,
+        (VolumeUnits.LITERS.value, VolumeUnits.CUPS.value): lambda x: x * 4.227,
         (VolumeUnits.LITERS.value, VolumeUnits.CUBIC_FEET.value): lambda x: x / 28.317,
         (VolumeUnits.LITERS.value, VolumeUnits.GALLONS.value): lambda x: x / 3.785,
         (VolumeUnits.TABLESPOONS.value, VolumeUnits.LITERS.value): lambda x: x / 67.628,
@@ -103,7 +103,7 @@ CONVERSION_DATA = {
             VolumeUnits.TABLESPOONS.value,
             VolumeUnits.CUBIC_INCHES.value,
         ): lambda x: x / 1.108,
-        (VolumeUnits.TABLESPOONS.value, VolumeUnits.CUPS.value): lambda x: x / 16.231,
+        (VolumeUnits.TABLESPOONS.value, VolumeUnits.CUPS.value): lambda x: x / 16,
         (
             VolumeUnits.TABLESPOONS.value,
             VolumeUnits.CUBIC_FEET.value,
@@ -120,7 +120,7 @@ CONVERSION_DATA = {
             VolumeUnits.CUBIC_INCHES.value,
             VolumeUnits.TABLESPOONS.value,
         ): lambda x: x * 1.108,
-        (VolumeUnits.CUBIC_INCHES.value, VolumeUnits.CUPS.value): lambda x: x / 14.646,
+        (VolumeUnits.CUBIC_INCHES.value, VolumeUnits.CUPS.value): lambda x: x / 14.438,
         (
             VolumeUnits.CUBIC_INCHES.value,
             VolumeUnits.CUBIC_FEET.value,
@@ -129,11 +129,11 @@ CONVERSION_DATA = {
             VolumeUnits.CUBIC_INCHES.value,
             VolumeUnits.GALLONS.value,
         ): lambda x: x / 231,
-        (VolumeUnits.CUPS.value, VolumeUnits.LITERS.value): lambda x: x / 4.167,
-        (VolumeUnits.CUPS.value, VolumeUnits.CUBIC_INCHES.value): lambda x: x * 14.646,
-        (VolumeUnits.CUPS.value, VolumeUnits.TABLESPOONS.value): lambda x: x * 16.231,
-        (VolumeUnits.CUPS.value, VolumeUnits.CUBIC_FEET.value): lambda x: x / 118,
-        (VolumeUnits.CUPS.value, VolumeUnits.GALLONS.value): lambda x: x / 15.772,
+        (VolumeUnits.CUPS.value, VolumeUnits.LITERS.value): lambda x: x / 4.227,
+        (VolumeUnits.CUPS.value, VolumeUnits.CUBIC_INCHES.value): lambda x: x * 14.438,
+        (VolumeUnits.CUPS.value, VolumeUnits.TABLESPOONS.value): lambda x: x * 16,
+        (VolumeUnits.CUPS.value, VolumeUnits.CUBIC_FEET.value): lambda x: x / 119.7,
+        (VolumeUnits.CUPS.value, VolumeUnits.GALLONS.value): lambda x: x / 16,
         (VolumeUnits.CUBIC_FEET.value, VolumeUnits.LITERS.value): lambda x: x * 28.317,
         (
             VolumeUnits.CUBIC_FEET.value,
@@ -143,7 +143,7 @@ CONVERSION_DATA = {
             VolumeUnits.CUBIC_FEET.value,
             VolumeUnits.TABLESPOONS.value,
         ): lambda x: x * 1915,
-        (VolumeUnits.CUBIC_FEET.value, VolumeUnits.CUPS.value): lambda x: x * 118,
+        (VolumeUnits.CUBIC_FEET.value, VolumeUnits.CUPS.value): lambda x: x * 119.7,
         (VolumeUnits.CUBIC_FEET.value, VolumeUnits.GALLONS.value): lambda x: x * 7.481,
         (VolumeUnits.GALLONS.value, VolumeUnits.LITERS.value): lambda x: x * 3.785,
         (
@@ -155,6 +155,6 @@ CONVERSION_DATA = {
             VolumeUnits.GALLONS.value,
             VolumeUnits.TABLESPOONS.value,
         ): lambda x: x * 256,
-        (VolumeUnits.GALLONS.value, VolumeUnits.CUPS.value): lambda x: x * 15.773,
+        (VolumeUnits.GALLONS.value, VolumeUnits.CUPS.value): lambda x: x * 16,
     },
 }

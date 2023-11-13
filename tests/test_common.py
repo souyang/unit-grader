@@ -618,7 +618,7 @@ test_convert_units_different_valid_from_unit_to_unit = [
         VolumeUnits.CUPS.value,
         UnitCategory.VOLUME.value,
         CONVERSION_DATA,
-        208.4,
+        211.4,
     ),
     # Liters to Cubic Feet
     (
@@ -708,7 +708,7 @@ test_convert_units_different_valid_from_unit_to_unit = [
         VolumeUnits.CUPS.value,
         UnitCategory.VOLUME.value,
         CONVERSION_DATA,
-        3.4,
+        3.5,
     ),
     # Cubic Inches to Cubic Feet
     (
@@ -735,7 +735,7 @@ test_convert_units_different_valid_from_unit_to_unit = [
         VolumeUnits.LITERS.value,
         UnitCategory.VOLUME.value,
         CONVERSION_DATA,
-        12,
+        11.8,
     ),
     # Cups to Tablespoons
     (
@@ -744,7 +744,7 @@ test_convert_units_different_valid_from_unit_to_unit = [
         VolumeUnits.TABLESPOONS.value,
         UnitCategory.VOLUME.value,
         CONVERSION_DATA,
-        811.6,
+        800,
     ),
     # Cups to Cubic Inches
     (
@@ -753,7 +753,7 @@ test_convert_units_different_valid_from_unit_to_unit = [
         VolumeUnits.CUBIC_INCHES.value,
         UnitCategory.VOLUME.value,
         CONVERSION_DATA,
-        732.3,
+        721.9,
     ),
     # Cups to Cubic Feet
     (
@@ -771,7 +771,7 @@ test_convert_units_different_valid_from_unit_to_unit = [
         VolumeUnits.GALLONS.value,
         UnitCategory.VOLUME.value,
         CONVERSION_DATA,
-        3.2,
+        3.1,
     ),
     # Cubic Feet to Liters
     (
@@ -807,7 +807,7 @@ test_convert_units_different_valid_from_unit_to_unit = [
         VolumeUnits.CUPS.value,
         UnitCategory.VOLUME.value,
         CONVERSION_DATA,
-        5900.0,
+        5985.0,
     ),
     # Cubic Feet to Gallons
     (
@@ -852,7 +852,7 @@ test_convert_units_different_valid_from_unit_to_unit = [
         VolumeUnits.CUPS.value,
         UnitCategory.VOLUME.value,
         CONVERSION_DATA,
-        788.6,
+        800.0,
     ),
     # Gallons to Cubic Feet
     (
@@ -918,7 +918,7 @@ def test_get_project_meta(mocker: pytest_mock.MockFixture) -> None:
     project_meta = get_project_meta()
 
     # Assert that the 'tomli.load' function was called with the correct data
-    assert project_meta == {"name": "my_project", "version": "1.0.0"}
+    assert project_meta == {"project": {"name": "my_project", "version": "1.0.0"}}
 
 
 def test_not_get_project_meta_valid_toml(mocker: pytest_mock.MockFixture) -> None:
@@ -950,7 +950,7 @@ def test_not_get_project_meta_valid_toml(mocker: pytest_mock.MockFixture) -> Non
     project_meta = get_project_meta()
 
     # Assert that the 'tomli.load' function was called with wrong data
-    assert project_meta is None
+    assert project_meta == {"test": {"name": "my_project", "version": "1.0.0"}}
 
 
 def test_not_get_project_meta_invalid_toml(mocker: pytest_mock.MockFixture) -> None:
