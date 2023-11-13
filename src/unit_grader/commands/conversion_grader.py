@@ -128,7 +128,7 @@ def grade_response(
             return Answer.CORRECT
         else:
             typer.echo(
-                f"{student_response} is not the correct answer. The correct answer is {correct_answer}."
+                f"\n{student_response} is not the correct answer. The correct answer is {correct_answer}."
             )
             return Answer.INCORRECT
 

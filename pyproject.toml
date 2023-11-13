@@ -82,7 +82,7 @@ dev = [
 ]
 
 [tool.codespell]
-skip= './__pypackages__/*,./htmlcov/*,./docs/*,.git,.pdm,.pytest_cache,.vscode,.github,.gitignore,.gitattributes,.gitmodules,.pre-commit-config.yaml,pdm.lock, .venv/*, ./__pypackages__/3.9/lib/*'
+skip= './__pypackages__/*,./htmlcov/*,./docs/*,.git,.pdm,.pytest_cache,.vscode,.github,.gitignore,.gitattributes,.gitmodules,.pre-commit-config.yaml,pdm.lock, .venv/*'
 ignore-words = "ignore_words.txt"
 enable-colors = ""
 count = ""
