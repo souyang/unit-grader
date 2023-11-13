@@ -68,65 +68,14 @@ jobs:
           github-token: ${{ secrets.SOUYANG_GITHUB_TOKEN }}
     
       - name: Bump Patch Version
-        run: |
-          set -e
-          git pull --no-edit origin main
-          CURRENT_VERSION=$(awk -F '"' '/^version/{print $2}' "pyproject.toml")
-          pdm bumpversion --current-version $CURRENT_VERSION patch pyproject.toml --verbose --no-configured-files
-          NEW_VERSION=$(awk -F '"' '/^version/{print $2}' "pyproject.toml")
-          
-          # Check if there are changes before committing
-          if git diff --exit-code; then
-            echo "Version is not updated in pyproject.toml."
-          else
-            git remote set-url origin https://x-access-token:${{ secrets.SOUYANG_GITHUB_TOKEN }}@github.com/souyang/unit-grader 
-            # Commit and push the change on pyproject.toml
-            git add pyproject.toml
-            git commit -m "[Bot] Updating version from ${CURRENT_VERSION} to ${NEW_VERSION}"
-            git push
-            # Create and publish a new release tag
-            TAG_NAME="v$NEW_VERSION"
-            if git rev-parse -q --verify "refs/tags/$TAG_NAME" > /dev/null; then
-              echo "Tag $TAG_NAME exists. Deleting remotely..."
-              git push origin :"$TAG_NAME"
-              echo "Tag $TAG_NAME deleted remotely."
-            else
-              echo "Tag $TAG_NAME does not exist."
-            fi              
-            git tag -a "$TAG_NAME" -m "Releasing version $NEW_VERSION"
-            git push origin "$TAG_NAME"
-            echo "Tag $TAG_NAME is created remotely."  
-            git tag -l --sort=-version:refname "v*"
-          fi
-          set +e            
-    
+        run: .github/workflows/bump_version.sh
+                     
       - name: Create Release
-        run: |
-          pdm publish --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }} 
-
-      - name: Build API Documentation
-        run: pdm run doc
-            
-      - name: Deploy to Netlify
-        id: netlify
-        uses: nwtgck/actions-netlify@v1
-        with:
-          production-branch: "main"
-          publish-dir: "./docs/_build/html" # Change this to the directory where your static site is built
-          deploy-message: "Deploy from GitHub Actions"
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          enable-pull-request-comment: true
-          enable-commit-comment: false
-          production-deploy: true
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-
-      - name: Print Notice
-        uses: actions/github-script@v6
-        env:
-          NETLIFY_URL: ${{ steps.netlify.outputs.deploy-url }}
-        with:
-          script: |
-            const {NETLIFY_URL} = process.env
-            core.notice(`Published to: ${NETLIFY_URL}`)
+        run: .github/workflows/create_release.sh
+  
+  build_deploy_docs:
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build and deploy Docs
+        uses: ./build-deploy-docs.yaml

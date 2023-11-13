@@ -11,43 +11,22 @@ Main Functions:
         - student_response: The student's response.
 """
 import logging
-from typing import Optional
 
 import typer
 from rich import print
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
-from unit_grader.utils.common import get_project_meta
+from unit_grader import __feedback_url__, __version__, __app_name__
 from unit_grader.commands.conversion_grader import grade_response
-from unit_grader.config.data import UNIT_CONVERSION_INSTRUCTIONS, UNEXPECTED_EXIT
+from unit_grader.config.data import UNIT_CONVERSION_INSTRUCTIONS
 
 app = typer.Typer()  # creates a CLI app
-app_metadata: Optional[dict] = get_project_meta()
 
-app_version: str = (
-    app_metadata["project"]["version"]
-    if app_metadata is not None
-    and app_metadata["project"] is not None
-    and app_metadata["project"]["version"] is not None
-    else "unknown"
-)
+app_version: str = __version__
 
-app_name: str = (
-    app_metadata["project"]["name"]
-    if app_metadata is not None
-    and app_metadata["project"] is not None
-    and app_metadata["project"]["name"] is not None
-    else "unit-grader"
-)
+app_name: str = __app_name__
 
-feedback_url: str = (
-    app_metadata["tool"]["unit_grader"]["feedback_url"]
-    if app_metadata is not None
-    and app_metadata["tool"] is not None
-    and app_metadata["tool"]["unit_grader"] is not None
-    and app_metadata["tool"]["unit_grader"]["feedback_url"] is not None
-    else "unknown"
-)
+feedback_url: str = __feedback_url__
 
 
 def version_callback(show_version: bool) -> None:
@@ -62,22 +41,14 @@ def version_callback(show_version: bool) -> None:
     """
 
     if show_version:
-        if app_version == "unknown":
-            print(
-                f"[red bold]Unable to get project version. {UNEXPECTED_EXIT}[/red bold]"
-            )
-        else:
-            typer.echo(f"{app_name}: {app_version}")
+        typer.echo(f"{app_name}: {app_version}")
         raise typer.Exit()
 
 
 def handle_feedback():
-    if feedback_url != "unknown":
-        print(
-            f"\n[green bold]We would like your feedback! Please visit {feedback_url} to provide feedback.[/green bold]"
-        )
-    else:
-        print(f"\n[red bold]Unable to get feedback url. {UNEXPECTED_EXIT}[/red bold]")
+    print(
+        f"\n[green bold]We would like your feedback! Please visit {feedback_url} to provide feedback.[/green bold]"
+    )
 
 
 def enableLogging(verbose: bool) -> None:

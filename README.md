@@ -56,7 +56,6 @@ In the development of this project, we've leveraged the following third-party to
 
 - [PDM](THIRD_PARTY_TOOLS.md#pdm): A Python project management tool and package installer.
 - [Typer](THIRD_PARTY_TOOLS.md#typer): A Python library for building command-line applications.
-- [Tomli](THIRD_PARTY_TOOLS.md#Tomli): A Python library for reading TOML and parse it to a json string.
 - [Pre-Commit](THIRD_PARTY_TOOLS.md#pre-commit): A framework for managing and maintaining multi-language pre-commit hooks.
 - [codespell](THIRD_PARTY_TOOLS.md#codespell): A tool designed to catch spelling mistakes in code.
 - [Pytest](THIRD_PARTY_TOOLS.md#pytest): A testing framework for Python.
