@@ -116,7 +116,7 @@ def get_project_meta() -> Optional[dict]:
         # i.e., version is 1.0.1+editable instead of 1.0.1
         script_dir: str = os.path.dirname(os.path.abspath(__file__))
         project_config_file_page: str = os.path.join(
-            script_dir, "../../../pyproject.toml"
+            script_dir, "..", "..", "..", "pyproject.toml"
         )
         with open(project_config_file_page, mode="rb") as pyproject:
             return tomli.load(pyproject)
