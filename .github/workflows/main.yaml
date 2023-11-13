@@ -59,7 +59,7 @@ jobs:
     
       - name: Bump Patch Version
         run: |
-          ls -la
+          ls
           ./scripts/bump-version.sh
                      
       # - name: Create Release
