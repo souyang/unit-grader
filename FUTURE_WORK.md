@@ -19,7 +19,7 @@ Feature flags, also known as feature toggles, are tools that enable teams to act
 There are lots of tools in market could handle both the simple and complex use cases.
 - [ConfigCat](https://configcat.com/)
 - [LaunchDarkly](https://launchdarkly.com/) 
-- [Split](https://www.split.io/). 
+- [Split](https://www.split.io/)
 
 ## Interactive Mode Option
 
@@ -37,22 +37,21 @@ CLI Interactive mode (or interactive prompting) is a feature where the program o
 Typer already support this functionality. Check out [here](https://typer.tiangolo.com/tutorial/prompt/) for detail information.
 
 ## Configuration Management
-Allow users to configure the CLI tool using a configuration file
 
 ### Introduction
-Allow users to configure the CLI tool using a configuration file.
+Allow users to configure the CLI tool using an external configuration file.
 
 ### Why it matters
 - Users can tailor the behavior of the CLI tool to suit their specific needs and preferences.
 
 - Configuration files provide a consistent and standardized way for users to set options and parameters rather than error-prone manual input
 
-- Configuration files are typically easier to read and understand than command-line arguments, especially when dealing with a large number of options
+- Configuration files are typically easier to read and understand than command-line arguments, especially when dealing with a large number of options.
 
 ### Tools available in the market
 The configuration file could be Json, Yaml file.
-- PyYAML for reading yaml file
-- Python's default `json` module for reading json file
+- [PyYAML](https://pypi.org/project/PyYAML/) for reading yaml file.
+- Python's default [`json`](https://docs.python.org/3/library/json.html) module for reading json file.
 
 ## Observeability
 
@@ -69,18 +68,18 @@ It is the ability to understand and gain insights into the internal workings of 
 - Enable logging and auditing to understand user actions and troubleshoot issues.
 
 ### Tools available in the market
-- Datadog 
+- [Datadog](https://www.datadoghq.com/) 
 
-- New Relic
+- [New Relic](https://newrelic.com/)
 
-- Sentry
+- [Sentry](https://sentry.io/welcome/)
 
-- OpenTelemetry
+- [OpenTelemetry](https://opentelemetry.io/)
 
 ## Dockerization
 
 ### Introduction
-It is the process of packaging and deploying applications, along with their dependencies and runtime environments, into lightweight, portable containers using Docker
+It is the process of packaging and deploying applications, along with their dependencies and runtime environments, into lightweight, portable containers using [Docker](https://www.docker.com/)
 
 ### Why it matters
 - This ensures a consistent environment across different development machines and deployment targets, reducing the "it works on my machine" problem.
@@ -90,7 +89,7 @@ It is the process of packaging and deploying applications, along with their depe
 - Docker enables reproducibility via defining the entire environment, including dependencies and configurations, using a Dockerfile. 
 
 ### Tools available in the market
-We just need Docker installed and created relevant dockerfile.
+We just need [Docker](https://www.docker.com/) installed and created relevant `Dockerfile` and `docker-compose.yaml`
 
 ## Localization
 
@@ -105,6 +104,6 @@ The process of adapting a product, service, or content to meet the linguistic, c
 - Different regions have varying measurement units. Localizing a CLI tool ensures that measurement units align with the conventions and expectations of users in specific regions.
 
 ### Tools available in the market
-- Python's `gettext` module is a popular choice for internationalizing Python programs.
+- Python's [`gettext`](https://docs.python.org/3/library/gettext.html) module is a popular choice for locationzation and internationalizing Python programs.
 
-- `Babel` is a comprehensive library that supports internationalization and localization in Python
+- [`Babel`](https://babel.pocoo.org/en/latest/intro.html) is a comprehensive library that supports locationzation and internationalizing in Python

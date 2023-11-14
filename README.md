@@ -8,11 +8,11 @@ Unit Conversion Grader a command-line interface (CLI) program that allows you to
 Choose either **stable release** or **development**.
 
 ### Python and Pip Installation
-Please ensure you download and install python3.9+ and pip. Checkout [python official website](https://www.python.org/downloads/) and [pip official website](https://pip.pypa.io/en/stable/cli/pip_download/) for detail.
+Please ensure you download and install python3.9+ and pip in sequence. Checkout [python official website](https://www.python.org/downloads/) and [pip official website](https://pip.pypa.io/en/stable/cli/pip_download/) for detail on download and installation.
 
 ### Stable Release
 
-- `python -m pip install unit-grader`
+- Run `python -m pip install unit-grader --upgrade`
 - Test the CLI to verify the installation via running `unit-grader -i 100  -f Kelvin -t Celsius -s -173.15`
 
 ### Development
@@ -28,16 +28,16 @@ Please ensure you download and install python3.9+ and pip. Checkout [python offi
 - [x] Teacher provides `input-value`(input numeric value), `from-unit`(input unit of measnure), `to-unit` (a target unit of value), `student-response` (student's numeric response)
 - [x] System indicates the response is `correct`, `incorrect` or `invalid`.
 - [x] Stuent's response is correct if the response is equal to the answer after response and answer are rounded to tenths place.
-- [x] Unit Testing Coverage is 100%. CI pipeline will fail if coverage is less than 100%.
-- [x] `Sphinx` is used in pre-commit hook and CI/CD pipeline for generating api documentation.
-- [x] A CI/CD pipeline is created. CI will be triggered when a pull request is created with target branch is `main` or a commit is merged to `main`. CD will be triggered after a commit is merged to `main`. 
+- [x] Unit Testing Coverage is 100%. Commit and CI pipeline will fail if coverage is less than 100%.
+- [x] [`Sphinx`](https://www.sphinx-doc.org/en/master/) is used in pre-commit hook and CI/CD pipeline for generating api documentation.
+- [x] A CI/CD pipeline is created. CI will be triggered when a pull request is created with `main` as the target branch or a commit is merged to `main`. CD will be triggered after CI is successful.
 - [x] The executable deployment is on [pypi](https://pypi.org/project/unit-grader/) and api documentation deployment is on [Netlify](https://unit-grader-api-docs.netlify.app/)
 - [x] Versioning and Verbose are both implemented.
-- [x] Pre-Commit hook is created to catch the problems early such as spelling, linting, formatting, docstring, configuration for best code quality in every commit.
+- [x] Pre-Commit hook is setup to ensure best code quality on grammar check, linting and formatting in every commit.
 - [x] Error reporting is provided to the end user when answer is invalid.
-- [x] User feedback mechanism is setup for enhancing user requirements
+- [x] User feedback mechanism is setup for future enhancement.
 - [x] Logging is enabled, user will see diagnose information when `--verbose` or `-v` as the option is set.
-- [x] Colorized output for user distinguish between different types of information.
+- [x] Output is colorized for user distinguish between different types of information.
 - [x] Progress Bar is enabled for long-running tasks.
 
 ## Future Tasks
@@ -47,7 +47,6 @@ Please ensure you download and install python3.9+ and pip. Checkout [python offi
 - [ ] [Observeability](FUTURE_WORK.md#observeability)
 - [ ] [Dockerization](FUTURE_WORK.md#dockerization)
 - [ ] [Localization](FUTURE_WORK.md#localization)
-
 
 
 ## Third-Party Tools Overview
@@ -105,7 +104,7 @@ unit-grader -i dog  -f Kelvin -t Celsius -s -173.15 # output: invalid
   - `to-unit (t)`: target unit of measure
   - `student-response (s)` : student's numeric response
 
-  Possible use cases:
+  Sample use cases:
 
 | Sample Command | Input Value | Input Unit |  Target Unit| Student Response | Output
 | ---------|----------|----------|----------|----------|----------|
@@ -165,11 +164,11 @@ The CD pipeline is triggered when changes are merged into the main branch, and i
 
 ## Documentation
 
-This project's documentation is automatically generated using Sphinx and integrated into the CI/CD pipeline. The documentation includes details about the API, code structure, and usage.
+This project's documentation is automatically generated using [Sphinx](https://www.sphinx-doc.org/en/master/) and integrated into the CI/CD pipeline. The documentation includes details about the API, code structure, and usage.
 
 ### API Documentation
 
-The API documentation is generated from docstrings in the source code. Sphinx extracts these docstrings and formats them into a user-friendly documentation website. To view the latest documentation, visit [Documentation Link].
+The API documentation is generated from docstrings in the source code. [Sphinx](https://www.sphinx-doc.org/en/master/) extracts these docstrings and formats them into a user-friendly documentation website. To view the latest documentation, visit [Documentation Link](https://unit-grader-api-docs.netlify.app/).
 
 ### Generation in CI/CD Pipeline
 
@@ -186,12 +185,10 @@ To build and view the documentation locally, follow these steps:
 ```bash
 # Install Sphinx (if not already installed)
 pdm install
-# Lint, format code and build api docs
-pre-commit run --all-files
-# Change to the 'docs' directory
-cd docs
-# Open the generated HTML files in a browser
-open _build/html/index.html
+# Build doc
+pdm doc
+# View doc
+cd docs && open _build/html/index.html
 ```
 
 ## Contributing Guideline

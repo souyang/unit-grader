@@ -84,7 +84,7 @@ jobs:
           else
             git remote set-url origin https://x-access-token:${{ secrets.SOUYANG_GITHUB_TOKEN }}@github.com/souyang/unit-grader 
             # Commit and push the change on pyproject.toml
-            git add pyproject.toml
+            git add pyproject.toml src/unit_grader/__init__.py
             git commit -m "[Bot] Updating version from ${CURRENT_VERSION} to ${NEW_VERSION}"
             git push
             # Create and publish a new release tag
