@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - bug/fix-release-pl
   pull_request:
     branches:
       - main
@@ -51,7 +52,7 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/bug/fix-release-pl'
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -74,9 +75,9 @@ jobs:
       - name: Bump Patch Version
         run: ./scripts/bump_version.sh        
     
-      - name: Create Release
-        run: |
-          pdm publish --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }} 
+      # - name: Create Release
+      #   run: |
+      #     pdm publish --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }} 
 
       - name: Build API Documentation
         run: pdm run doc
