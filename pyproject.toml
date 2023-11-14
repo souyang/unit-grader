@@ -1,7 +1,7 @@
 
 [project]
 name = "unit-grader"
-version = "1.0.9"
+version = "1.0.10"
 description = "Unit Conversion Grader a command-line interface (CLI) program that allows you to convert among units of measurement and grade the users response to determine the result."
 authors = [
     {name = "simon ouyang", email = "simonouyang@gmail.com"},
