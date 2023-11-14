@@ -1,11 +1,10 @@
-name: Main Pipeline
+name: Main
 
 on:
   workflow_dispatch:
   push:
     branches:
       - main
-      - bug/fix-release-pl
   pull_request:
     branches:
       - main
@@ -18,8 +17,8 @@ jobs:
       matrix:
         python-version: ["3.9"]
         os: ["ubuntu-latest"]
-        # Comment out the following lines to test on all platforms
-        # Avoid testing on all platforms to save CI minutes
+        # comment out the python-version to test on all versions
+        # and os to test on all os to save billable minutes
         # python-version: ["3.9", "3.10", "3.11", "3.12"]
         # os: ["windows-latest", "ubuntu-latest", "macos-latest"]
 
@@ -52,8 +51,21 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/bug/fix-release-pl'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up PDM
+        uses: pdm-project/setup-pdm@v3
+        with:
+          python-version: "3.9"
+          cache: true
+          cache-dependency-path: '**/pdm.lock'
+
+      - name: Install dependencies
+        run: pdm sync
+
       - name: Bot Defaults
         uses: devlooped/actions-bot@v1.0.1
         with:
@@ -61,7 +73,6 @@ jobs:
     
       - name: Bump Patch Version
         run: |
-          set -e
           git pull --no-edit origin main
           CURRENT_VERSION=$(awk -F '"' '/^version/{print $2}' "pyproject.toml")
           pdm bumpversion --current-version $CURRENT_VERSION patch pyproject.toml --verbose --no-configured-files
@@ -89,25 +100,21 @@ jobs:
             git push origin "$TAG_NAME"
             echo "Tag $TAG_NAME is created remotely."  
             git tag -l --sort=-version:refname "v*"
-          fi
-          set +e
-                     
-      # - name: Create Release
-      #   run: pdm publish --username ${ secrets.PYPI_USERNAME } --password ${ secrets.PYPI_PASSWORD }
-  
-  build_deploy_docs:
-    needs: release
-    runs-on: ubuntu-latest
-    steps:
+          fi           
+    
+      - name: Create Release
+        run: |
+          pdm publish --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }} 
+
       - name: Build API Documentation
         run: pdm run doc
-
+            
       - name: Deploy to Netlify
         id: netlify
         uses: nwtgck/actions-netlify@v1
         with:
           production-branch: "main"
-          publish-dir: "./docs/_build/html"
+          publish-dir: "./docs/_build/html" # Change this to the directory where your static site is built
           deploy-message: "Deploy from GitHub Actions"
           github-token: ${{ secrets.GITHUB_TOKEN }}
           enable-pull-request-comment: true
