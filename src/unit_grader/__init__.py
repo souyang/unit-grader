@@ -13,4 +13,4 @@ The unit_grader package contains the following
 """
 __feedback_url__ = "https://forms.gle/VxXa27tjU5ZFmyp66"
 __app_name__ = "unit-grader"
-__version__ = "1.0.10"
+__version__ = "1.0.11"
