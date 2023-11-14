@@ -12,11 +12,11 @@ Feature flags, also known as feature toggles, are tools that enable teams to act
 
 - It mitigates the risks quickly. 
 
-- It enables the user centric development via customized soutions provided to target groups of users.
+- It enables the user-centric development via customized solutions provided to target groups of users.
 
 ### Existing solutions
 
-There are lots of tools in market could handle both the simple and complex use cases.
+There are lots of tools in the market that could handle both simple and complex use cases.
 - [ConfigCat](https://configcat.com/)
 - [LaunchDarkly](https://launchdarkly.com/) 
 - [Split](https://www.split.io/)
@@ -27,14 +27,14 @@ There are lots of tools in market could handle both the simple and complex use c
 CLI Interactive mode (or interactive prompting) is a feature where the program or script prompts the user for input during runtime, typically in a conversational manner.
 
 ### Why it matters
- - Interactive prompting makes CLI more user-friendly for users who find it challenging remembering all required options.
+ - Interactive prompting makes CLI more user-friendly for users who find it challenging to remember all required options.
 
 - Interactive prompting reduced the chances of errors when providing all required parameters.
 
 - Interactive prompting empowers dynamic and context-aware user experience.
 
 ### Tools available in the market
-Typer already support this functionality. Check out [here](https://typer.tiangolo.com/tutorial/prompt/) for detail information.
+Typer already supports this functionality. Check out [here](https://typer.tiangolo.com/tutorial/prompt/) for detailed information.
 
 ## Configuration Management
 
@@ -49,9 +49,9 @@ Allow users to configure the CLI tool using an external configuration file.
 - Configuration files are typically easier to read and understand than command-line arguments, especially when dealing with a large number of options.
 
 ### Tools available in the market
-The configuration file could be Json, Yaml file.
+The configuration file could be JSON or Yaml file.
 - [PyYAML](https://pypi.org/project/PyYAML/) for reading yaml file.
-- Python's default [`json`](https://docs.python.org/3/library/json.html) module for reading json file.
+- Python's default [json](https://docs.python.org/3/library/json.html) module for reading json file.
 
 ## Observeability
 
@@ -59,7 +59,7 @@ The configuration file could be Json, Yaml file.
 It is the ability to understand and gain insights into the internal workings of a system based on the external outputs or behaviors it exhibits.
 
 ### Why it matters
-- Monitor the performance of your CLI program ran in other hosts in real-time. 
+- Monitor the performance of your CLI program run in other hosts in real-time. 
 
 - Efficient error tracking for quickly identifying and fixing issues to improve the reliability of your CLI tool.
 
@@ -104,6 +104,6 @@ The process of adapting a product, service, or content to meet the linguistic, c
 - Different regions have varying measurement units. Localizing a CLI tool ensures that measurement units align with the conventions and expectations of users in specific regions.
 
 ### Tools available in the market
-- Python's [`gettext`](https://docs.python.org/3/library/gettext.html) module is a popular choice for locationzation and internationalizing Python programs.
+- Python's [`gettext`](https://docs.python.org/3/library/gettext.html) module is a popular choice for localization and internationalizing Python programs.
 
-- [`Babel`](https://babel.pocoo.org/en/latest/intro.html) is a comprehensive library that supports locationzation and internationalizing in Python
+- [`Babel`](https://babel.pocoo.org/en/latest/intro.html) is a comprehensive library that supports localization and internationalizing in Python

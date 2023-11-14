@@ -35,6 +35,10 @@ classifiers = [
 [project.scripts]
 unit-grader = "unit_grader.cli:app"
 
+[project.urls]
+documentation = "https://unit-grader-api-docs.netlify.app/"
+repository = "https://github.com/souyang/unit-grader/"
+
 [tool.coverage.run]
 omit = [".*", "*/site-packages/*", "*conf.py", "*/__pypackages__/*"]
 source = ["unit_grader"]
