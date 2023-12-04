@@ -19,7 +19,7 @@ To get started with contributing, please follow these steps:
 
 Please make sure to follow the established code style guidelines for this project. Consistent code style helps maintain readability and makes it easier for others to contribute to the project.
 
-To enforce this we use [`pre-commit`](https://pre-commit.com/) to run [`isort`](https://pycqa.github.io/isort/), [`black`](https://black.readthedocs.io/en/stable/index.html) and [`flake8`](https://flake8.pycqa.org/en/latest/) on every commit.
+To enforce this we use [`pre-commit`](https://pre-commit.com/) to run [`ruff`](https://docs.astral.sh/ruff/) on every commit.
 
 `pre-commit` is part of our `pyproject.toml` file so you should already have it installed. If you don't, you can install the library via pip with:
 
